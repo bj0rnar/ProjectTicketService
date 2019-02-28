@@ -1,0 +1,8 @@
+@startuml
+:Customer: as User
+
+User --> (Choose adventure)
+User --> (Pay for item)
+(Choose seats) .up.> (Choose adventure): exclude
+(Choose date) .up.> (Choose adventure): exclude
+@enduml

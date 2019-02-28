@@ -1,0 +1,37 @@
+@startuml
+Actor Customer as C
+Participant TicketService as T
+Collections Database as D
+Entity PaymentService as P
+
+C -> T: 1.1: Choose event(?)
+activate T
+T -> D: 1.2: Reserve ticket
+activate D
+D --> T: 1.3: Ticket reserved
+deactivate D
+T --> C: 1.4: Ticket available
+deactivate T
+
+C -> T: 1.5: Select options
+activate T
+T -> D: 1.6: Update ticket status
+activate D
+D --> T: 1.7: Ticket status updated
+deactivate D
+T --> C: 1.8: Ticket reserved
+deactivate T
+
+C -> T: 1.9: Pay product
+activate T
+T -> P: 1.10: Confirm payment
+activate P
+P --> T: 1.11: Payment confirmed
+deactivate P
+T -> D: 1.12: Update ticket information
+activate D
+D --> D: 1.13: Updated information
+deactivate D
+T --> C: 1.14: Purchase successful
+deactivate T
+@enduml

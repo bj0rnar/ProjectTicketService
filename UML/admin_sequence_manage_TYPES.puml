@@ -1,0 +1,20 @@
+@startuml
+Actor Admin
+Admin -> TicketService: Log in
+activate TicketService
+TicketService --> Database: Auth request
+activate Database
+TicketService <-- Database: Auth response
+deactivate Database
+TicketService --> Admin : Log in complete
+deactivate TicketService
+Admin -> TicketService : Create new <Type>
+activate TicketService
+note left: Sending with all \ninfo needed to \ncreate a new <Type>\n\n <Type> = User/Event/Ticket
+TicketService --> Database: Request new <Type>
+activate Database
+Database --> TicketService : new <Type> response
+deactivate Database
+TicketService --> Admin : new <Type> created
+deactivate TicketService
+@enduml

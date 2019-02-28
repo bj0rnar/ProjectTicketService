@@ -1,0 +1,10 @@
+@startuml
+:Main Admin: as Admin
+left to right direction
+rectangle TicketService_AdminPanel {
+    Admin --> (Ticket management)
+    Admin -> (Event management)
+    Admin -> (User management)
+    Admin -> (Verify system status)
+}
+@enduml

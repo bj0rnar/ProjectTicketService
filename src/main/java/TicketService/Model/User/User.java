@@ -1,6 +1,8 @@
-package TicketService.Model;
+package TicketService.Model.User;
 
 
+import TicketService.Model.Event;
+import TicketService.Model.Ticket;
 import TicketService.Util.VisaVerification;
 
 /*

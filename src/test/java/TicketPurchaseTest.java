@@ -1,6 +1,6 @@
 import TicketService.ExternalService.EventDatabaseGateway;
 import TicketService.Model.Event;
-import TicketService.Model.User;
+import TicketService.Model.User.User;
 import TicketService.Model.Venue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

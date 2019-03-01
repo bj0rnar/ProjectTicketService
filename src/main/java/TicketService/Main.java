@@ -1,6 +1,11 @@
 package TicketService;
 
 public class Main {
+
+    /*
+        TODO: Replace boolean returns with error handling (throws)
+     */
+
     public static void main(String[] args){
 
         System.out.println("bjørnar");

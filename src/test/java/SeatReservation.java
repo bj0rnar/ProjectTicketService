@@ -30,6 +30,13 @@ public class SeatReservation {
     }
 
     @Test
+    public void reserveWithSeats(){
+        customer.setEvent(EventDatabaseGateway.getEventFromDatabase(69));
+        customer.setTicket(customer.getEvent().reserveTicketForEventWithSeating(4));
+        assertEquals(4, customer.getTicket().getSeatNumber());
+    }
+
+    @Test
     public void checkRemainingSeats(){
         System.out.println(coolEvent.getRemainingTickets());
         System.out.println(coolEvent.getNumberOfTickets());

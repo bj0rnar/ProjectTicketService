@@ -73,6 +73,23 @@ public class Event {
         return null;
     }
 
+    //With seatnumbers.
+    public Ticket reserveTicketForEventWithSeating(int seatNumber){
+        Ticket ticket;
+
+        for (int i = 0; i < soldTickets.length; i++) {
+            if (soldTickets[i] == null && reservedTickets[i] == null) {
+                ticket = new Ticket(i, this);
+                reservedTickets[i] = ticket;
+                remainingTickets--;
+                this.venue.seatReservation(seatNumber, ticket);
+
+                return ticket;
+            }
+        }
+        return null;
+    }
+
 
     public boolean reserveSeat(int seatNumber, Ticket ticket) {
         if (seats != null && seats[seatNumber] == 0) {

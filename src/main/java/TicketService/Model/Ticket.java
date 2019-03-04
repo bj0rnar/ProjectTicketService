@@ -17,8 +17,6 @@ public class Ticket {
         paidFor = false;
     }
 
-
-
     public boolean isPaidFor() {
         return paidFor;
     }

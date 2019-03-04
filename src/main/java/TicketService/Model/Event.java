@@ -26,7 +26,14 @@ public class Event {
     private int remainingTickets;
     private double ticketPrice = 0.0;
 
-
+    //construct without ticket numbers.
+    public Event(int eventId, String eventTitle, LocalDate eventStartDateAndTime, Venue venue, double ticketPrice) {
+        this.eventId = eventId;
+        this.eventTitle = eventTitle;
+        this.eventStartDateAndTime = eventStartDateAndTime;
+        this.venue = venue;
+        this.ticketPrice = ticketPrice;
+    }
 
     public Event(String eventTitle, LocalDate eventStartDateAndTime, Venue venue, int numberOfTickets, double ticketPrice) {
         eventIdCounter++;
@@ -59,6 +66,14 @@ public class Event {
 
         return null;
     }
+
+    //Just a lazy method for testing
+    public Ticket reservePlz(){
+        Ticket ticket;
+        ticket = new Ticket(20, this);
+        return ticket;
+    }
+
 
     public boolean reserveSeat(int seatNumber, Ticket ticket) {
         if (seats != null && seats[seatNumber] == 0) {

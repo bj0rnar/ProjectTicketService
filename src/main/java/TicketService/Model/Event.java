@@ -33,6 +33,12 @@ public class Event {
         this.eventStartDateAndTime = eventStartDateAndTime;
         this.venue = venue;
         this.ticketPrice = ticketPrice;
+
+        this.numberOfTickets = venue.getSeats().length;
+        this.remainingTickets = venue.getSeats().length;
+
+        this.soldTickets = new Ticket[numberOfTickets];
+        this.reservedTickets = new Ticket[numberOfTickets];
     }
 
     public Event(String eventTitle, LocalDate eventStartDateAndTime, Venue venue, int numberOfTickets, double ticketPrice) {
@@ -65,13 +71,6 @@ public class Event {
         }
 
         return null;
-    }
-
-    //Just a lazy method for testing
-    public Ticket reservePlz(){
-        Ticket ticket;
-        ticket = new Ticket(20, this);
-        return ticket;
     }
 
 

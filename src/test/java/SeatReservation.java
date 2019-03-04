@@ -28,13 +28,28 @@ public class SeatReservation {
 
 
     }
+
+    @Test
+    public void checkRemainingSeats(){
+        System.out.println(coolEvent.getRemainingTickets());
+        System.out.println(coolEvent.getNumberOfTickets());
+    }
+
+    @Test
+    public void databaseRespondsAsExpected(){
+        customer.setEvent(EventDatabaseGateway.getEventFromDatabase(69));
+        customer.setTicket(customer.getEvent().reserveTicketForEvent());
+        customer.getEvent().getVenue().seatReservation(19, customer.getTicket());
+        assertEquals(19, customer.getTicket().getSeatNumber());
+    }
+
+
     @Test
     public void checkIfReservationWorks(){
-
         customer.setEvent(coolEvent);
-        customer.setTicket(customer.getEvent().reservePlz());
-        customer.getEvent().getVenue().seatReservation(13, customer.getTicket());
-        assertEquals(13, customer.getTicket().getSeatNumber());
+        customer.setTicket(customer.getEvent().reserveTicketForEvent());
+        customer.getEvent().getVenue().seatReservation(11, customer.getTicket());
+        assertEquals(11, customer.getTicket().getSeatNumber());
     }
 
     @Test

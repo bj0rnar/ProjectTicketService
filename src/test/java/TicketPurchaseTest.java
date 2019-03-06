@@ -1,5 +1,6 @@
 import TicketService.ExternalService.EventDatabaseGateway;
 import TicketService.Model.Event;
+import TicketService.Model.Ticket;
 import TicketService.Model.User.User;
 import TicketService.Model.Venue;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,9 +111,13 @@ public class TicketPurchaseTest {
 
     @Test
     public void canSelectOptionWhereAvailable() {
-        // Not implemented yet
+        // John tried to implement this one
 
-        assertFalse(true);
+        event1.setOptionAvalible("Mat");
+
+        Ticket ticket = new Ticket(2, event1);
+
+        assertEquals("Mat", ticket.getEvent().getOptionAvalible());
     }
 
     @Test

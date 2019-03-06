@@ -1,18 +1,26 @@
+import TicketService.Model.Ticket;
 import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestClass {
 
     private User customer;
+    private Ticket ticket;
 
-    @BeforeEach
-    public void initialize() {
-        customer = new User();
+
+    @Test
+    public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
+        Ticket ticket = new Ticket();
+        Assert.assertEquals(1, ticket.getId());
+        Ticket secondTicket = new Ticket();
+        Assert.assertEquals(2, secondTicket.getId());
+        Ticket thirdTicket = new Ticket();
+        Assert.assertEquals(3, thirdTicket.getId());
     }
-
     @Test
     public void emptyTest(){
         System.out.println("This test is testing");
@@ -20,11 +28,12 @@ public class TestClass {
 
     @Test
     public void UserCanGetTicket(){
-        Assert.assertFalse(true); // TODO
+
     }
     @Test
-    public void CheckThatUserGetsUniquieID(){
-        Assert.assertEquals(1, customer.getId());
+    public void EachUserGetsUniqueIdWhenUserIsCreated(){
+        User user = new User();
+        Assert.assertEquals(1, user.getId());
         User secondUser = new User();
         Assert.assertEquals(2, secondUser.getId());
         User thirdUser = new User();

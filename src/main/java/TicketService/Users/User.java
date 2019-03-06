@@ -1,12 +1,12 @@
 package TicketService.Users;
 
 public class User {
-    int id;
-    String Firstname;
-    String Lastname;
-    String Email;
+    private int id;
+    private String Firstname;
+    private String Lastname;
+    private String Email;
 
-    static int idCounter = 1;
+    private static int idCounter = 1;
 
     public User() {
         this.id = idCounter;

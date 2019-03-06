@@ -1,5 +1,9 @@
 package TicketService.Users;
 
+import TicketService.Model.Ticket;
+
+import java.util.ArrayList;
+
 public class User {
     private int id;
     private String Firstname;
@@ -41,4 +45,5 @@ public class User {
     public static int getIdCounter() {
         return idCounter;
     }
+
 }

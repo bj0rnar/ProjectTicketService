@@ -1,4 +1,5 @@
 import TicketService.Model.Ticket;
+import TicketService.Users.Customer;
 import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,35 +9,45 @@ import org.junit.jupiter.api.Test;
 
 public class TestClass {
 
-    private User customer;
-    private Ticket ticket;
-
 
     @Test
     public void TestCheck(){ }
 
     @Test
     public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
+        int idChecker;
         Ticket ticket = new Ticket();
-        Assert.assertEquals(1, ticket.getId());
+        idChecker = ticket.getId();
+        Assert.assertEquals(idChecker, ticket.getId());
         Ticket secondTicket = new Ticket();
-        Assert.assertEquals(2, secondTicket.getId());
+        idChecker++;
+        Assert.assertEquals(idChecker, secondTicket.getId());
         Ticket thirdTicket = new Ticket();
-        Assert.assertEquals(3, thirdTicket.getId());
+        idChecker++;
+        Assert.assertEquals(idChecker, thirdTicket.getId());
+    }
+
+    @Test
+    public void EachUserGetsUniqueIdWhenUserIsCreated(){
+        int idChecker;
+        User user = new User();
+        idChecker = user.getId();
+        Assert.assertEquals(idChecker, user.getId());
+        User secondUser = new User();
+        idChecker++;
+        Assert.assertEquals(idChecker, secondUser.getId());
+        Customer firstCustomer = new Customer();
+        idChecker++;
+        Assert.assertEquals(idChecker, firstCustomer.getId());
+
     }
 
     @Test
     public void UserCanGetTicket(){
-        Assert.assertTrue(false); // TODO
-    }
-    @Test
-    public void EachUserGetsUniqueIdWhenUserIsCreated(){
-        User user = new User();
-        Assert.assertEquals(1, user.getId());
-        User secondUser = new User();
-        Assert.assertEquals(2, secondUser.getId());
-        User thirdUser = new User();
-        Assert.assertEquals(3, thirdUser.getId());
-
+        Customer customer = new Customer();
+        Ticket ticket = new Ticket();
+        Assert.assertEquals(0, customer.getTicketList().size());
+        customer.getTicketList().add(ticket);
+        Assert.assertEquals(1, customer.getTicketList().size());
     }
 }

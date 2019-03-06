@@ -13,6 +13,9 @@ public class TestClass {
 
 
     @Test
+    public void TestCheck(){ }
+
+    @Test
     public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
         Ticket ticket = new Ticket();
         Assert.assertEquals(1, ticket.getId());
@@ -21,14 +24,10 @@ public class TestClass {
         Ticket thirdTicket = new Ticket();
         Assert.assertEquals(3, thirdTicket.getId());
     }
-    @Test
-    public void emptyTest(){
-        System.out.println("This test is testing");
-    }
 
     @Test
     public void UserCanGetTicket(){
-
+        Assert.assertTrue(false); // TODO
     }
     @Test
     public void EachUserGetsUniqueIdWhenUserIsCreated(){

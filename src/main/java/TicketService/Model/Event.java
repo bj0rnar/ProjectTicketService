@@ -22,6 +22,8 @@ public class Event {
     private LocalDate eventStartDateAndTime;
     private Venue venue;
 
+    private String OptionAvalible;
+
     private int numberOfTickets = 0;
     private int remainingTickets;
     private double ticketPrice = 0.0;
@@ -117,6 +119,10 @@ public class Event {
         this.seats = new int[numberOfSeats];
         Arrays.fill(seats, 0);
     }
+
+    public void setOptionAvalible(String option){
+        this.OptionAvalible = option;
+    }
 //endregion
 
 //region GETTERS
@@ -155,5 +161,10 @@ public class Event {
     public int[] getSeats() {
         return seats.clone();
     }
-//endregion
+
+    public String getOptionAvalible() {
+        return OptionAvalible;
+    }
+
+    //endregion
 }

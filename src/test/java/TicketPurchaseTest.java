@@ -112,7 +112,6 @@ public class TicketPurchaseTest {
     @Test
     public void canSelectOptionWhereAvailable() {
         // John tried to implement this one
-
         event1.setOptionAvalible("Mat");
 
         Ticket ticket = new Ticket(2, event1);
@@ -158,6 +157,8 @@ public class TicketPurchaseTest {
     @Test
     public void canGetRefund() {
         // Not implemented yet
+
+
 
         assertFalse(true);
     }

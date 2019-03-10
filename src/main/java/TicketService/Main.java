@@ -8,18 +8,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args){
-        Main main = new Main();
-        main.ChooseOptions();
+        ChooseOptions();
     }
-    public void ChooseOptions() {
+
+    public static void ChooseOptions() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please select an option.");
         System.out.print("ID: ");
         try {
             switch(scanner.nextInt()) {
                 case 0:
-                    //BuyTicket();
+                    StartBuyTicketProcess();
                     break;
                 case 1:
                     // code block
@@ -30,5 +31,12 @@ public class Main {
         } catch (InputMismatchException e) {
             ChooseOptions();
         }
+    }
+
+    public static void StartBuyTicketProcess() {
+        /*
+            1. Select Event
+            2. Buy ticket
+        */
     }
 }

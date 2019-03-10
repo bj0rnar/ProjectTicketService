@@ -5,16 +5,14 @@ public class Ticket {
     private static int idCounter = 1;
 
     private int id;
-    Event event;
+    private Event event;
+    private Venue.Seat seat;
 
-    public Ticket() {
-        this.id = idCounter;
-        idCounter++;
-    }
     public Ticket(Event event) {
         this.event = event;
         this.id = idCounter;
         idCounter++;
+
     }
 
     public int getId() {
@@ -27,5 +25,13 @@ public class Ticket {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Venue.Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Venue.Seat seat) {
+        this.seat = seat;
     }
 }

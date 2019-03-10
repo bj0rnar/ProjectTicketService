@@ -2,6 +2,7 @@ package TicketService;
 
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
+import TicketService.Model.Venue;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -10,6 +11,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
+        Venue.CreateVenues();
+        EventHandler.CreateEvents();
+
+
         ChooseOptions();
     }
 

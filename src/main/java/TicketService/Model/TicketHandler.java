@@ -5,7 +5,12 @@ import TicketService.Users.Customer;
 import java.util.ArrayList;
 
 public class TicketHandler {
-    ArrayList<Ticket> tickets = new ArrayList<>();
+
+    private ArrayList<Ticket> tickets = new ArrayList<>();
+
+
+    public TicketHandler() {
+    }
 
     public ArrayList<Ticket> getTickets() {
         return tickets;
@@ -16,6 +21,16 @@ public class TicketHandler {
     }
 
     public void createTicket(Event event) {
+        int seatNumber = event.getVenue().getSeats().size();
+        if(event.getAreSeatsAvailable()) {
+            if (seatNumber != 0) {
+                event.getVenue().getSeats().get(seatNumber - 1);
+                event.getVenue().getSeats().remove(seatNumber - 1);
+            } else {
+                System.out.println("No more seats available for event: " + event.getName());
+                return;
+            }
+        }
         tickets.add(new Ticket(event));
     }
 

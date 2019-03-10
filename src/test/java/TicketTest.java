@@ -1,21 +1,31 @@
 import TicketService.Model.EventHandler;
 import TicketService.Model.Ticket;
 import TicketService.Model.TicketHandler;
+import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class TicketTest {
+
+    @BeforeAll
+    public static void startUp() {
+        Venue.CreateVenues();
+        EventHandler.CreateEvents();
+    }
+
     @Test
     public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
         int idChecker;
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(EventHandler.eventList.get(0));
         idChecker = ticket.getId();
         Assert.assertEquals(idChecker, ticket.getId());
-        Ticket secondTicket = new Ticket();
+        Ticket secondTicket = new Ticket(EventHandler.eventList.get(0));
         idChecker++;
         Assert.assertEquals(idChecker, secondTicket.getId());
-        Ticket thirdTicket = new Ticket();
+        Ticket thirdTicket = new Ticket(EventHandler.eventList.get(0));
         idChecker++;
         Assert.assertEquals(idChecker, thirdTicket.getId());
     }
@@ -24,7 +34,7 @@ public class TicketTest {
     public void TicketHandlerCanReceiveTicket() {
         TicketHandler ticketHandler = new TicketHandler();
         Assert.assertEquals(0, ticketHandler.getTickets().size());
-        ticketHandler.getTickets().add(new Ticket());
+        ticketHandler.getTickets().add(new Ticket(EventHandler.eventList.get(0)));
         Assert.assertEquals(1, ticketHandler.getTickets().size());
     }
 

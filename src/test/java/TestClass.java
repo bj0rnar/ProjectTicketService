@@ -1,20 +1,15 @@
-import TicketService.Model.Event;
-import TicketService.Model.EventHandler;
-import TicketService.Model.Ticket;
-import TicketService.Model.TicketHandler;
-import TicketService.Users.Customer;
-import TicketService.Users.User;
-import org.junit.Assert;
-import org.junit.Before;
+import TicketService.Model.*;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestClass {
 
     @BeforeAll
     public static void startUp() {
-        EventHandler.eventList.add(new Event("TG19"));
+        Venue.CreateVenues();
+        EventHandler.CreateEvents();
+        EventHandler.eventList.add(new Event("TG20", Venue.venues.get(0)));
     }
     @Test
     public void TestCheck(){ }

@@ -1,10 +1,14 @@
 package TicketService.Model;
 
 public class Event {
-    String name;
+    private String name;
+    private Venue venue;
+    private Boolean areSeatsAvailable;
 
-    public Event(String name) {
+    public Event(String name, Venue venue, Boolean areSeatsAvailable) {
         this.name = name;
+        this.venue = venue;
+        this.areSeatsAvailable = areSeatsAvailable;
     }
 
     public String getName() {
@@ -13,5 +17,13 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Venue getVenue() {
+        return venue;
+    }
+
+    public Boolean getAreSeatsAvailable() {
+        return areSeatsAvailable;
     }
 }

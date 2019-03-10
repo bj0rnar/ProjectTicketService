@@ -1,10 +1,20 @@
+import TicketService.Model.EventHandler;
 import TicketService.Model.Ticket;
+import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.User;
 import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
+
+    @BeforeAll
+    public static void startUp() {
+        Venue.CreateVenues();
+        EventHandler.CreateEvents();
+    }
 
     @Test
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
@@ -24,7 +34,7 @@ public class UserTest {
     @Test
     public void UserCanGetTicket(){
         Customer customer = new Customer();
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(EventHandler.eventList.get(0));
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
         Assert.assertEquals(1, customer.getTicketList().size());

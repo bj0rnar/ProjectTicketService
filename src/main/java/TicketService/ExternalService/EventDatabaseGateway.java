@@ -13,7 +13,7 @@ public class EventDatabaseGateway {
     private static HashMap<Integer, Event> events = new HashMap<>();
     private static HashMap<String, Venue> venues = new HashMap<>();
 
-
+/*
     public static boolean addEventToDatabase(Event event) {
         if (event == null || events.containsKey(event.getEventId()) || event.getEventTitle() == null ||
                 event.getEventStartDateAndTime() == null || event.getNumberOfTickets() == 0 ||

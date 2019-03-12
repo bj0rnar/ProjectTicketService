@@ -14,6 +14,7 @@ public class SeatReservation {
     Venue tinyPlace;
     Event coolEvent;
 
+    /*
     @BeforeEach
     void upAndRunning(){
         customer = new UserOld();
@@ -71,5 +72,5 @@ public class SeatReservation {
         tinyPlace.removeSeats(10);
         assertEquals(10, tinyPlace.getSeats().length);
     }
-
+    */
 }

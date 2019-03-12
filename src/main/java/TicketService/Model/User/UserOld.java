@@ -9,6 +9,7 @@ import TicketService.Util.VisaVerification;
     TODO: Make UserOld abstract parent class for Customer, Admin, Organizer?
  */
 public class UserOld {
+  /*
     private Ticket ticket;
     private Event event;
 
@@ -24,12 +25,12 @@ public class UserOld {
         if (!VisaVerification.verifyCardNumber(cardNumber) || !VisaVerification.verifyCcv2(ccv2)) {
             return false;
         }
-
+*/
         /*if (ticketPrice >= 500) {
             //  Everyone's poor for testing purposes
             return false;
         }*/
-
+/*
         ticket.setPaidFor(true);
         event.registerSoldTicket(ticket);
 
@@ -74,4 +75,5 @@ public class UserOld {
 
 
 //endregion
+*/
 }

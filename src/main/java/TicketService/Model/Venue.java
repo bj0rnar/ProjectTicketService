@@ -6,9 +6,13 @@ public class Venue {
     private String venueId;
     private String venueName;
 
+
+
     //Venue handles seating option
     private Seat[] seats;
 
+
+    /*
     //New stuff
     public Venue(String venueId, String venueName, int capacity) {
         this.venueId = venueId;
@@ -57,5 +61,5 @@ public class Venue {
 
     public String getVenueName() {
         return venueName;
-    }
+    } */
 }

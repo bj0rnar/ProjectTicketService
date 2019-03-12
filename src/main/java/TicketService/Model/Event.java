@@ -1,16 +1,23 @@
 package TicketService.Model;
 
-import TicketService.ExternalService.EventDatabaseGateway;
-
-import java.time.LocalDate;
-import java.util.Arrays;
+import TicketService.Model.User.Organizer;
 
 
 /*
     TODO: Cancel reserved ticket, cancel/refund bought ticket
  */
 public class Event {
-    private static int eventIdCounter = 0;
+    private int id;
+    private String name;
+    private Venue venue;
+    private Organizer organizer;
+
+
+
+
+
+    //Old code that I don't know if I would need
+    /* private static int eventIdCounter = 0;
 
     //private HashMap<String, Ticket> soldTickets;    // <ticketNumber, Ticket>
     private Ticket[] soldTickets;
@@ -166,5 +173,5 @@ public class Event {
         return OptionAvalible;
     }
 
-    //endregion
+    //endregion */
 }

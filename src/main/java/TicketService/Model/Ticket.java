@@ -1,9 +1,12 @@
 package TicketService.Model;
 
 public class Ticket {
-    private Event event;
     private int ticketNumber;
+    private Event event;
 
+
+
+/*
     private String verificationCode;
     private int seatNumber;
     private double price;
@@ -50,13 +53,17 @@ public class Ticket {
     public void setSeatNumber(int seatNumber) {
         this.seatNumber = seatNumber;
     }
+    */
 
     /*
         Verification codes should not need to be unique, just random and complicated enough
         to be impossible to fake. This is not a strong solution, but good enough for the
         prototype.
      */
+
+    /*
     private void generateVerificationCode() {
         verificationCode = String.format("%06d", (int) Math.floor(Math.random() * 100000));
-    }
+    } */
+
 }

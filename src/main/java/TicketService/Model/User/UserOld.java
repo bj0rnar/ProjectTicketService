@@ -6,7 +6,7 @@ import TicketService.Model.Ticket;
 import TicketService.Util.VisaVerification;
 
 /*
-    TODO: Make UserOld abstract parent class for Customer, Admin, Organiser?
+    TODO: Make UserOld abstract parent class for Customer, Admin, Organizer?
  */
 public class UserOld {
     private Ticket ticket;

@@ -6,7 +6,7 @@ public class Venue {
     public static ArrayList<Venue> venues = new ArrayList<>();
     private ArrayList<Seat> seats = new ArrayList<>();
     private String name;
-    
+
     //Venue with seats
     public Venue(int totalSeats, String name) {
         for(int x=1; x<=totalSeats;x++) {

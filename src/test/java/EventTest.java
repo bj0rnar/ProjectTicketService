@@ -17,8 +17,8 @@ public class EventTest {
     public void EventCantGiveAwayTicketsIfNoMoreSeatsAvailable() {
         TicketHandler ticketHandler = new TicketHandler();
         Customer customer = new Customer();
-        ticketHandler.createTicket(EventHandler.eventList.get(1));
-        ticketHandler.createTicket(EventHandler.eventList.get(1));
+        ticketHandler.createTicket(EventHandler.getEventList().get(1));
+        ticketHandler.createTicket(EventHandler.getEventList().get(1));
         Assert.assertEquals(1,ticketHandler.getTickets().size());
         ticketHandler.giveTicketToCustomer(customer);
         Assert.assertEquals(1,customer.getTicketList().size());

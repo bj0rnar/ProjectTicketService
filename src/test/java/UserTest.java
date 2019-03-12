@@ -34,7 +34,7 @@ public class UserTest {
     @Test
     public void UserCanGetTicket(){
         Customer customer = new Customer();
-        Ticket ticket = new Ticket(EventHandler.eventList.get(0));
+        Ticket ticket = new Ticket(EventHandler.getEventList().get(0));
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
         Assert.assertEquals(1, customer.getTicketList().size());

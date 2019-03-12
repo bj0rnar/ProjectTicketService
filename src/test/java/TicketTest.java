@@ -19,13 +19,13 @@ public class TicketTest {
     @Test
     public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
         int idChecker;
-        Ticket ticket = new Ticket(EventHandler.eventList.get(0));
+        Ticket ticket = new Ticket(EventHandler.getEventList().get(0));
         idChecker = ticket.getId();
         Assert.assertEquals(idChecker, ticket.getId());
-        Ticket secondTicket = new Ticket(EventHandler.eventList.get(0));
+        Ticket secondTicket = new Ticket(EventHandler.getEventList().get(0));
         idChecker++;
         Assert.assertEquals(idChecker, secondTicket.getId());
-        Ticket thirdTicket = new Ticket(EventHandler.eventList.get(0));
+        Ticket thirdTicket = new Ticket(EventHandler.getEventList().get(0));
         idChecker++;
         Assert.assertEquals(idChecker, thirdTicket.getId());
     }
@@ -34,19 +34,19 @@ public class TicketTest {
     public void TicketHandlerCanReceiveTicket() {
         TicketHandler ticketHandler = new TicketHandler();
         Assert.assertEquals(0, ticketHandler.getTickets().size());
-        ticketHandler.getTickets().add(new Ticket(EventHandler.eventList.get(0)));
+        ticketHandler.getTickets().add(new Ticket(EventHandler.getEventList().get(0)));
         Assert.assertEquals(1, ticketHandler.getTickets().size());
     }
 
     @Test
     public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
         TicketHandler ticketHandler = new TicketHandler();
-        ticketHandler.createTicket(EventHandler.eventList.get(0));
+        ticketHandler.createTicket(EventHandler.getEventList().get(0));
         Customer customer = new Customer();
         Assert.assertEquals(0, customer.getTicketList().size());
         ticketHandler.giveTicketToCustomer(customer);
         Assert.assertEquals(1, customer.getTicketList().size());
-        Assert.assertEquals(EventHandler.eventList.get(0).getName(), customer.getTicketList().get(0).getEvent().getName());
+        Assert.assertEquals(EventHandler.getEventList().get(0).getName(), customer.getTicketList().get(0).getEvent().getName());
     }
 
 }

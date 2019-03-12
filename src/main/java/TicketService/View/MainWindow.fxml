@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.MainWindowController">
+   <left>
+      <ListView fx:id="eventListView" prefHeight="536.0" prefWidth="233.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="60.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="10.0" prefWidth="407.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="35.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event: " textAlignment="RIGHT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue: " textAlignment="RIGHT" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " textAlignment="RIGHT" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event: " textAlignment="RIGHT" />
+            <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Seats left: " textAlignment="RIGHT" GridPane.rowIndex="3" />
+            <Text fx:id="eventNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="TG 2019" textAlignment="RIGHT" GridPane.columnIndex="1" />
+            <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Viking hallen" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="17 april 2019" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text fx:id="SeatsLeftEventText" strokeType="OUTSIDE" strokeWidth="0.0" text="2304" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

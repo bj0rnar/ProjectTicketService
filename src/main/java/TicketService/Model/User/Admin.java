@@ -1,4 +1,4 @@
 package TicketService.Model.User;
 
-public class Admin {
+public class Admin extends User{
 }

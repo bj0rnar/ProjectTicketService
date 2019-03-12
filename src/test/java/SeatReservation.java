@@ -1,7 +1,6 @@
 import TicketService.ExternalService.EventDatabaseGateway;
 import TicketService.Model.Event;
-import TicketService.Model.User.Customer;
-import TicketService.Model.User.User;
+import TicketService.Model.User.UserOld;
 import TicketService.Model.Venue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,13 +10,13 @@ import java.time.LocalDate;
 
 public class SeatReservation {
 
-    User customer;
+    UserOld customer;
     Venue tinyPlace;
     Event coolEvent;
 
     @BeforeEach
     void upAndRunning(){
-        customer = new User();
+        customer = new UserOld();
 
         tinyPlace = new Venue("69", "Otta kulturhus", 20);
 

@@ -3,7 +3,10 @@ package TicketService.Model.User;
 import TicketService.Model.Event;
 import TicketService.Model.Ticket;
 
-public class Customer {
+import java.util.ArrayList;
+
+public class Customer extends User{
+    public ArrayList<Ticket> ticketList = new ArrayList<>();
     private Ticket ticket;
     private Event event;
 

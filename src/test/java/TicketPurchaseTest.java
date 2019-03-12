@@ -1,7 +1,7 @@
 import TicketService.ExternalService.EventDatabaseGateway;
 import TicketService.Model.Event;
 import TicketService.Model.Ticket;
-import TicketService.Model.User.User;
+import TicketService.Model.User.UserOld;
 import TicketService.Model.Venue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * Represents a complete session in which a user makes a purchase.
+ * Represents a complete session in which a userOld makes a purchase.
  *
  * All tests in this class need to be green, or something is seriously wrong.
  */
 public class TicketPurchaseTest {
-    private User user;
+    private UserOld userOld;
 
     private Venue venue1;
     private Venue venue2;
@@ -31,7 +31,7 @@ public class TicketPurchaseTest {
 
     @BeforeEach
     void setUp() {
-        user = new User();
+        userOld = new UserOld();
 
         venue1 = new Venue("1", "Venue 1");
         venue2 = new Venue("2", "Venue 2");
@@ -64,35 +64,35 @@ public class TicketPurchaseTest {
 
     @Test
     public void canChooseSelectedEvent() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
 
-        assertNotNull(user.getEvent());
+        assertNotNull(userOld.getEvent());
     }
 
     @Test
     public void canChooseSeatByNumber() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
-        user.getTicket().setSeatNumber(5);
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
+        userOld.getTicket().setSeatNumber(5);
 
-        assertEquals(user.getTicket().getSeatNumber(), 5);
+        assertEquals(userOld.getTicket().getSeatNumber(), 5);
     }
 
     @Test
     public void confirmChosenSeatIsReserved() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
-        user.getEvent().reserveSeat(5, user.getTicket());
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
+        userOld.getEvent().reserveSeat(5, userOld.getTicket());
 
         assertEquals(1, EventDatabaseGateway.getEventFromDatabase(1).getSeats()[5]);
     }
 
     @Test
     public void canReserveTicket() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
 
-        assertNotNull(user.getTicket());
+        assertNotNull(userOld.getTicket());
     }
 
     @Test
@@ -100,13 +100,13 @@ public class TicketPurchaseTest {
         int initialNumberOfTickets;
         int expectedNewNumberOfTickets;
 
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        initialNumberOfTickets = user.getEvent().getRemainingTickets();
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        initialNumberOfTickets = userOld.getEvent().getRemainingTickets();
 
-        user.getEvent().reserveTicketForEvent();
+        userOld.getEvent().reserveTicketForEvent();
         expectedNewNumberOfTickets = initialNumberOfTickets - 1;
 
-        assertEquals(expectedNewNumberOfTickets, user.getEvent().getRemainingTickets());
+        assertEquals(expectedNewNumberOfTickets, userOld.getEvent().getRemainingTickets());
     }
 
     @Test
@@ -125,33 +125,33 @@ public class TicketPurchaseTest {
         //  Not really a critical component, more relevant for UI
         //  Need practice with testing, though
 
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
 
-        user.payForSelectedTicket(4444555544448888L, 123);
+        userOld.payForSelectedTicket(4444555544448888L, 123);
 
-        assertTrue(user.getTicket().isPaidFor());
+        assertTrue(userOld.getTicket().isPaidFor());
     }
 
     @Test
     public void validTicketHasVerificationCode() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
-        user.payForSelectedTicket(4444555544448888L, 123);
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
+        userOld.payForSelectedTicket(4444555544448888L, 123);
 
-        assertNotNull(user.receiveTicket().getVerificationCode());
+        assertNotNull(userOld.receiveTicket().getVerificationCode());
     }
 
     @Test
     public void canCancelPurchase() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
 
-        int ticketId = user.getTicket().getTicketNumber();
+        int ticketId = userOld.getTicket().getTicketNumber();
 
-        user.cancelPurchase();
+        userOld.cancelPurchase();
 
-        assertNull(user.getEvent().getReservedTickets()[ticketId]);
+        assertNull(userOld.getEvent().getReservedTickets()[ticketId]);
     }
 
     @Test
@@ -165,10 +165,10 @@ public class TicketPurchaseTest {
 
     @Test
     public void canReceiveTicketOnCompletedPurchase() {
-        user.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
-        user.setTicket(user.getEvent().reserveTicketForEvent());
-        user.payForSelectedTicket(4444555544448888L, 123);
+        userOld.setEvent(EventDatabaseGateway.getEventFromDatabase(1));
+        userOld.setTicket(userOld.getEvent().reserveTicketForEvent());
+        userOld.payForSelectedTicket(4444555544448888L, 123);
 
-        assertNotNull(user.receiveTicket());
+        assertNotNull(userOld.receiveTicket());
     }
 }

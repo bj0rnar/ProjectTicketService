@@ -30,17 +30,17 @@ public class EventTest {
     public void EventLoosesSeatSizeForEachTicketUnderProcess() {
         int seatsBefore, seatsAfter;
         TicketHandler ticketHandler = new TicketHandler();
-        seatsBefore =  EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsBefore =  EventHandler.getEventList().get(0).getEventSeats().size();
         //Creates a ticket.
         ticketHandler.createTicket(EventHandler.getEventList().get(0));
         //Seats left should now be n-1
-        seatsAfter = EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsAfter = EventHandler.getEventList().get(0).getEventSeats().size();
         //Check if seats are n-1
         Assertions.assertEquals(seatsBefore-1, seatsAfter);
         //Adds one more ticket to handler.
         ticketHandler.createTicket(EventHandler.getEventList().get(0));
         //Seats left should now be n-2
-        seatsAfter = EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsAfter = EventHandler.getEventList().get(0).getEventSeats().size();
         //Check if seats are n-2
         Assertions.assertEquals(seatsBefore-2, seatsAfter);
 
@@ -52,15 +52,20 @@ public class EventTest {
         TicketHandler ticketHandler = new TicketHandler();
 
         //Current ticket size == n
-        seatsBefore =  EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsBefore =  EventHandler.getEventList().get(0).getEventSeats().size();
         ticketHandler.createTicket(EventHandler.getEventList().get(0));
         //Current ticket size == n-1
-        seatsAfter = EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsAfter = EventHandler.getEventList().get(0).getEventSeats().size();
         Assertions.assertEquals(seatsBefore-1, seatsAfter);
         ticketHandler.cancelBuyTicketProcess();
         //Current tickets size == n after ticketProcess is canceled.
-        seatsAfter = EventHandler.getEventList().get(0).getVenue().getSeats().size();
+        seatsAfter = EventHandler.getEventList().get(0).getEventSeats().size();
         Assertions.assertEquals(seatsBefore, seatsAfter);
 
+    }
+
+    @Test
+    public void EventRecieveSeatListFromVenue() {
+        Assertions.assertNotNull(EventHandler.getEventList().get(0).getEventSeats());
     }
 }

@@ -23,12 +23,12 @@ public class TicketHandler {
     public void createTicket(Event event) {
         //If event do not have seats, then seats has unlimited tickets.
         if(event.getAreSeatsAvailable()) {
-            int seatNumber = event.getVenue().getSeats().size();
+            int seatNumber = event.getEventSeats().size();
             Venue.Seat seat;
             if (seatNumber != 0) {
                 Ticket ticket = new Ticket(event);
-                ticket.setSeat(event.getVenue().getSeats().get(seatNumber - 1));
-                event.getVenue().getSeats().remove(seatNumber - 1);
+                ticket.setSeat(event.getEventSeats().get(seatNumber - 1));
+                event.getEventSeats().remove(seatNumber - 1);
                 tickets.add(ticket);
             } else {
                 System.out.println("No more seats available for event: " + event.getName());
@@ -56,7 +56,7 @@ public class TicketHandler {
                 for (Ticket ticket: tickets) {
                     if(ticket.getSeat() != null) {
                         event = ticket.getEvent();
-                        event.getVenue().addSeat(ticket.getSeat());
+                        event.getEventSeats().add(ticket.getSeat());
                         ticket.setSeat(null);
                     }
                 }

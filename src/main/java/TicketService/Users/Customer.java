@@ -8,6 +8,9 @@ public class Customer extends User {
 
     private ArrayList<Ticket> TicketList = new ArrayList<>();
 
+    public Customer(String firstname, String lastname, String email) {
+        super(firstname, lastname, email);
+    }
 
     public ArrayList<Ticket> getTicketList() {
         return TicketList;

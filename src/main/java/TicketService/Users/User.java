@@ -4,7 +4,7 @@ import TicketService.Model.Ticket;
 
 import java.util.ArrayList;
 
-public class User {
+public abstract class User {
     private int id;
     private String Firstname;
     private String Lastname;
@@ -36,6 +36,10 @@ public class User {
 
     public String getLastname() {
         return Lastname;
+    }
+
+    public String getFullname() {
+        return Firstname + " " + Lastname;
     }
 
     public String getEmail() {

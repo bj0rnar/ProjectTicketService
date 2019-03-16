@@ -5,6 +5,7 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -39,14 +40,22 @@ public class TicketTest {
     }
 
     @Test
+    public void TicketCanGetSeat() {
+        TicketHandler ticketHandler = new TicketHandler();
+        ticketHandler.createTicket(EventHandler.getEventList().get(0));
+        Assertions.assertNotNull(ticketHandler.getTickets().get(0).getSeat());
+    }
+
+    @Test
     public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
         TicketHandler ticketHandler = new TicketHandler();
         ticketHandler.createTicket(EventHandler.getEventList().get(0));
-        Customer customer = new Customer();
+        Customer customer = new Customer("A","B","A@B.COM");
         Assert.assertEquals(0, customer.getTicketList().size());
         ticketHandler.giveTicketToCustomer(customer);
         Assert.assertEquals(1, customer.getTicketList().size());
         Assert.assertEquals(EventHandler.getEventList().get(0).getName(), customer.getTicketList().get(0).getEvent().getName());
     }
+
 
 }

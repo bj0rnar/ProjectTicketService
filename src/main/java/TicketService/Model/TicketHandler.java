@@ -21,22 +21,49 @@ public class TicketHandler {
     }
 
     public void createTicket(Event event) {
-        int seatNumber = event.getVenue().getSeats().size();
+        //If event do not have seats, then seats has unlimited tickets.
         if(event.getAreSeatsAvailable()) {
+            int seatNumber = event.getVenue().getSeats().size();
+            Venue.Seat seat;
             if (seatNumber != 0) {
-                event.getVenue().getSeats().get(seatNumber - 1);
+                Ticket ticket = new Ticket(event);
+                ticket.setSeat(event.getVenue().getSeats().get(seatNumber - 1));
                 event.getVenue().getSeats().remove(seatNumber - 1);
+                tickets.add(ticket);
             } else {
                 System.out.println("No more seats available for event: " + event.getName());
                 return;
             }
+        } else {
+            tickets.add(new Ticket(event));
         }
-        tickets.add(new Ticket(event));
     }
 
     public void giveTicketToCustomer(Customer customer) {
-        for (Ticket ticket : tickets) {
-            customer.getTicketList().add(ticket);
+        if(customer != null) {
+            for (Ticket ticket : tickets) {
+                customer.getTicketList().add(ticket);
+            }
+        } else {
+            throw new NullPointerException("User is null");
+        }
+    }
+
+    public void cancelBuyTicketProcess() {
+        if(tickets.size() != 0) {
+            try {
+                Event event;
+                for (Ticket ticket: tickets) {
+                    if(ticket.getSeat() != null) {
+                        event = ticket.getEvent();
+                        event.getVenue().addSeat(ticket.getSeat());
+                        ticket.setSeat(null);
+                    }
+                }
+            }
+            catch (NullPointerException e) {
+                System.out.println("Event no longer exists, or couldnt be found?");
+            }
         }
     }
 }

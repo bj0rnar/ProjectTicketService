@@ -2,6 +2,7 @@ package TicketService;
 
 import TicketService.Model.EventHandler;
 import TicketService.Model.Venue;
+import TicketService.Users.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +35,6 @@ public class MainFX extends Application {
         Venue.CreateVenues();
         EventHandler.CreateEvents();
         minApplikasjon = this;
-
         try{
             this.primaryStage = primaryStage;
 

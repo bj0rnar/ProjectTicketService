@@ -12,11 +12,6 @@ public abstract class User {
 
     private static int idCounter = 1;
 
-    public User() {
-        this.id = idCounter;
-        idCounter++;
-    }
-
     public User(String firstname, String lastname, String email) {
         this.id = idCounter;
         Firstname = firstname;
@@ -46,8 +41,5 @@ public abstract class User {
         return Email;
     }
 
-    public static int getIdCounter() {
-        return idCounter;
-    }
 
 }

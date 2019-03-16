@@ -11,6 +11,9 @@ public class EventHandler {
     private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
     public static void CreateEvents() {
+        if(Venue.venues.size() == 0) {
+            Venue.CreateVenues();
+        }
         if(eventList.size() == 0) {
             eventList.add(new Event("TG19", Venue.venues.get(0), LocalDate.of(2019,3,21), true));
             eventList.add(new Event("EnSetersEvent", Venue.venues.get(1), LocalDate.of(2019,3,21),true));
@@ -25,10 +28,15 @@ public class EventHandler {
         }
         return eventList;
     }
+
     public static ObservableList<Event> getEventListFX() {
-        if(eventListFX.isEmpty()) {
-            for(Event event : eventList) {
-                eventListFX.add(event);
+        if(eventListFX.size() != eventList.size()) {
+            if(eventList.size() > 0) {
+                //Clears list, prevents duplicates.
+                eventListFX = FXCollections.observableArrayList();
+                for(Event event : eventList) {
+                    eventListFX.add(event);
+                }
             }
         }
         return eventListFX;

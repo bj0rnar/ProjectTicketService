@@ -4,6 +4,7 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,20 @@ public class VenueTest {
     @BeforeEach
     public void eachStartUp() {
         venue = new Venue(10,"TG12");
+
+    }
+
+    @Test
+    public void VenueHasCorrectname() {
+        Venue strangerNames = new Venue(10,"ABC ÆØÅæøå102!");
+        Assertions.assertEquals("ABC ÆØÅæøå102!", strangerNames.getName());
+    }
+
+    @Test
+    public void VenueWithoutSeatsCanBeCreated() {
+        Venue venue = new Venue(0,"NoSeats");
+        Assertions.assertNull(venue.getSeats());
+        Assertions.assertEquals("NoSeats", venue.getName());
 
     }
 

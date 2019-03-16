@@ -16,7 +16,9 @@ public class Event {
         this.date = date;
         this.areSeatsAvailable = areSeatsAvailable;
         if(areSeatsAvailable) {
-            eventSeats = venue.getSeats();
+            if(venue.getSeats().size() != 0) {
+                eventSeats = venue.getSeats();
+            }
         }
     }
 
@@ -24,9 +26,6 @@ public class Event {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Venue getVenue() {
         return venue;
@@ -46,6 +45,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return name;
+        return "Event: " + name + ", Month: " + date.getMonth();
     }
 }

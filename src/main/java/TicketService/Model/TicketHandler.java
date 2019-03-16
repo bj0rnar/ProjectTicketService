@@ -4,22 +4,35 @@ import TicketService.Users.Customer;
 
 import java.util.ArrayList;
 
+/**
+ * Acts as a order line between Customer and Ticketss.
+ */
 public class TicketHandler {
 
+    /**
+     * Tickets under process.
+     */
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
 
     public TicketHandler() {
     }
 
+
+    /**
+     * @return list of processed tickets
+     */
     public ArrayList<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
+    /**
+     * Creates a ticket to event.
+     * Handles if event has seats or not.
+     * Removes a seat if Event has a seat, and gives seat to Ticket. Ticket is added to ticket list.
+     * If there are no seats, a plain ticket to event will be created and added to ticket list.
+     * @param event Event that ticket will point to
+     */
     public void createTicket(Event event) {
         //If event do not have seats, then seats has unlimited tickets.
         if(event.getAreSeatsAvailable()) {
@@ -39,6 +52,11 @@ public class TicketHandler {
         }
     }
 
+
+    /**
+     * Adds all tickets in tickets list to customer
+     * @param customer
+     */
     public void giveTicketToCustomer(Customer customer) {
         if(customer != null) {
             for (Ticket ticket : tickets) {
@@ -49,6 +67,11 @@ public class TicketHandler {
         }
     }
 
+
+    /**
+     * Process is canceled and the seats reserved
+     * with ticket are returned to original event.
+     */
     public void cancelBuyTicketProcess() {
         if(tickets.size() != 0) {
             try {
@@ -62,7 +85,8 @@ public class TicketHandler {
                 }
             }
             catch (NullPointerException e) {
-                System.out.println("Event no longer exists, or couldnt be found?");
+                System.out.println("Event no longer exists, or could not be found?");
+                //Do something here, to handle exception
             }
         }
     }

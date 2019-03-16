@@ -1,5 +1,6 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
+import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EventTest {
     Event oneSeatEvent, manySeatsEvent;
@@ -64,5 +66,29 @@ public class EventTest {
     @Test
     public void EventReceivesSeatListFromVenue() {
         Assertions.assertNotNull(manySeatsEvent.getEventSeats());
+    }
+
+    @Test
+    public void EventFXListIsEqualToEventList() {
+        EventHandler.CreateEvents();
+        ArrayList<Event> list = EventHandler.getEventList();
+        ObservableList<Event> listFx = EventHandler.getEventListFX();
+
+        Assertions.assertEquals(listFx.size(), list.size());
+    }
+
+    @Test
+    public void EventHasCorrectDate() {
+        Assertions.assertEquals(LocalDate.of(2000,1,1), oneSeatEvent.getDate());
+    }
+    @Test
+    public void EventHasCorrectName() {
+        Assertions.assertEquals("JustOneSpotLeft", oneSeatEvent.getName());
+    }
+    @Test
+    public void EventHasCorrectVenue() {
+        Venue venue = new Venue(256, "Dorororo");
+        oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1),true);
+        Assertions.assertEquals(venue, oneSeatEvent.getVenue());
     }
 }

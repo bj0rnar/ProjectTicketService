@@ -8,6 +8,7 @@ public class Ticket {
     private Event event;
     private Venue.Seat seat;
 
+    //idCounter is a very simple ID handler. Maybe change it out with hash?
     public Ticket(Event event) {
         this.event = event;
         this.id = idCounter;
@@ -21,10 +22,6 @@ public class Ticket {
 
     public Event getEvent() {
         return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 
     public Venue.Seat getSeat() {

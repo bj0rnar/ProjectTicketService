@@ -1,26 +1,35 @@
-import TicketService.Model.EventHandler;
-import TicketService.Model.Ticket;
-import TicketService.Model.Venue;
+import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 public class UserTest {
 
-    @BeforeAll
-    public static void startUp() {
-        Venue.CreateVenues();
-        EventHandler.CreateEvents();
+    Event oneSeatEvent, manySeatsEvent;
+    Customer customer;
+    TicketHandler ticketHandler;
+
+    @BeforeEach
+    public void eachStartUp() {
+        Venue oneSpotVenue = new Venue(1, "Hall 2");
+        Venue manySpotVenue = new Venue(100, "Hall 42");
+        ticketHandler = new TicketHandler();
+        customer = new Customer("Jon","Doe","A@B.COM");
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),true);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),true);
+
     }
 
     @Test
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
         int idChecker;
-        Customer customer = new Customer("A","B","A@B.COM");
         idChecker = customer.getId();
         Assert.assertEquals(idChecker, customer.getId());
         Customer secondUser = new Customer("A","B","A@B.COM");
@@ -34,8 +43,7 @@ public class UserTest {
 
     @Test
     public void UserCanGetTicket(){
-        Customer customer = new Customer("A","B","A@B.COM");
-        Ticket ticket = new Ticket(EventHandler.getEventList().get(0));
+        Ticket ticket = new Ticket(manySeatsEvent);
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
         Assert.assertEquals(1, customer.getTicketList().size());

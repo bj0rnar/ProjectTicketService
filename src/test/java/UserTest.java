@@ -1,5 +1,6 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
+import TicketService.Users.Organizer;
 import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -21,9 +22,10 @@ public class UserTest {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         ticketHandler = new TicketHandler();
+        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Jon","Doe","A@B.COM");
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),true);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),true);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
 
     }
 
@@ -56,5 +58,12 @@ public class UserTest {
         Assertions.assertEquals("Kristiansen",customer.getLastname());
         Assertions.assertEquals("Gunnar Kristiansen",customer.getFullname());
         Assertions.assertEquals("Gk@htomail.com",customer.getEmail());
+    }
+
+    @Test
+    public void OrganizerCanCreateEventCorrrectly() {
+        Organizer organizer = new Organizer("Leon", "Kennedy","old@school.com");
+        organizer.createEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432, false);
+        Assertions.assertEquals("Event name", organizer.getEvents().get(0).getName());
     }
 }

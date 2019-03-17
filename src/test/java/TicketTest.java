@@ -1,5 +1,6 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
+import TicketService.Users.Organizer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
@@ -20,10 +21,11 @@ public class TicketTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
+        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
         ticketHandler = new TicketHandler();
         customer = new Customer("A","B","A@B.COM");
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),true);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),true);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
 
     }
 
@@ -64,5 +66,17 @@ public class TicketTest {
         Assert.assertEquals(manySeatsEvent.getName(), customer.getTicketList().get(0).getEvent().getName());
     }
 
+    @Test
+    public void TicketHasCorrectPrice() {
+        ticketHandler.createTicket(manySeatsEvent);
+        Assertions.assertEquals(250, ticketHandler.getTickets().get(0).getPrice());
+    }
+
+    @Test
+    public void TicketHandlerReturnCorrectTotalPrice() {
+        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent);
+        Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
+    }
 
 }

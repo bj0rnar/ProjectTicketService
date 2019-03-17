@@ -1,19 +1,25 @@
 package TicketService.Model;
 
+import TicketService.Users.Organizer;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Event {
     private String name;
     private Venue venue;
+    private int ticketPrice;
+    private Organizer organizer;
     private LocalDate date;
     private Boolean areSeatsAvailable;
     private ArrayList<Venue.Seat> eventSeats;
 
-    public Event(String name, Venue venue, LocalDate date, Boolean areSeatsAvailable) {
+    public Event(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable, Organizer organizer) {
         this.name = name;
         this.venue = venue;
         this.date = date;
+        this.ticketPrice = ticketPrice;
+        this.organizer = organizer;
         this.areSeatsAvailable = areSeatsAvailable;
         if(areSeatsAvailable) {
             if(venue.getSeats().size() != 0) {
@@ -26,6 +32,9 @@ public class Event {
         return name;
     }
 
+    public int getTicketPrice() {
+        return ticketPrice;
+    }
 
     public Venue getVenue() {
         return venue;

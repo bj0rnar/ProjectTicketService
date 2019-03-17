@@ -20,7 +20,7 @@ public class VenueTest {
     }
 
     @Test
-    public void VenueHasCorrectname() {
+    public void VenueHasCorrectName() {
         Venue strangerNames = new Venue(10,"ABC ÆØÅæøå102!");
         Assertions.assertEquals("ABC ÆØÅæøå102!", strangerNames.getName());
     }

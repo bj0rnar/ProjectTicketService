@@ -4,6 +4,7 @@ import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
+import TicketService.Users.Organizer;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,7 +19,6 @@ public class Main {
 
         TicketHandler ticketHandler = new TicketHandler();
 
-        Event asdasd = new Event("TG16", new Venue(123,"klj"), LocalDate.of(200,1,1), true);
         Event event = EventHandler.getEventList().stream()
                 .filter(asd -> "TG19".equals(asd.getName()))
                 .findAny()

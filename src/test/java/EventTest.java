@@ -1,5 +1,6 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
+import TicketService.Users.Organizer;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class EventTest {
     Event oneSeatEvent, manySeatsEvent;
     Customer customer;
+    Organizer organizer;
     TicketHandler ticketHandler;
 
 
@@ -20,10 +22,11 @@ public class EventTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
+        organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
         ticketHandler = new TicketHandler();
         customer = new Customer("A","B","A@B.COM");
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),true);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),true);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
 
     }
 
@@ -88,7 +91,7 @@ public class EventTest {
     @Test
     public void EventHasCorrectVenue() {
         Venue venue = new Venue(256, "Dorororo");
-        oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1),true);
+        oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100,true, organizer);
         Assertions.assertEquals(venue, oneSeatEvent.getVenue());
     }
 }

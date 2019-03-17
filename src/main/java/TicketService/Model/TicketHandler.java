@@ -67,6 +67,20 @@ public class TicketHandler {
         }
     }
 
+    public int calculatedTotalPrice() {
+        int totalPrice = 0;
+        for(Ticket tickets : tickets) {
+            totalPrice += tickets.getPrice();
+        }
+        return totalPrice;
+    }
+
+    public void buyAllTickets(long accountNumber, int cvs, Customer customer) {
+        if(Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
+            giveTicketToCustomer(customer);
+        }
+    }
+
 
     /**
      * Process is canceled and the seats reserved

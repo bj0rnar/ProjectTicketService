@@ -1,4 +1,4 @@
-package TicketService.ExternalService;
+package TicketService.Bajs;
 
 import TicketService.Model.Event;
 import TicketService.Model.Venue;
@@ -15,14 +15,16 @@ public class EventDatabaseGateway {
 
 
     public static boolean addEventToDatabase(Event event) {
-        if (event == null || events.containsKey(event.getEventId()) || event.getEventTitle() == null ||
+        /*if (event == null || events.containsKey(event.getEventId()) || event.getEventTitle() == null ||
                 event.getEventStartDateAndTime() == null || event.getNumberOfTickets() == 0 ||
                 event.getVenue() == null || event.getTicketPrice() == 0.0) {
             return false;
         } else {
-            events.put(event.getEventId(), event);
+            events.put(Integer.valueOf(event.getEventId()), event);
             return true;
-        }
+        }*/
+
+        return true;
     }
 
     public static boolean addVenueToDatabase(Venue venue) {

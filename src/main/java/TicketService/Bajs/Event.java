@@ -118,12 +118,12 @@ public class Event {
 
     /*public void registerSoldTicket(Ticket ticket) {
         if (ticket.isPaidFor()) {
-            soldTickets[ticket.ticketAvailable()] = ticket;
+            soldTickets[ticket.getTicketNumber()] = ticket;
         }
     }
 
     public void cancelTicket(Ticket ticket) {
-        reservedTickets[ticket.ticketAvailable()] = null;
+        reservedTickets[ticket.getTicketNumber()] = null;
         remainingTickets++;
     }*/
 

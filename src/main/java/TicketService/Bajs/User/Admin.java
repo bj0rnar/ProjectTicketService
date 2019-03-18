@@ -1,6 +1,4 @@
 package TicketService.Model.User;
 
-public class Organiser {
-
-
+public class Admin {
 }

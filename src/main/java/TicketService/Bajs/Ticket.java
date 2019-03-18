@@ -11,10 +11,11 @@ public class Ticket {
     private boolean paidFor;
 
 
-    public Ticket(String eventId, int ticketNumber) {
-        this.eventId = eventId;
+    /*public Ticket(int ticketNumber, Event event) {
         this.ticketNumber = ticketNumber;
-    }
+        this.event = event;
+        paidFor = false;
+    }*/
 
     public boolean isPaidFor() {
         return paidFor;
@@ -29,6 +30,10 @@ public class Ticket {
             verificationCode = null;
         }
     }
+
+    /*public Event getEvent() {
+        return event;
+    }*/
 
     public int getTicketNumber() {
         return ticketNumber;

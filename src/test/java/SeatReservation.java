@@ -1,17 +1,6 @@
-import TicketService.ExternalService.EventDatabaseGateway;
-import TicketService.Model.Event;
-import TicketService.Model.User.Customer;
-import TicketService.Model.User.User;
-import TicketService.Model.Venue;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
-
 public class SeatReservation {
 
-    User customer;
+    /*User customer;
     Venue tinyPlace;
     Event coolEvent;
 
@@ -49,6 +38,6 @@ public class SeatReservation {
         assertEquals(20, tinyPlace.getSeats().length);
         tinyPlace.removeSeats(10);
         assertEquals(10, tinyPlace.getSeats().length);
-    }
+    }*/
 
 }

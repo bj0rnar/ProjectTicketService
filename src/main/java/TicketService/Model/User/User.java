@@ -3,7 +3,6 @@ package TicketService.Model.User;
 
 import TicketService.Model.Event;
 import TicketService.Model.Ticket;
-import TicketService.Util.VisaVerification;
 
 /*
     TODO: Make User abstract parent class for Customer, Admin, Organiser?
@@ -16,7 +15,7 @@ public class User {
 
 
     //  TODO: Rewrite this monstrosity, it makes me sad
-    public boolean payForSelectedTicket(long cardNumber, int ccv2) {
+    /*public boolean payForSelectedTicket(long cardNumber, int ccv2) {
         if (ticket == null) {
             return false;   // Throw exception instead?
         }
@@ -25,21 +24,21 @@ public class User {
             return false;
         }
 
-        /*if (ticketPrice >= 500) {
+        *//*if (ticketPrice >= 500) {
             //  Everyone's poor for testing purposes
             return false;
-        }*/
+        }*//*
 
         ticket.setPaidFor(true);
         event.registerSoldTicket(ticket);
 
         return true;
-    }
+    }*/
 
-    public void cancelPurchase() {
+    /*public void cancelPurchase() {
         event.cancelTicket(ticket);
         ticket = null;
-    }
+    }*/
 
     public Ticket receiveTicket() {
         if (ticket.isPaidFor()) {

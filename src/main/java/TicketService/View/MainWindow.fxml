@@ -31,6 +31,7 @@
           <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event: " textAlignment="RIGHT" />
@@ -42,6 +43,7 @@
             <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Viking hallen" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="17 april 2019" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text fx:id="SeatsLeftEventText" strokeType="OUTSIDE" strokeWidth="0.0" text="2304" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="testButton" mnemonicParsing="false" onMouseClicked="#testNewStage" text="Knappen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>

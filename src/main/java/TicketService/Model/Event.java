@@ -54,6 +54,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event: " + name + ", Month: " + date.getMonth();
+        return name;
     }
 }

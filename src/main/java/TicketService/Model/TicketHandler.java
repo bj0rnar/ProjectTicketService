@@ -83,7 +83,7 @@ public class TicketHandler {
 
 
     /**
-     * Process is canceled and the seats reserved
+     * Process is canceled and the seat reserved
      * with ticket are returned to original event.
      */
     public void cancelBuyTicketProcess() {

@@ -1,5 +1,7 @@
 package TicketService;
 
+import TicketService.Controller.MainWindowController;
+import TicketService.Controller.SecondWindowController;
 import TicketService.Model.EventHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
@@ -8,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,18 +40,14 @@ public class MainFX extends Application {
         minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
-
             primaryStage.setTitle("Ticket service");
-
             FXMLLoader fxmlLoader = new FXMLLoader();
-            System.out.println(getClass().getResource(""));
             fxmlLoader.setLocation(getClass().getResource("View/MainWindow.fxml"));
-
             Parent MainOverviewLayout = fxmlLoader.load();
-
+            MainWindowController.primatyStage = primaryStage;
             Scene hovedScene = new Scene(MainOverviewLayout, 700, 500);
-
             primaryStage.setScene(hovedScene);
+
 
             primaryStage.show();
         } catch (IOException e) {
@@ -56,19 +55,6 @@ public class MainFX extends Application {
         }
     }
 
-
-    private void visAlert(String melding) {
-        Alert newAlert = new Alert(Alert.AlertType.ERROR);
-        newAlert.setTitle("Feil");
-        newAlert.setHeaderText(null);
-        newAlert.setContentText("Noe gikk feil! " + melding);
-
-        newAlert.showAndWait();
-    }
-
-    public static MainFX getInstance() {
-        return minApplikasjon;
-    }
 
     public static void main(String[] args) {
         launch(args);

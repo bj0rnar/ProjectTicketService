@@ -1,13 +1,35 @@
 package TicketService;
 
-public class Main {
-    public static void main(String[] args){
+import TicketService.Model.Event;
+import TicketService.Model.EventHandler;
+import TicketService.Model.TicketHandler;
+import TicketService.Model.Venue;
+import TicketService.Users.Organizer;
 
-        System.out.println("bjørnar");
-        System.out.println("john");
-        System.out.println("Magnus");
-        System.out.println("Test");
-        System.out.println("TestMagnus");
-        System.out.println("All fun and games");
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args){
+        Venue.CreateVenues();
+        EventHandler.CreateEvents();
+
+        TicketHandler ticketHandler = new TicketHandler();
+
+        Event event = EventHandler.getEventList().stream()
+                .filter(asd -> "TG19".equals(asd.getName()))
+                .findAny()
+                .orElse(null);
+
+
+        System.out.println(event.getAreSeatsAvailable());
+    }
+
+
+    public static void StartBuyTicketProcess() {
+
     }
 }

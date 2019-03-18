@@ -13,6 +13,18 @@
         <maven.compiler.target>11.0.2</maven.compiler.target>
     </properties>
 
+    <!-- Brings FXML files over to Target. -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.platform</groupId>
@@ -33,5 +45,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

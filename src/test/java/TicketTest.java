@@ -82,4 +82,33 @@ public class TicketTest {
         Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
     }
 
+    @Test
+    public void checkIfSeatsAreRandomized(){
+        System.out.println("ReservedSeats");
+        ticketHandler.createTicket(manySeatsEvent, 52);
+        ticketHandler.createTicket(manySeatsEvent, 52);
+        ticketHandler.createTicket(manySeatsEvent, 52);
+        ticketHandler.createTicket(manySeatsEvent, 52);
+        ticketHandler.giveTicketToCustomer(customer);
+        System.out.println(customer.getTicketList().get(0).getSeat().getSeatNumber());
+        System.out.println(customer.getTicketList().get(1).getSeat().getSeatNumber());
+        System.out.println(customer.getTicketList().get(2).getSeat().getSeatNumber());
+        System.out.println(customer.getTicketList().get(3).getSeat().getSeatNumber());
+    }
+
+    @Test
+    public void checkSeatAvailability(){
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        ticketHandler.giveTicketToCustomer(customer);
+        Customer customer2 = new Customer("x", "y", "z");
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        ticketHandler.giveTicketToCustomer(customer2);
+        System.out.println("Customer 2: " + customer2.getTicketList().get(0).getSeat().getSeatNumber());
+        System.out.println("Customer: " + customer.getTicketList().get(0).getSeat().getSeatNumber());
+        System.out.println(manySeatsEvent.getEventSeats().get(0).getSeatNumber());
+        System.out.println(manySeatsEvent.getEventSeats().size());
+    }
+
+
+
 }

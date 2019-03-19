@@ -3,10 +3,7 @@ import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import javafx.collections.ObservableList;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,10 +24,10 @@ public class EventTest {
         customer = new Customer("A","B","A@B.COM");
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-
     }
 
     @Test
+    @DisplayName("Ticket can't be created if there are no more seats")
     public void EventCantGiveAwayTicketsIfNoMoreSeatsAvailable() {
         ticketHandler.createTicket(oneSeatEvent);
         ticketHandler.createTicket(oneSeatEvent);
@@ -40,6 +37,7 @@ public class EventTest {
     }
 
     @Test
+    @DisplayName("Reserve seat while ordering")
     public void RemoveSeatFromEventWhenTicketUnderProcess() {
         //Creates a ticket.
         ticketHandler.createTicket(manySeatsEvent);
@@ -54,6 +52,7 @@ public class EventTest {
     }
 
     @Test
+    @DisplayName("Un-reserve seat when order is cancelled")
     public void EventGeatSeatBackIfProcessIsCanceled() {
 
         //Current ticket size == n
@@ -67,11 +66,13 @@ public class EventTest {
     }
 
     @Test
+    @DisplayName("Event can get seats from Venue")
     public void EventReceivesSeatListFromVenue() {
         Assertions.assertNotNull(manySeatsEvent.getEventSeats());
     }
 
     @Test
+    @DisplayName("GUI stuff")
     public void EventFXListIsEqualToEventList() {
         EventHandler.CreateEvents();
         ArrayList<Event> list = EventHandler.getEventList();

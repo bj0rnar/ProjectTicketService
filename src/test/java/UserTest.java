@@ -52,7 +52,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCreationWorksCorrectly() {
+    public void UserConstructurWorksCorrectly() {
         Customer customer = new Customer("Gunnar","Kristiansen", "Gk@htomail.com");
         Assertions.assertEquals("Gunnar",customer.getFirstname());
         Assertions.assertEquals("Kristiansen",customer.getLastname());

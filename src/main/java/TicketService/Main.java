@@ -4,6 +4,7 @@ import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
+import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 
 import java.io.IOException;
@@ -16,8 +17,6 @@ public class Main {
     public static void main(String[] args){
         Venue.CreateVenues();
         EventHandler.CreateEvents();
-
-
 
         Event event = EventHandler.getEventList().stream()
                 .filter(asd -> "TG19".equals(asd.getName()))

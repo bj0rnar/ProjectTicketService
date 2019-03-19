@@ -47,7 +47,7 @@ public class TicketHandler {
 
         boolean availableSeats = event.getEventSeats().size() != 0;
 
-        if (availableSeats) {
+        if (availableSeats && event.isSeatAvailable(seatNumber)) {
             createSeatedEventTicket(event, seatNumber);
         }
         else {
@@ -55,9 +55,6 @@ public class TicketHandler {
         }
     }
 
-    private boolean checkSpecificSeat(Event event, int seatNumber){
-        return event.getEventSeats().get(seatNumber).getSeatNumber() != seatNumber;
-    }
 
     private void createSeatedEventTicket(Event event, int seatNumber) {
         Ticket ticket = new Ticket(event);
@@ -71,7 +68,7 @@ public class TicketHandler {
             seatNumber = event.getEventSeats().size()-1;
         }
         ticket.setSeat(event.getEventSeats().get(seatNumber));
-        event.getEventSeats().remove(seatNumber);
+        event.popSeatFromEventSeatList(seatNumber);
     }
 
     /**

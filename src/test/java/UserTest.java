@@ -32,15 +32,15 @@ public class UserTest {
     @Test
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
         int idChecker;
-        idChecker = customer.getId();
-        Assert.assertEquals(idChecker, customer.getId());
+        Customer firsUser = new Customer("A","B","A@B.COM");
+        idChecker = firsUser.getId();
+        Assert.assertEquals(idChecker, firsUser.getId());
         Customer secondUser = new Customer("A","B","A@B.COM");
         idChecker++;
         Assert.assertEquals(idChecker, secondUser.getId());
         Customer firstCustomer = new Customer("A","B","A@B.COM");
         idChecker++;
         Assert.assertEquals(idChecker, firstCustomer.getId());
-
     }
 
     @Test

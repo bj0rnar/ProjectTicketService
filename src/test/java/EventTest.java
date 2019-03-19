@@ -30,10 +30,11 @@ public class EventTest {
 
     }
 
+    //ADDED
     @Test
     public void EventCantGiveAwayTicketsIfNoMoreSeatsAvailable() {
-        ticketHandler.createTicket(oneSeatEvent);
-        ticketHandler.createTicket(oneSeatEvent);
+        ticketHandler.createTicket(oneSeatEvent,0);
+        ticketHandler.createTicket(oneSeatEvent,0);
         Assert.assertEquals(1,ticketHandler.getTickets().size());
         ticketHandler.giveTicketToCustomer(customer);
         Assert.assertEquals(1,customer.getTicketList().size());
@@ -42,11 +43,11 @@ public class EventTest {
     @Test
     public void RemoveSeatFromEventWhenTicketUnderProcess() {
         //Creates a ticket.
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         //Check if seats are n-1
         Assertions.assertEquals(99, manySeatsEvent.getEventSeats().size());
         //Adds one more ticket to handler.
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         //Seats left should now be n-2
         //Check if seats are n-2
         Assertions.assertEquals(98, manySeatsEvent.getEventSeats().size());
@@ -55,9 +56,8 @@ public class EventTest {
 
     @Test
     public void EventGeatSeatBackIfProcessIsCanceled() {
-
         //Current ticket size == n
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         //Current ticket size == n-1
         Assertions.assertEquals(99, manySeatsEvent.getEventSeats().size());
         ticketHandler.cancelBuyTicketProcess();

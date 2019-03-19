@@ -50,15 +50,18 @@ public class TicketTest {
         Assert.assertEquals(1, ticketHandler.getTickets().size());
     }
 
+
+
     @Test
     public void TicketCanGetSeat() {
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertNotNull(ticketHandler.getTickets().get(0).getSeat());
     }
 
+
     @Test
     public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         customer = new Customer("A","B","A@B.COM");
         Assert.assertEquals(0, customer.getTicketList().size());
         ticketHandler.giveTicketToCustomer(customer);
@@ -68,14 +71,14 @@ public class TicketTest {
 
     @Test
     public void TicketHasCorrectPrice() {
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertEquals(250, ticketHandler.getTickets().get(0).getPrice());
     }
 
     @Test
     public void TicketHandlerReturnCorrectTotalPrice() {
-        ticketHandler.createTicket(manySeatsEvent);
-        ticketHandler.createTicket(manySeatsEvent);
+        ticketHandler.createTicket(manySeatsEvent,0);
+        ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
     }
 

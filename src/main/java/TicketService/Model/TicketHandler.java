@@ -33,15 +33,18 @@ public class TicketHandler {
      * If there are no seats, a plain ticket to event will be created and added to ticket list.
      * @param event Event that ticket will point to
      */
-    public void createTicket(Event event) {
+    public void createTicket(Event event, int seatNumber) {
         //If event do not have seats, then seats has unlimited tickets.
         if(event.getAreSeatsAvailable()) {
-            int seatNumber = event.getEventSeats().size();
+            int totalSeatNumber = event.getEventSeats().size();
             Venue.Seat seat;
-            if (seatNumber != 0) {
+            if (totalSeatNumber != 0) {
+                if(seatNumber == 0) {
+                    seatNumber = event.getEventSeats().size()-1;
+                }
                 Ticket ticket = new Ticket(event);
-                ticket.setSeat(event.getEventSeats().get(seatNumber - 1));
-                event.getEventSeats().remove(seatNumber - 1);
+                ticket.setSeat(event.getEventSeats().get(seatNumber));
+                event.getEventSeats().remove(seatNumber);
                 tickets.add(ticket);
             } else {
                 System.out.println("No more seats available for event: " + event.getName());

@@ -32,7 +32,7 @@ public class Venue {
     }
 
     public void addSeats(int totalSeats) {
-        for(int x=1; x<=totalSeats;x++) {
+        for(int x=0; x<totalSeats;x++) {
             seats.add(new Seat(x));
         }
     }

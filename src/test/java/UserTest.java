@@ -66,4 +66,20 @@ public class UserTest {
         organizer.createEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432, false);
         Assertions.assertEquals("Event name", organizer.getEvents().get(0).getName());
     }
+
+    @Test
+    public void UserCanBuyMultipleTickets() {
+        ticketHandler.createTicket(manySeatsEvent,0);
+        ticketHandler.createTicket(manySeatsEvent,0);
+        ticketHandler.createTicket(manySeatsEvent,0);
+        ticketHandler.buyAllTickets(123412341234L,123, customer);
+        Assertions.assertEquals(3, customer.getTicketList().size());
+    }
+
+    @Test
+    public void UserCanReserveASeatToEvent() {
+        ticketHandler.createTicket(manySeatsEvent,12);
+        ticketHandler.giveTicketToCustomer(customer);
+        Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());
+    }
 }

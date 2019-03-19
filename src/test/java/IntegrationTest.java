@@ -18,10 +18,11 @@ public class IntegrationTest {
         Assertions.assertEquals("Wow@wowi.com", organizer.getEmail());
         Venue telenorArena = new Venue(123,"Telenor Arena");
         Assertions.assertEquals(123, telenorArena.getSeats().size());
-        Event eSportEvent = new Event("ESport 2019", telenorArena, LocalDate.of(2019, 12, 12),100,true, organizer);
+        organizer.createEvent("ESport 2019", telenorArena, LocalDate.of(2019, 12, 12),100,true);
+        Event eSportEvent = organizer.getEvents().get(0);
         Assertions.assertTrue(eSportEvent.getAreSeatsAvailable());
         TicketHandler ticketHandler = new TicketHandler();
-        ticketHandler.createTicket(eSportEvent);
+        ticketHandler.createTicket(eSportEvent,0);
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
         ticketHandler.buyAllTickets(123123123123L, 123, customer);
         Assertions.assertEquals(1,customer.getTicketList().size());

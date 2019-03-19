@@ -40,7 +40,7 @@ public class VenueTest {
     }
     @Test
     public void SeatsHasCorrectSeatNumber() {
-        Assert.assertEquals(1,venue.getSeats().get(0).getSeatNumber());
-        Assert.assertEquals(10,venue.getSeats().get(9).getSeatNumber());
+        Assert.assertEquals(0,venue.getSeats().get(0).getSeatNumber());
+        Assert.assertEquals(9,venue.getSeats().get(9).getSeatNumber());
     }
 }

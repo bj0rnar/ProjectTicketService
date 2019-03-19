@@ -83,20 +83,6 @@ public class TicketTest {
     }
 
     @Test
-    public void checkIfSeatsAreRandomized(){
-        System.out.println("ReservedSeats");
-        ticketHandler.createTicket(manySeatsEvent, 52);
-        ticketHandler.createTicket(manySeatsEvent, 52);
-        ticketHandler.createTicket(manySeatsEvent, 52);
-        ticketHandler.createTicket(manySeatsEvent, 52);
-        ticketHandler.giveTicketToCustomer(customer);
-        System.out.println(customer.getTicketList().get(0).getSeat().getSeatNumber());
-        System.out.println(customer.getTicketList().get(1).getSeat().getSeatNumber());
-        System.out.println(customer.getTicketList().get(2).getSeat().getSeatNumber());
-        System.out.println(customer.getTicketList().get(3).getSeat().getSeatNumber());
-    }
-
-    @Test
     public void checkSeatAvailability(){
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer(customer);

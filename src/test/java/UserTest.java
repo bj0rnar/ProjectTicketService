@@ -34,12 +34,15 @@ public class UserTest {
         int idChecker;
         idChecker = customer.getId();
         Assert.assertEquals(idChecker, customer.getId());
+        //organizer gets an ID too.
+        idChecker = idChecker + 2;
         Customer secondUser = new Customer("A","B","A@B.COM");
-        idChecker++;
         Assert.assertEquals(idChecker, secondUser.getId());
         Customer firstCustomer = new Customer("A","B","A@B.COM");
         idChecker++;
         Assert.assertEquals(idChecker, firstCustomer.getId());
+
+
 
     }
 

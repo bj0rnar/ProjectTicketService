@@ -21,9 +21,9 @@ public class UserTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
-        ticketHandler = new TicketHandler();
-        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Jon","Doe","A@B.COM");
+        ticketHandler = new TicketHandler(customer);
+        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
 

@@ -14,8 +14,7 @@ public class TicketHandler {
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
-
-    public TicketHandler() {
+    public TicketHandler(Customer customer) {
     }
 
 

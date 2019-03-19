@@ -17,7 +17,7 @@ public class Main {
         Venue.CreateVenues();
         EventHandler.CreateEvents();
 
-        TicketHandler ticketHandler = new TicketHandler();
+
 
         Event event = EventHandler.getEventList().stream()
                 .filter(asd -> "TG19".equals(asd.getName()))

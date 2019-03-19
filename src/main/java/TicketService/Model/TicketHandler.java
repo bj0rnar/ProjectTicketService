@@ -38,13 +38,12 @@ public class TicketHandler {
         if(event.getAreSeatsAvailable()) {
             int totalSeatNumber = event.getEventSeats().size();
             Venue.Seat seat;
-            if (totalSeatNumber != 0) {
+            if (event.isSeatAvailable(seatNumber)) {
                 if(seatNumber == 0) {
                     seatNumber = event.getEventSeats().size()-1;
                 }
                 Ticket ticket = new Ticket(event);
-                ticket.setSeat(event.getEventSeats().get(seatNumber));
-                event.getEventSeats().remove(seatNumber);
+                ticket.setSeat(event.popSeatFromEventSeatList(seatNumber));
                 tickets.add(ticket);
             } else {
                 System.out.println("No more seats available for event: " + event.getName());

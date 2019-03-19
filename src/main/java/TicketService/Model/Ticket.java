@@ -36,4 +36,6 @@ public class Ticket {
     public void setSeat(Venue.Seat seat) {
         this.seat = seat;
     }
+
+
 }

@@ -70,4 +70,23 @@ public class Event {
     public String toString() {
         return name;
     }
+
+    public boolean isSeatAvailable(int seatNumber) {
+        for(Venue.Seat seat : eventSeats) {
+            if(seat.getSeatNumber() == seatNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Venue.Seat popSeatFromEventSeatList(int seatNumber) {
+        for(Venue.Seat seat : eventSeats) {
+            if(seat.getSeatNumber() == seatNumber) {
+                eventSeats.remove(seat);
+                return seat;
+            }
+        }
+        return null;
+    }
 }

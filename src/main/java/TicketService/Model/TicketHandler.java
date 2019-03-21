@@ -14,8 +14,8 @@ public class TicketHandler {
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
+    public TicketHandler(Customer customer) {
 
-    public TicketHandler() {
     }
 
 
@@ -34,27 +34,42 @@ public class TicketHandler {
      * @param event Event that ticket will point to
      */
     public void createTicket(Event event, int seatNumber) {
-        //If event do not have seats, then seats has unlimited tickets.
+
         if(event.getAreSeatsAvailable()) {
-            int totalSeatNumber = event.getEventSeats().size();
-            Venue.Seat seat;
-            if (totalSeatNumber != 0) {
-                if(seatNumber == 0) {
-                    seatNumber = event.getEventSeats().size()-1;
-                }
-                Ticket ticket = new Ticket(event);
-                ticket.setSeat(event.getEventSeats().get(seatNumber));
-                event.getEventSeats().remove(seatNumber);
-                tickets.add(ticket);
-            } else {
-                System.out.println("No more seats available for event: " + event.getName());
-                return;
-            }
-        } else {
+            checkSeatAvailability(event, seatNumber);
+        }
+        else {
             tickets.add(new Ticket(event));
         }
     }
 
+    private void checkSeatAvailability(Event event, int seatNumber) {
+
+        boolean availableSeats = event.getEventSeats().size() != 0;
+
+        if (availableSeats && event.isSeatAvailable(seatNumber)) {
+            createSeatedEventTicket(event, seatNumber);
+        }
+        else {
+            System.out.println("No more seats available for event: " + event.getName());
+        }
+    }
+
+
+    private void createSeatedEventTicket(Event event, int seatNumber) {
+        Ticket ticket = new Ticket(event);
+        seatReservation(event, seatNumber, ticket);
+        tickets.add(ticket);
+
+    }
+
+    private void seatReservation(Event event, int seatNumber, Ticket ticket) {
+        if(seatNumber == 0) {
+            seatNumber = event.getEventSeats().size()-1;
+        }
+        ticket.setSeat(event.getEventSeats().get(seatNumber));
+        event.popSeatFromEventSeatList(seatNumber);
+    }
 
     /**
      * Adds all tickets in tickets list to customer

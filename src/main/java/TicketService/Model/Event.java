@@ -52,6 +52,25 @@ public class Event {
         return eventSeats;
     }
 
+    public boolean isSeatAvailable(int seatNumber){
+        for(Venue.Seat seat : eventSeats){
+            if(seat.getSeatNumber() == seatNumber){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Venue.Seat popSeatFromEventSeatList(int seatNumber){
+        for(Venue.Seat seat : eventSeats){
+            if(seat.getSeatNumber() == seatNumber) {
+                eventSeats.remove(seat);
+                return seat;
+            }
+        }
+        return null;
+    }
+
     //Use this method if you need to reserve a spot. Example: Spesific date tickets.
     public void removeSeatingFrom(int SeatingNumberWhereAllSeatsAfterThisWillBeRemoved) {
         if(SeatingNumberWhereAllSeatsAfterThisWillBeRemoved > eventSeats.size()) {

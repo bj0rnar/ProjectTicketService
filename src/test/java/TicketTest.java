@@ -22,10 +22,10 @@ public class TicketTest {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
-        ticketHandler = new TicketHandler();
         customer = new Customer("A","B","A@B.COM");
+        ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
+        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
 
     }
 
@@ -81,5 +81,24 @@ public class TicketTest {
         ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
     }
+
+    @Test
+    public void checkSeatAvailability(){
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        ticketHandler.giveTicketToCustomer(customer);
+        Customer customer2 = new Customer("x", "y", "z");
+        TicketHandler ticketHandler2 = new TicketHandler(customer2);
+        ticketHandler2.createTicket(manySeatsEvent, 4);
+        ticketHandler2.giveTicketToCustomer(customer2);
+    }
+
+    @Test
+    public void newlyCreatedSeatsAreFucked(){
+        System.out.println(manySeatsEvent.getEventSeats().get(0).getSeatNumber());
+        System.out.println(manySeatsEvent.getEventSeats().get(99).getSeatNumber());
+        manySeatsEvent.getVenue().addSeats(10);
+        System.out.println(manySeatsEvent.getEventSeats().get(101).getSeatNumber());
+    }
+
 
 }

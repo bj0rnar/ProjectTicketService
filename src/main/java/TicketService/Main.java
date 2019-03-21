@@ -19,13 +19,6 @@ public class Main {
 
         TicketHandler ticketHandler = new TicketHandler();
 
-        Event event = EventHandler.getEventList().stream()
-                .filter(asd -> "TG19".equals(asd.getName()))
-                .findAny()
-                .orElse(null);
-
-
-        System.out.println(event.getAreSeatsAvailable());
     }
 
 

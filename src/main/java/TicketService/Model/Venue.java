@@ -7,6 +7,7 @@ public class Venue {
     public static ArrayList<Venue> venues = new ArrayList<>();
     private ArrayList<Seat> seats;
     private String name;
+    private String venueId;
 
 
     /**
@@ -15,7 +16,9 @@ public class Venue {
      * @param name name of venue. e.g Telenor Arena
      */
     public Venue(int totalSeats, String name) {
+        this.venueId = venues == null ? "0" : Integer.toString(venues.size());
         this.name = name;
+
         if(totalSeats != 0) {
             seats = new ArrayList<>();
             addSeats(totalSeats);
@@ -43,6 +46,14 @@ public class Venue {
 
     public String getName() {
         return name;
+    }
+
+    public String getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(String venueId) {
+        this.venueId = venueId;
     }
 
     public class Seat {

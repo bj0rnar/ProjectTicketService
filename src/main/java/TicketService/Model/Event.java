@@ -13,6 +13,7 @@ public class Event {
     private LocalDate date;
     private Boolean areSeatsAvailable;
     private ArrayList<Venue.Seat> eventSeats;
+    private String eventId;
 
     public Event(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable, Organizer organizer) {
         this.name = name;
@@ -55,5 +56,13 @@ public class Event {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }

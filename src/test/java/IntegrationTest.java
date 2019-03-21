@@ -4,9 +4,13 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class IntegrationTest {
 
@@ -25,5 +29,30 @@ public class IntegrationTest {
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
         ticketHandler.buyAllTickets(123123123123L, 123, customer);
         Assertions.assertEquals(1,customer.getTicketList().size());
+    }
+
+    @Test
+    @DisplayName("Customer: Can complete purchase process")
+    @Tag("integration-user")
+    public void canPurchaseTicket() {
+        fail("Not implemented yet");
+    }
+
+    @Test
+    @DisplayName("Admin: Can manage Organizer accounts")
+    @Tag("integration-admin")
+    public void canManageOrganizers() {
+
+
+        fail("Not implemented yet");
+    }
+
+    @Test
+    @DisplayName("Organizer: Can create event")
+    @Tag("integration-admin")
+    public void canCreateEvent() {
+
+
+        fail("Not implemented yet");
     }
 }

@@ -50,7 +50,13 @@ public class TicketTest {
         Assert.assertEquals(1, ticketHandler.getTickets().size());
     }
 
-
+    @Test
+    public void TicketHasCorrectEventGivenToIt() {
+        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true,new Organizer("a","b","c"));
+        ticketHandler.createTicket(event, 0);
+        ticketHandler.giveTicketToCustomer(customer);
+        Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());
+    }
 
     @Test
     public void TicketCanGetSeat() {

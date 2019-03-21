@@ -31,19 +31,22 @@ public class UserTest {
 
     @Test
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
+        System.out.println("**************** USER ID CHECK *****************");
         int idChecker;
-        idChecker = customer.getId();
-        Assert.assertEquals(idChecker, customer.getId());
-        //organizer gets an ID too.
-        idChecker = idChecker + 2;
+        Customer firsUser = new Customer("A","B","A@B.COM");
+        idChecker = firsUser.getId();
+        Assert.assertEquals(idChecker, firsUser.getId());
+        System.out.println(idChecker);
         Customer secondUser = new Customer("A","B","A@B.COM");
+        idChecker++;
+        System.out.println(idChecker);
+        System.out.println(secondUser.getId());
         Assert.assertEquals(idChecker, secondUser.getId());
         Customer firstCustomer = new Customer("A","B","A@B.COM");
         idChecker++;
+        System.out.println(idChecker);
+        System.out.println(firstCustomer.getId());
         Assert.assertEquals(idChecker, firstCustomer.getId());
-
-
-
     }
 
     @Test
@@ -55,7 +58,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCreationWorksCorrectly() {
+    public void UserConstructurWorksCorrectly() {
         Customer customer = new Customer("Gunnar","Kristiansen", "Gk@htomail.com");
         Assertions.assertEquals("Gunnar",customer.getFirstname());
         Assertions.assertEquals("Kristiansen",customer.getLastname());

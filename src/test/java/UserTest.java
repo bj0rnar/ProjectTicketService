@@ -4,10 +4,7 @@ import TicketService.Users.Organizer;
 import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 
@@ -30,12 +27,13 @@ public class UserTest {
     }
 
     @Test
+    @DisplayName("Each User gets their own ID")
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
         System.out.println("**************** USER ID CHECK *****************");
         int idChecker;
-        Customer firsUser = new Customer("A","B","A@B.COM");
-        idChecker = firsUser.getId();
-        Assert.assertEquals(idChecker, firsUser.getId());
+        Customer firstUser = new Customer("A","B","A@B.COM");
+        idChecker = firstUser.getId();
+        Assert.assertEquals(idChecker, firstUser.getId());
         System.out.println(idChecker);
         Customer secondUser = new Customer("A","B","A@B.COM");
         idChecker++;
@@ -58,7 +56,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserConstructurWorksCorrectly() {
+    public void UserConstructorWorksCorrectly() {
         Customer customer = new Customer("Gunnar","Kristiansen", "Gk@htomail.com");
         Assertions.assertEquals("Gunnar",customer.getFirstname());
         Assertions.assertEquals("Kristiansen",customer.getLastname());
@@ -67,7 +65,7 @@ public class UserTest {
     }
 
     @Test
-    public void OrganizerCanCreateEventCorrrectly() {
+    public void OrganizerCanCreateEventCorrectly() {
         Organizer organizer = new Organizer("Leon", "Kennedy","old@school.com");
         organizer.createEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432, false);
         Assertions.assertEquals("Event name", organizer.getEvents().get(0).getName());

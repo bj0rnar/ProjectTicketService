@@ -54,7 +54,7 @@ public class EventTest {
 
     @Test
     @DisplayName("Un-reserve seat when order is cancelled")
-    public void EventGeatSeatBackIfProcessIsCanceled() {
+    public void EventGetSeatBackIfProcessIsCanceled() {
         //Current ticket size == n
         ticketHandler.createTicket(manySeatsEvent,0);
         //Current ticket size == n-1

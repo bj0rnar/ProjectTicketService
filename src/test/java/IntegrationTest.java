@@ -29,7 +29,7 @@ public class IntegrationTest {
         ticketHandler.createTicket(eSportEvent,0);
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
 
-        ticketHandler.buyAllTickets(123123123123L, 123, customer);
+        ticketHandler.buyAllTickets(123123123123L, 123);
         Assertions.assertEquals(1,customer.getTicketList().size());
     }
 }

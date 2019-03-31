@@ -11,13 +11,14 @@ import java.util.ArrayList;
  */
 public class TicketHandler {
 
+    private Customer customer;
     /**
      * Tickets under process.
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
     public TicketHandler(Customer customer) {
-
+        this.customer = customer;
     }
 
 
@@ -33,14 +34,14 @@ public class TicketHandler {
      * Handles if event has seats or not.
      * Removes a seat if Event has a seat, and gives seat to Ticket. Ticket is added to ticket list.
      * If there are no seats, a plain ticket to event will be created and added to ticket list.
+     *
      * @param event Event that ticket will point to
      */
     public void createTicket(Event event, int seatNumber) {
 
-        if(event.getAreSeatsAvailable()) {
+        if (event.getAreSeatsAvailable()) {
             checkSeatAvailability(event, seatNumber);
-        }
-        else {
+        } else {
             tickets.add(new Ticket(event));
         }
     }
@@ -51,8 +52,7 @@ public class TicketHandler {
 
         if (availableSeats && event.isSeatAvailable(seatNumber)) {
             createSeatedEventTicket(event, seatNumber);
-        }
-        else {
+        } else {
             System.out.println("No more seats available for event: " + event.getName());
         }
     }
@@ -66,8 +66,8 @@ public class TicketHandler {
     }
 
     private void seatReservation(Event event, int seatNumber, Ticket ticket) {
-        if(seatNumber == 0) {
-            seatNumber = event.getEventSeats().size()-1;
+        if (seatNumber == 0) {
+            seatNumber = event.getEventSeats().size() - 1;
         }
         ticket.setSeat(event.getEventSeats().get(seatNumber));
         event.popSeatFromEventSeatList(seatNumber);
@@ -75,30 +75,29 @@ public class TicketHandler {
 
     /**
      * Adds all tickets in tickets list to customer
-     * @param customer
      */
-    public void giveTicketToCustomer(Customer customer) {
-        if(customer != null) {
-            for (Ticket ticket : tickets) {
-                customer.getTicketList().add(ticket);
-                customer.getReceiptList().add(ReceiptMaker.addToReceipt(ticket, customer));
-            }
-        } else {
-            throw new NullPointerException("User is null");
+    public void giveTicketToCustomer() {
+        for (Ticket ticket : tickets) {
+            customer.getTicketList().add(ticket);
+
+            ticket.setReceipt(ReceiptMaker.addToReceipt(ticket, customer));
+            customer.getReceiptList().add(ticket.getReceipt());
         }
+        //Transaction is finished, "reset" the temporary list.
+        tickets = new ArrayList<>();
     }
 
     public int calculatedTotalPrice() {
         return PriceCalculator.summarizePrice(tickets);
     }
 
-    public void buyAllTickets(long accountNumber, int cvs, Customer customer) {
-        if(Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
-            giveTicketToCustomer(customer);
+    public void buyAllTickets(long accountNumber, int cvs) {
+        if (Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
+            giveTicketToCustomer();
         }
     }
 
-    public void printAllTickets(Customer customer){
+    public void printAllTickets() {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
@@ -108,18 +107,17 @@ public class TicketHandler {
      * with ticket are returned to original event.
      */
     public void cancelBuyTicketProcess() {
-        if(tickets.size() != 0) {
+        if (tickets.size() != 0) {
             try {
                 Event event;
-                for (Ticket ticket: tickets) {
-                    if(ticket.getSeat() != null) {
+                for (Ticket ticket : tickets) {
+                    if (ticket.getSeat() != null) {
                         event = ticket.getEvent();
                         event.getEventSeats().add(ticket.getSeat());
                         ticket.setSeat(null);
                     }
                 }
-            }
-            catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 System.out.println("Event no longer exists, or could not be found?");
                 //Do something here, to handle exception
             }

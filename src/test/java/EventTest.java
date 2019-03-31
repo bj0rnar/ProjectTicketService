@@ -33,7 +33,7 @@ public class EventTest {
         ticketHandler.createTicket(oneSeatEvent,0);
         ticketHandler.createTicket(oneSeatEvent,0);
         Assert.assertEquals(1,ticketHandler.getTickets().size());
-        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.giveTicketToCustomer();
         Assert.assertEquals(1,customer.getTicketList().size());
     }
 

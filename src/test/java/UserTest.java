@@ -76,14 +76,14 @@ public class UserTest {
         ticketHandler.createTicket(manySeatsEvent,0);
         ticketHandler.createTicket(manySeatsEvent,0);
         ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.buyAllTickets(123412341234L,123, customer);
+        ticketHandler.buyAllTickets(123412341234L,123);
         Assertions.assertEquals(3, customer.getTicketList().size());
     }
 
     @Test
     public void UserCanReserveASeatToEvent() {
         ticketHandler.createTicket(manySeatsEvent,12);
-        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());
     }
 }

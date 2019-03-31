@@ -1,6 +1,8 @@
 package TicketService.Model;
 
 import TicketService.Users.Customer;
+import TicketService.Utility.PriceCalculator;
+import TicketService.Utility.ReceiptMaker;
 
 import java.util.ArrayList;
 
@@ -79,6 +81,7 @@ public class TicketHandler {
         if(customer != null) {
             for (Ticket ticket : tickets) {
                 customer.getTicketList().add(ticket);
+                customer.getReceiptList().add(ReceiptMaker.addToReceipt(ticket, customer));
             }
         } else {
             throw new NullPointerException("User is null");
@@ -86,17 +89,17 @@ public class TicketHandler {
     }
 
     public int calculatedTotalPrice() {
-        int totalPrice = 0;
-        for(Ticket tickets : tickets) {
-            totalPrice += tickets.getPrice();
-        }
-        return totalPrice;
+        return PriceCalculator.summarizePrice(tickets);
     }
 
     public void buyAllTickets(long accountNumber, int cvs, Customer customer) {
         if(Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
             giveTicketToCustomer(customer);
         }
+    }
+
+    public void printAllTickets(Customer customer){
+        ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
 

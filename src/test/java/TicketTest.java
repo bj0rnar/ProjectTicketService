@@ -100,11 +100,37 @@ public class TicketTest {
 
     @Test
     public void newlyCreatedSeatsAreFucked(){
+        //TODO: Add functionality for adding seats to already created Venue
+        //Currently adds wrong seatNumber to added seats. Seat 100 gets seatNumber 1 in below example
         System.out.println(manySeatsEvent.getEventSeats().get(0).getSeatNumber());
         System.out.println(manySeatsEvent.getEventSeats().get(99).getSeatNumber());
         manySeatsEvent.getVenue().addSeats(10);
         System.out.println(manySeatsEvent.getEventSeats().get(101).getSeatNumber());
     }
 
+    @Test
+    public void receiptAreAddedToCustomerReceiptList(){
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        ticketHandler.giveTicketToCustomer(customer);
+        Assertions.assertEquals(1, customer.getReceiptList().size());
+    }
+
+    @Test
+    public void multipleReceiptsAddedToCustomerReceiptList(){
+        ticketHandler.createTicket(manySeatsEvent, 9);
+        ticketHandler.createTicket(manySeatsEvent,7);
+        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.giveTicketToCustomer(customer);
+        Assertions.assertEquals(3, customer.getReceiptList().size());
+    }
+
+    @Test
+    public void printAllTicketsForUser(){
+        ticketHandler.createTicket(manySeatsEvent, 9);
+        ticketHandler.createTicket(manySeatsEvent,7);
+        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.printAllTickets(customer);
+    }
 
 }

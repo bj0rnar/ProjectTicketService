@@ -87,6 +87,7 @@ public class TicketHandler {
         tickets = new ArrayList<>();
     }
 
+
     public int calculatedTotalPrice() {
         return PriceCalculator.summarizePrice(tickets);
     }

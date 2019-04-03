@@ -1,5 +1,8 @@
 package TicketService.Model;
 
+import TicketService.Utility.PriceCalculator;
+import TicketService.Utility.ReceiptMaker;
+
 public class Ticket {
 
     private static int idCounter = 1;
@@ -8,6 +11,7 @@ public class Ticket {
     private int price;
     private Event event;
     private Venue.Seat seat;
+    private String receipt;
 
     //idCounter is a very simple ID handler. Maybe change it out with hash?
     public Ticket(Event event) {
@@ -17,25 +21,19 @@ public class Ticket {
         idCounter++;
     }
 
-    public int getId() {
-        return id;
-    }
+    public void setReceipt(String receipt){ this.receipt = receipt; }
 
-    public Event getEvent() {
-        return event;
-    }
+    public String getReceipt(){ return receipt; }
 
-    public Venue.Seat getSeat() {
-        return seat;
-    }
+    public int getId() { return id; }
 
-    public int getPrice() {
-        return price;
-    }
+    public Event getEvent() { return event; }
 
-    public void setSeat(Venue.Seat seat) {
-        this.seat = seat;
-    }
+    public Venue.Seat getSeat() { return seat; }
+
+    public int getPrice() { return price; }
+
+    public void setSeat(Venue.Seat seat) { this.seat = seat; }
 
 
 }

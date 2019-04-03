@@ -54,7 +54,7 @@ public class TicketTest {
     public void TicketHasCorrectEventGivenToIt() {
         Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true,new Organizer("a","b","c"));
         ticketHandler.createTicket(event, 0);
-        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());
     }
 
@@ -68,9 +68,9 @@ public class TicketTest {
     @Test
     public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
         ticketHandler.createTicket(manySeatsEvent,0);
-        customer = new Customer("A","B","A@B.COM");
+        //customer = new Customer("A","B","A@B.COM"); <--- resets the list.
         Assert.assertEquals(0, customer.getTicketList().size());
-        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.giveTicketToCustomer();
         Assert.assertEquals(1, customer.getTicketList().size());
         Assert.assertEquals(manySeatsEvent.getName(), customer.getTicketList().get(0).getEvent().getName());
     }
@@ -91,20 +91,62 @@ public class TicketTest {
     @Test
     public void checkSeatAvailability(){
         ticketHandler.createTicket(manySeatsEvent, 4);
-        ticketHandler.giveTicketToCustomer(customer);
+        ticketHandler.giveTicketToCustomer();
         Customer customer2 = new Customer("x", "y", "z");
         TicketHandler ticketHandler2 = new TicketHandler(customer2);
         ticketHandler2.createTicket(manySeatsEvent, 4);
-        ticketHandler2.giveTicketToCustomer(customer2);
+        ticketHandler2.giveTicketToCustomer();
     }
 
     @Test
     public void newlyCreatedSeatsAreFucked(){
+        //TODO: Add functionality for adding seats to already created Venue
+        //Currently adds wrong seatNumber to added seats. Seat 100 gets seatNumber 1 in below example
         System.out.println(manySeatsEvent.getEventSeats().get(0).getSeatNumber());
         System.out.println(manySeatsEvent.getEventSeats().get(99).getSeatNumber());
         manySeatsEvent.getVenue().addSeats(10);
         System.out.println(manySeatsEvent.getEventSeats().get(101).getSeatNumber());
     }
 
+    @Test
+    public void receiptAreAddedToCustomerReceiptList(){
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        ticketHandler.giveTicketToCustomer();
+        Assertions.assertEquals(1, customer.getReceiptList().size());
+    }
+
+    @Test
+    public void multipleReceiptsAddedToCustomerReceiptList(){
+        ticketHandler.createTicket(manySeatsEvent, 9);
+        ticketHandler.createTicket(manySeatsEvent,7);
+        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.giveTicketToCustomer();
+        Assertions.assertEquals(3, customer.getReceiptList().size());
+    }
+
+    @Test
+    public void printAllTicketsForUser(){
+        ticketHandler.createTicket(manySeatsEvent, 9);
+        ticketHandler.createTicket(manySeatsEvent,7);
+        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.giveTicketToCustomer();
+        ticketHandler.printAllTickets();
+    }
+
+    @Test
+    public void ticketHandlerArrayNowWorksAsTemporaryList(){
+        ticketHandler.createTicket(manySeatsEvent, 1);
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        Assertions.assertEquals(2, ticketHandler.getTickets().size());
+        ticketHandler.giveTicketToCustomer();
+        Assertions.assertEquals(0, ticketHandler.getTickets().size());
+        Assertions.assertEquals(2, customer.getTicketList().size());
+        ticketHandler.createTicket(manySeatsEvent, 2);
+        Assertions.assertEquals(1, ticketHandler.getTickets().size());
+        ticketHandler.giveTicketToCustomer();
+        Assertions.assertEquals(3, customer.getTicketList().size());
+        Assertions.assertEquals(0, ticketHandler.getTickets().size());
+
+    }
 
 }

@@ -71,7 +71,7 @@ public class Event {
         return null;
     }
 
-    //Use this method if you need to reserve a spot. Example: Spesific date tickets.
+    //Remove all seats after
     public void removeSeatingFrom(int SeatingNumberWhereAllSeatsAfterThisWillBeRemoved) {
         if(SeatingNumberWhereAllSeatsAfterThisWillBeRemoved > eventSeats.size()) {
             System.out.println("Too high seating number. Try a smaller number.");
@@ -80,7 +80,11 @@ public class Event {
         }
         for(int x = SeatingNumberWhereAllSeatsAfterThisWillBeRemoved; x<eventSeats.size();x++) {
 
-            eventSeats.remove(x);
+            for(Venue.Seat seat : eventSeats) {
+                if(seat.getSeatNumber() == x) {
+                    eventSeats.remove(seat);
+                }
+            }
         }
 
     }

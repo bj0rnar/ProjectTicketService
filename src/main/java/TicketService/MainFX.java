@@ -2,6 +2,7 @@ package TicketService;
 
 import TicketService.Controller.MainWindowController;
 import TicketService.Controller.SecondWindowController;
+import TicketService.DataAccess.DataContext;
 import TicketService.Model.EventHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
@@ -22,8 +23,8 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Venue.CreateVenues();
-        EventHandler.CreateEvents();
+        DataContext.CreateVenues();
+        DataContext.CreateEvents();
         minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;

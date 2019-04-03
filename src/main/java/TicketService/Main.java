@@ -1,5 +1,6 @@
 package TicketService;
 
+import TicketService.DataAccess.DataContext;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -15,8 +16,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
-        Venue.CreateVenues();
-        EventHandler.CreateEvents();
+        DataContext.CreateVenues();
+        DataContext.CreateEvents();
 
         Event event = EventHandler.getEventList().stream()
                 .filter(asd -> "TG19".equals(asd.getName()))

@@ -1,5 +1,6 @@
 package TicketService.Model;
 
+import TicketService.DataAccess.Bank;
 import TicketService.Users.Customer;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class TicketHandler {
     public TicketHandler(Customer customer) {
 
     }
-
 
     /**
      * @return list of processed tickets

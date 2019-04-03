@@ -1,10 +1,12 @@
 package TicketService.Model;
 
+import TicketService.DataAccess.DataContext;
+
 import java.util.ArrayList;
 
 public class Venue {
 
-    public static ArrayList<Venue> venues = new ArrayList<>();
+
     private ArrayList<Seat> seats;
     private String name;
 
@@ -23,12 +25,8 @@ public class Venue {
     }
 
 
-    public static void CreateVenues() {
-        if(venues.size() == 0) {
-            venues.add(new Venue(100, "Hall 1"));
-            venues.add(new Venue(1, "Hall 2"));
-            venues.add(new Venue(0,"Skogen"));
-        }
+    public static ArrayList<Venue> getVenues() {
+        return DataContext.getVenues();
     }
 
     public void addSeats(int totalSeats) {

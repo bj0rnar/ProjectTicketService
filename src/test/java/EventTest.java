@@ -1,3 +1,4 @@
+import TicketService.DataAccess.DataContext;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
@@ -74,7 +75,7 @@ public class EventTest {
     @Test
     @DisplayName("GUI stuff")
     public void EventFXListIsEqualToEventList() {
-        EventHandler.CreateEvents();
+        DataContext.CreateEvents();
         ArrayList<Event> list = EventHandler.getEventList();
         ObservableList<Event> listFx = EventHandler.getEventListFX();
 

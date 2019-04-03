@@ -1,0 +1,11 @@
+@startuml
+(*)  --> "Cancel order"
+If "Array ticketlist empty" then
+--> [Yes] "Pop first ticket in \n shopping cart"
+--> "Return ticket to event"
+--> "Leave page"
+else
+--> "Leave page"
+Endif
+-->(*)
+@enduml

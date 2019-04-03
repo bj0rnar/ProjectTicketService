@@ -68,19 +68,7 @@ public class EventHandler {
     public ArrayList<Event> getOrganizerEventList() {
         return organizerEventList;
     }
-
-    //Just moved this further down.
-    public static void CreateEvents() {
-        if(Venue.venues.size() == 0) {
-            Venue.CreateVenues();
-        }
-        if(eventList.size() == 0) {
-            eventList.add(new Event("TG19", Venue.venues.get(0), LocalDate.of(2019,3,21), 100, true, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("EnSetersEvent", Venue.venues.get(1), LocalDate.of(2019,3,21), 100,true, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("Sopptur", Venue.venues.get(2), LocalDate.of(2019,3,21), 100,false, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
-        }
-    }
-
+    
 
     public static ArrayList<Event> getEventList() {
         return DataContext.getEventList();

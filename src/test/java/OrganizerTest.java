@@ -23,13 +23,13 @@ public class OrganizerTest {
     }
 
     @Test
-    public void checkSame(){
+    public void verifyThatTheSameEventIsUploadedInBothLocalListandDB(){
         eventHandler.createNewEvent("rere", v , LocalDate.now(), 123, false);
         Assertions.assertEquals(eventHandler.getOrganizerEventList().get(0), FakeDB.uploadedEvents.get(0));
     }
 
     @Test
-    public void removal(){
+    public void removeEventFromBothLocalAndDB(){
         int currentStateOfDB = FakeDB.uploadedEvents.size();
         int currentStateOfLocal = eventHandler.getOrganizerEventList().size();
         eventHandler.createNewEvent("Tjohei", v, LocalDate.now(), 123, true);

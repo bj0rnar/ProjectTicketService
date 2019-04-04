@@ -68,7 +68,7 @@ public class EventHandler {
     public ArrayList<Event> getOrganizerEventList() {
         return organizerEventList;
     }
-    
+
 
     public static ArrayList<Event> getEventList() {
         return DataContext.getEventList();

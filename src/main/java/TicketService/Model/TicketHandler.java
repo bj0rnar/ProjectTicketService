@@ -14,7 +14,9 @@ public class TicketHandler {
 
     private Customer customer;
     /**
-     * Tickets under process.
+     * TicketHandler is designed to function as a shopping cart in online stores.
+     * All purchaes are stored in customers personal list (Customer TicketList)
+     * and processed in "tickets" array below.
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
@@ -46,6 +48,10 @@ public class TicketHandler {
         }
     }
 
+    /**
+     * Checks for available seats and specific seat
+     */
+
     private void checkSeatAvailability(Event event, int seatNumber) {
 
         boolean availableSeats = event.getEventSeats().size() != 0;
@@ -57,6 +63,9 @@ public class TicketHandler {
         }
     }
 
+    /**
+     * Create ticket if seating is available and either seat is not reserved OR seating is assigned.
+     */
 
     private void createSeatedEventTicket(Event event, int seatNumber) {
         Ticket ticket = new Ticket(event);
@@ -64,6 +73,10 @@ public class TicketHandler {
         tickets.add(ticket);
 
     }
+
+    /**
+     * seatNumber == 0 is for cases where customers are ASSIGNED seats (not selecting seats themselves)
+     */
 
     private void seatReservation(Event event, int seatNumber, Ticket ticket) {
         if (seatNumber == 0) {
@@ -74,7 +87,7 @@ public class TicketHandler {
     }
 
     /**
-     * Adds all tickets in tickets list to customer
+     * Adds all tickets in tickets list to customer. + Receipts
      */
     public void giveTicketToCustomer() {
         for (Ticket ticket : tickets) {
@@ -87,16 +100,22 @@ public class TicketHandler {
         tickets = new ArrayList<>();
     }
 
-
+    /**
+     * Returns a total ticket price for all tickets currently in shopping cart
+     */
     public int calculatedTotalPrice() {
         return PriceCalculator.summarizePrice(tickets);
     }
 
+    /**
+     * Bank.PayTotalPrice should be stubbed/faked/mocked. Currently only returns true
+     */
     public void buyAllTickets(long accountNumber, int cvs) {
         if (Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
             giveTicketToCustomer();
         }
     }
+
 
     public void printAllTickets() {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());

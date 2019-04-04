@@ -23,9 +23,6 @@ public class EventHandler {
 
     private Organizer organizer;
 
-    //Organizer private list
-    private ArrayList<Event> organizerEventList = new ArrayList<>();
-
     public EventHandler(Organizer organizer){
         this.organizer = organizer;
     }
@@ -38,7 +35,7 @@ public class EventHandler {
     }
 
     public void upload(Event event){
-        organizerEventList.add(event);
+        organizer.getEvents().add(event);
         FakeDB.uploadedEvents.add(event);
     }
 
@@ -46,7 +43,7 @@ public class EventHandler {
         Event event = SelectEvent(name);
         if(event != null) {
             FakeDB.uploadedEvents.remove(event);
-            organizerEventList.remove(event);
+            organizer.getEvents().remove(event);
         }
         else
             System.out.println("That's not yours to delete");
@@ -56,7 +53,7 @@ public class EventHandler {
      * Representation of onClick, remove once added to javaFX
      */
     private Event SelectEvent(String name) {
-        for(Event e : organizerEventList){
+        for(Event e : organizer.getEvents()){
             System.out.println(e.getName() + " " +  e.getDate() + " " + e.getVenue().getName());
             if(e.getName().equals(name)){
                 return e;
@@ -65,9 +62,6 @@ public class EventHandler {
         return null;
     }
 
-    public ArrayList<Event> getOrganizerEventList() {
-        return organizerEventList;
-    }
 
 
     public static ArrayList<Event> getEventList() {

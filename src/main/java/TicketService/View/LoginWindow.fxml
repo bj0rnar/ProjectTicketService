@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.LoginWindowController">
+   <children>
+      <GridPane prefHeight="400.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="272.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <SplitPane dividerPositions="0.8151658767772512" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="198.0">
+                     <children>
+                        <SplitPane dividerPositions="0.398989898989899" prefHeight="220.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="68.0">
+                                 <children>
+                                    <Text layoutX="11.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                                    <Text layoutX="11.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="53.291015625" />
+                                    <Text layoutX="11.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" />
+                                    <Text layoutX="11.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" />
+                                    <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="101.0">
+                                 <children>
+                                    <TextField fx:id="firstNameText" layoutX="8.0" layoutY="18.0" prefHeight="25.0" prefWidth="100.0" text="Gunnar" />
+                                    <TextField fx:id="lastNameText" layoutX="8.0" layoutY="52.0" prefHeight="25.0" prefWidth="100.0" text="Johnsen" />
+                                    <TextField fx:id="usernameText" layoutX="8.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" text="PussySlayer99" />
+                                    <PasswordField fx:id="passwordText" layoutX="8.0" layoutY="179.0" prefHeight="25.0" prefWidth="100.0" text="abc123" />
+                                    <TextField fx:id="emailText" layoutX="8.0" layoutY="115.0" prefHeight="25.0" prefWidth="100.0" text="Pu@mail.com" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <SplitPane prefHeight="63.0" prefWidth="200.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="198.0">
+                                 <children>
+                                    <Button fx:id="loginButton" layoutX="128.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#logInUser" text="Login" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="200.03125" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial" size="27.0" />
+               </font>
+            </Text>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

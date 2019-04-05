@@ -44,13 +44,4 @@ public class OrganizerTest {
         Assertions.assertEquals(currentStateOfLocal, organizer.getEvents().size());
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());
     }
-
-    @Test
-    public void changeParameterInAlreadyMadeEvent(){
-        eventHandler.createNewEvent("rere", v, LocalDate.now(), 999999, true);
-        int lastAdded = organizer.getEvents().size() - 1;
-        organizer.getEvents().get(lastAdded).setName("success");
-        Assertions.assertEquals("success", organizer.getEvents().get(lastAdded).getName());
-    }
-
 }

@@ -39,14 +39,9 @@ public class DataContext {
     }
 
     public static ObservableList<Event> getEventListFX() {
-        if(eventListFX.size() != eventList.size()) {
-            if(eventList.size() > 0) {
-                //Clears list, prevents duplicates.
-                eventListFX = FXCollections.observableArrayList();
-                for(Event event : eventList) {
-                    eventListFX.add(event);
-                }
-            }
+        eventListFX.clear();
+        for(Event event : getEventList()) {
+            eventListFX.add(event);
         }
         return eventListFX;
     }

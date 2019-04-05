@@ -34,7 +34,6 @@ public class MainFX extends Application {
             ScreenController screenController = new ScreenController(hovedScene);
             screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
             screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/MainWindow.fxml")));
-            screenController.addScreen("BuyTicket", FXMLLoader.load(getClass().getResource("View/BuyTicketWindow.fxml")));
 
 
 

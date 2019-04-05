@@ -6,15 +6,12 @@ import TicketService.Model.TicketHandler;
 import TicketService.Users.Customer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -68,8 +65,10 @@ public class MainWindowController {
             ticketHandler = new TicketHandler(customer);
         }
         Event event = (Event)eventListView.getSelectionModel().getSelectedItem();
-        ticketHandler.createTicket(event, 0);
-        totalAmountOfItems.setText("Shopping cart items: " + ticketHandler.getTickets().size());
+        if(event != null) {
+            ticketHandler.createTicket(event, 0);
+            totalAmountOfItems.setText("Shopping cart items: " + ticketHandler.getTickets().size());
+        }
 
     }
 
@@ -89,7 +88,7 @@ public class MainWindowController {
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
 
-            SecondWindowController secondController = fxmlLoader.getController();
+            BuyTicketController secondController = fxmlLoader.getController();
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();
@@ -115,7 +114,7 @@ public class MainWindowController {
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
 
-            SecondWindowController secondController = fxmlLoader.getController();
+            BuyTicketController secondController = fxmlLoader.getController();
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();

@@ -1,15 +1,10 @@
 package TicketService.Controller;
 
-import TicketService.Model.TicketHandler;
+import javafx.scene.input.MouseEvent;
 
 public class BuyTicketController {
-    private TicketHandler ticketHandler;
 
-    public BuyTicketController(TicketHandler ticketHandler) {
 
-    }
-
-    public void setTicketHandler(TicketHandler ticketHandler) {
-        this.ticketHandler = ticketHandler;
+    public void logInUser(MouseEvent mouseEvent) {
     }
 }

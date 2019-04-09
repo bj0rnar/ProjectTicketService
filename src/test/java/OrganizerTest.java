@@ -5,6 +5,7 @@ import TicketService.Users.Organizer;
 import TicketService.Utility.FakeDB;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -25,12 +26,14 @@ public class OrganizerTest {
         currentStateOfLocal = organizer.getEvents().size();
     }
 
+    @DisplayName("Organizer har en liste over sine egne events, Databasen har liste over alle. Sjekker at nye events blir lastet opp til begge")
     @Test
     public void verifyThatTheSameEventIsUploadedInBothLocalListandDB(){
         eventHandler.createNewEvent("rere", v , LocalDate.now(), 123, false);
         Assertions.assertEquals(organizer.getEvents().get(currentStateOfLocal), FakeDB.uploadedEvents.get(currentStateOfDB));
     }
 
+    @DisplayName("Se beskrivelse over. Sjekker her at man fjerner fra begge events")
     @Test
     public void removeEventFromBothLocalAndDB(){
         eventHandler.createNewEvent("Tjohei", v, LocalDate.now(), 123, true);
@@ -45,12 +48,6 @@ public class OrganizerTest {
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());
     }
 
-    @Test
-    public void changeParameterInAlreadyMadeEvent(){
-        eventHandler.createNewEvent("rere", v, LocalDate.now(), 999999, true);
-        int lastAdded = organizer.getEvents().size() - 1;
-        organizer.getEvents().get(lastAdded).setName("success");
-        Assertions.assertEquals("success", organizer.getEvents().get(lastAdded).getName());
-    }
+
 
 }

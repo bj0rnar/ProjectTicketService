@@ -23,7 +23,7 @@ public class VenueCreationTest {
     public void organizerCreatesANewVenueAndItsUsableForEvents(){
 
         int DBIndexForVenues = FakeDB.officialVenueList.size();
-        int DBIndexForEvents = FakeDB.officialVenueList.size();
+        int DBIndexForEvents = FakeDB.uploadedEvents.size();
 
 
         eventHandler.createNewVenue(1, "Heisann");

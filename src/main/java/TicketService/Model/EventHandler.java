@@ -3,6 +3,7 @@ package TicketService.Model;
 import TicketService.DataAccess.DataContext;
 import TicketService.Users.Organizer;
 import TicketService.Utility.FakeDB;
+import TicketService.Utility.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,8 +30,6 @@ public class EventHandler {
 
     public void createNewEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable){
         Event event = new Event(name, venue, date, ticketPrice, areSeatsAvailable, organizer);
-       // organizerEventList.add(event);
-       // FakeDB.uploadedEvents.add(event);
         upload(event);
     }
 

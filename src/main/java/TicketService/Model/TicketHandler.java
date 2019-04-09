@@ -119,9 +119,6 @@ public class TicketHandler {
         }
     }
 
-    public boolean validateTicket(Ticket t, Event e){
-        return Validator.validateTicket(e, t);
-    }
 
     public void printAllTickets() {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());

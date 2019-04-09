@@ -48,6 +48,10 @@ public class EventHandler {
             System.out.println("That's not yours to delete");
     }
 
+    public boolean validateTicket(Ticket t, Event e){
+        return Validator.validateTicket(e, t);
+    }
+
     /**
      * Representation of onClick, remove once added to javaFX
      */
@@ -60,8 +64,6 @@ public class EventHandler {
         }
         return null;
     }
-
-
 
     public static ArrayList<Event> getEventList() {
         return DataContext.getEventList();

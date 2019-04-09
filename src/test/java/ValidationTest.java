@@ -1,4 +1,5 @@
 import TicketService.Model.Event;
+import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
@@ -16,13 +17,14 @@ public class ValidationTest {
     Event oneSeatEvent, manySeatsEvent;
     Customer customer;
     TicketHandler ticketHandler;
-    Validator validator;
+    EventHandler eventHandler;
 
     @BeforeEach
     public void setUp(){
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
+        eventHandler = new EventHandler(organizer);
         customer = new Customer("A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
@@ -45,15 +47,34 @@ public class ValidationTest {
     @Test
     public void validatorWorksAsIntended(){
         ticketHandler.createTicket(manySeatsEvent, 4);
-        int index = ticketHandler.getTickets().size();
+        ticketHandler.giveTicketToCustomer();
+        int index = customer.getTicketList().size();
         --index;
-        Assertions.assertTrue(ticketHandler.validateTicket(ticketHandler.getTickets().get(index), manySeatsEvent));
-        Assertions.assertFalse(ticketHandler.validateTicket(ticketHandler.getTickets().get(index), oneSeatEvent));
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
+        Assertions.assertFalse(eventHandler.validateTicket(customer.getTicketList().get(index), oneSeatEvent));
+    }
+    
+    @Test
+    public void cancellingRemovesVerificationCodeFromAccepted(){
+        ticketHandler.createTicket(manySeatsEvent,1);
+        int index = ticketHandler.getTickets().size();
+        int index2 = manySeatsEvent.getVerificationCodeList().size();
+        --index2;
+        --index;
+        Assertions.assertEquals(ticketHandler.getTickets().get(index).getVerificationCode(), manySeatsEvent.getVerificationCodeList().get(index2));
+        ticketHandler.cancelBuyTicketProcess();
+        Assertions.assertNotEquals(ticketHandler.getTickets().get(index).getVerificationCode(), manySeatsEvent.getVerificationCodeList().get(index2));
     }
 
     @Test
-    public void wat(){
-        ticketHandler.createTicket(manySeatsEvent, 44);
-        System.out.println(ticketHandler.getTickets().get(0).getVerificationCode());
+    public void multipleTicketsAreValidated(){
+        int index = customer.getTicketList().size();
+        ticketHandler.createTicket(manySeatsEvent, 1);
+        ticketHandler.createTicket(manySeatsEvent, 69);
+        ticketHandler.giveTicketToCustomer();
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
+        ++index;
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
     }
+
 }

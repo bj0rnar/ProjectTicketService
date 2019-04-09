@@ -173,5 +173,26 @@ public class TicketTest {
 
     }
 
+    @DisplayName("TicketHandler sin liste er handlekurv, customer sin liste er kjøpshistorikk.")
+    @Test
+    public void customerIsGivenTickets(){
+        int ticketHandlerTemporaryList = ticketHandler.getTickets().size();
+        int customerPermanentList = customer.getTicketList().size();
+
+        ticketHandler.createTicket(manySeatsEvent, 17);
+        ++ticketHandlerTemporaryList;
+        Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
+        Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
+
+        ticketHandler.giveTicketToCustomer();
+
+        --ticketHandlerTemporaryList;
+        ++customerPermanentList;
+
+        Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
+        Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
+
+    }
+
 
 }

@@ -30,12 +30,22 @@ public class EventHandler {
 
     public void createNewEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable){
         Event event = new Event(name, venue, date, ticketPrice, areSeatsAvailable, organizer);
-        upload(event);
+        uploadEvents(event);
     }
 
-    public void upload(Event event){
+    public void uploadEvents(Event event){
         organizer.getEvents().add(event);
         FakeDB.uploadedEvents.add(event);
+    }
+
+    public void createNewVenue(int numberOfSeats, String nameOfVenue){
+        Venue venue = new Venue(numberOfSeats, nameOfVenue);
+        uploadVenues(venue);
+    }
+
+    private void uploadVenues(Venue venue) {
+        organizer.getUserCreatedVenues().add(venue);
+        FakeDB.officialVenueList.add(venue);
     }
 
     public void removeArrangementFromDB(String name){

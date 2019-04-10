@@ -4,6 +4,8 @@ import TicketService.DataAccess.Bank;
 import TicketService.Users.Customer;
 import TicketService.Utility.PriceCalculator;
 import TicketService.Utility.ReceiptMaker;
+import TicketService.Utility.Validator;
+import TicketService.Utility.VerificationCodeMaker;
 
 import java.util.ArrayList;
 
@@ -84,6 +86,7 @@ public class TicketHandler {
         }
         ticket.setSeat(event.getEventSeats().get(seatNumber));
         event.popSeatFromEventSeatList(seatNumber);
+        event.getVerificationCodeList().add(ticket.getVerificationCode());
     }
 
     /**
@@ -135,6 +138,7 @@ public class TicketHandler {
                         event = ticket.getEvent();
                         event.getEventSeats().add(ticket.getSeat());
                         ticket.setSeat(null);
+                        ticket.setVerificationCode(null);
                     }
                 }
             } catch (NullPointerException e) {

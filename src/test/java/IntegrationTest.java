@@ -4,12 +4,13 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 public class IntegrationTest {
-
+    
     @Test
     public void BuyTicketProcessLimitedSeats() {
         Customer customer = new Customer("Jon", "Doe", "Jond@mail.com");

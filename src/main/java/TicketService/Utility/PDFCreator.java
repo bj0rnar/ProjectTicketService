@@ -6,7 +6,6 @@ import java.io.IOException;
 
 
 import TicketService.Model.Ticket;
-import TicketService.Users.Customer;
 import com.itextpdf.kernel.pdf.PdfDocument;
 
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -14,6 +13,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 
 import com.itextpdf.layout.element.Paragraph;
+
+import javax.swing.*;
 
 
 public class PDFCreator {
@@ -24,11 +25,15 @@ public class PDFCreator {
 
     }
 
-    private static String chooseSaveDestination() throws IOException {
+    private static String chooseSaveDestination(){
         //Blabla file open picker?
-        String newPath = "C:\\pleaseWorkDirectory\\helloWorld.pdf";
-        File file = new File(newPath);
-        file.getParentFile().mkdirs();
+        //Swing looks like poo
+        String newPath = "";
+        JFileChooser saver = new JFileChooser();
+        if(saver.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            File file = saver.getSelectedFile();
+            newPath = file.getPath();
+        }
         return newPath;
     }
 

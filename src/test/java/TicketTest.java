@@ -18,8 +18,8 @@ public class TicketTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
-        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
-        customer = new Customer("A","B","A@B.COM");
+        Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
+        customer = new Customer("Herald", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100,false, organizer);
@@ -51,7 +51,7 @@ public class TicketTest {
 
     @Test
     public void TicketHasCorrectEventGivenToIt() {
-        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true,new Organizer("a","b","c"));
+        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true, new Organizer("yeeee","password","a","b","c"));
         ticketHandler.createTicket(event, 0);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());
@@ -92,7 +92,7 @@ public class TicketTest {
     public void checkSeatAvailability(){
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer();
-        Customer customer2 = new Customer("x", "y", "z");
+        Customer customer2 = new Customer("Hobba", "MyPassword","x", "y", "z");
         TicketHandler ticketHandler2 = new TicketHandler(customer2);
         ticketHandler2.createTicket(manySeatsEvent, 4);
         ticketHandler2.giveTicketToCustomer();

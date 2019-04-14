@@ -18,9 +18,9 @@ public class UserTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
-        customer = new Customer("Jon","Doe","A@B.COM");
+        customer = new Customer("Arnoldsen", "MyPassword","Jon","Doe","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
+        Organizer organizer = new Organizer("Knutsen", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
 
@@ -31,16 +31,16 @@ public class UserTest {
     public void EachUserGetsUniqueIdWhenUserIsCreated(){
         System.out.println("**************** USER ID CHECK *****************");
         int idChecker;
-        Customer firstUser = new Customer("A","B","A@B.COM");
+        Customer firstUser = new Customer("Fredrik", "MyPassword","A","B","A@B.COM");
         idChecker = firstUser.getId();
         Assert.assertEquals(idChecker, firstUser.getId());
         System.out.println(idChecker);
-        Customer secondUser = new Customer("A","B","A@B.COM");
+        Customer secondUser = new Customer("Kjetil", "MyPassword","A","B","A@B.COM");
         idChecker++;
         System.out.println(idChecker);
         System.out.println(secondUser.getId());
         Assert.assertEquals(idChecker, secondUser.getId());
-        Customer firstCustomer = new Customer("A","B","A@B.COM");
+        Customer firstCustomer = new Customer("Gunnar", "MyPassword","A","B","A@B.COM");
         idChecker++;
         System.out.println(idChecker);
         System.out.println(firstCustomer.getId());
@@ -57,7 +57,7 @@ public class UserTest {
 
     @Test
     public void UserConstructorWorksCorrectly() {
-        Customer customer = new Customer("Gunnar","Kristiansen", "Gk@htomail.com");
+        Customer customer = new Customer("Granada", "MyPassword","Gunnar","Kristiansen", "Gk@htomail.com");
         Assertions.assertEquals("Gunnar",customer.getFirstname());
         Assertions.assertEquals("Kristiansen",customer.getLastname());
         Assertions.assertEquals("Gunnar Kristiansen",customer.getFullname());
@@ -66,7 +66,7 @@ public class UserTest {
 
     @Test
     public void OrganizerCanCreateEventCorrectly() {
-        Organizer organizer = new Organizer("Leon", "Kennedy","old@school.com");
+        Organizer organizer = new Organizer("Krisito", "MyPassword","Leon", "Kennedy","old@school.com");
         organizer.createEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432, false);
         Assertions.assertEquals("Event name", organizer.getEvents().get(0).getName());
     }

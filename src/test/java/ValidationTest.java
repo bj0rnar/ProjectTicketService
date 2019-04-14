@@ -23,9 +23,9 @@ public class ValidationTest {
     public void setUp(){
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
-        Organizer organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
+        Organizer organizer = new Organizer("BrukernavnetErIBruk", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         eventHandler = new EventHandler(organizer);
-        customer = new Customer("A","B","A@B.COM");
+        customer = new Customer("BrukernavnetErIkkeIBruk", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);

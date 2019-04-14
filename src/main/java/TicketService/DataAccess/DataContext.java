@@ -2,7 +2,9 @@ package TicketService.DataAccess;
 
 import TicketService.Model.Event;
 import TicketService.Model.Venue;
+import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
+import TicketService.Users.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,16 +14,27 @@ import java.util.ArrayList;
 public class DataContext {
 
     private static ArrayList<Event> eventList = new ArrayList<>();
+    private static ArrayList<User> userList = new ArrayList<>();
     private static ArrayList<Venue> venues = new ArrayList<>();
     private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
     public static void CreateEvents() {
 
         if(eventList.size() == 0) {
-            eventList.add(new Event("TG19", Venue.getVenues().get(0), LocalDate.of(2019,3,21), 100, true, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("EnSetersEvent", Venue.getVenues().get(1), LocalDate.of(2019,3,21), 100,true, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100,false, new Organizer("Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("TG19", Venue.getVenues().get(0), LocalDate.of(2019,3,21), 100, true, new Organizer("Egil", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("EnSetersEvent", Venue.getVenues().get(1), LocalDate.of(2019,3,21), 100,true, new Organizer("Haraldio", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100,false, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
         }
+    }
+    public static void CreateUsers() {
+        if(userList.size() == 0) {
+            userList.add(new Customer("Kombo", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
+            userList.add(new Organizer("Damba", "MyPassword","Damba", "Samba","DambaSamba@mail.com"));
+        }
+    }
+
+    public static void authUserLogin(User user) {
+
     }
 
     public static void CreateVenues() {

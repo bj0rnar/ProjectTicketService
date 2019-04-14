@@ -20,8 +20,8 @@ public class EventTest {
     public void eachStartUp() {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
-        organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
-        customer = new Customer("A","B","A@B.COM");
+        organizer = new Organizer("MyUsername", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
+        customer = new Customer("MyUsernameCustomer", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);

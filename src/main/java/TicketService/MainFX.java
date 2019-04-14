@@ -27,12 +27,12 @@ public class MainFX extends Application {
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("View/LoginWindow.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("View/RegisterWindow.fxml"));
             Parent LoginWindowOverview = fxmlLoader.load();
             Scene hovedScene = new Scene(LoginWindowOverview, 580, 400);
 
             ScreenController screenController = new ScreenController(hovedScene);
-            screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
+            screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/RegisterWindow.fxml")));
             screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/MainWindow.fxml")));
 
 

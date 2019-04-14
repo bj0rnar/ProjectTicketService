@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="355.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.LoginWindowController">
    <children>
-      <GridPane prefHeight="400.0" prefWidth="600.0">
+      <GridPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,20 +27,14 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="68.0">
                                  <children>
-                                    <Text layoutX="11.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-                                    <Text layoutX="11.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="53.291015625" />
-                                    <Text layoutX="11.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" />
-                                    <Text layoutX="11.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" />
-                                    <Text layoutX="14.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
+                                    <Text layoutX="11.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                                    <Text layoutX="11.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="53.291015625" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="101.0">
                                  <children>
-                                    <TextField fx:id="firstNameText" layoutX="8.0" layoutY="18.0" prefHeight="25.0" prefWidth="100.0" text="Gunnar" />
-                                    <TextField fx:id="lastNameText" layoutX="8.0" layoutY="52.0" prefHeight="25.0" prefWidth="100.0" text="Johnsen" />
-                                    <TextField fx:id="usernameText" layoutX="8.0" layoutY="84.0" prefHeight="25.0" prefWidth="100.0" text="PussySlayer99" />
-                                    <PasswordField fx:id="passwordText" layoutX="8.0" layoutY="179.0" prefHeight="25.0" prefWidth="100.0" text="abc123" />
-                                    <TextField fx:id="emailText" layoutX="8.0" layoutY="115.0" prefHeight="25.0" prefWidth="100.0" text="Pu@mail.com" />
+                                    <TextField fx:id="usernameText" layoutX="8.0" layoutY="30.0" prefHeight="25.0" prefWidth="100.0" text="Mats" />
+                                    <PasswordField fx:id="passwordText" layoutX="8.0" layoutY="74.0" prefHeight="25.0" prefWidth="100.0" text="MyPassword" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -50,11 +44,29 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Register" textAlignment="CENTER" wrappingWidth="200.03125" GridPane.columnIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Login" textAlignment="CENTER" wrappingWidth="200.03125" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial" size="27.0" />
                </font>
             </Text>
+            <SplitPane dividerPositions="0.2967032967032967" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer:" />
+                        <Text layoutX="41.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username: Mats" />
+                        <Text layoutX="41.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: MyPassword" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="175.0" prefWidth="198.0">
+                     <children>
+                        <Text layoutX="41.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: MyPassword" />
+                        <Text layoutX="41.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username: Lars" />
+                        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Organizer:" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
          </children>
       </GridPane>
    </children>

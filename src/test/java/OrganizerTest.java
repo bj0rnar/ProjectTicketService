@@ -19,7 +19,7 @@ public class OrganizerTest {
 
     @BeforeEach
     public void setup(){
-        organizer = new Organizer("James", "Bond", "007@MI6.UK");
+        organizer = new Organizer("BillyBob", "MyPassword","James", "Bond", "007@MI6.UK");
         eventHandler = new EventHandler(organizer);
         v = new Venue(48, "Sjoa samvirkelag");
         currentStateOfDB = FakeDB.uploadedEvents.size();

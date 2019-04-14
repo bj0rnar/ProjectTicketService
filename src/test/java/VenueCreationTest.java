@@ -15,7 +15,7 @@ public class VenueCreationTest {
 
     @BeforeEach
     public void setup(){
-        organizer = new Organizer("TicketService", "ServiceTicket","Ticket@service.com");
+        organizer = new Organizer("DisOrganizer", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         eventHandler = new EventHandler(organizer);
     }
 

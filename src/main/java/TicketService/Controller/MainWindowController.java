@@ -67,7 +67,7 @@ public class MainWindowController {
                 addToCartButton.setDisable(true);
             }
             seatsLeftStaticText.setText("Seats left: ");
-            SeatsLeftEventText.setText(event.getVenue().getSeats().size() + ".");
+            SeatsLeftEventText.setText((String.valueOf(event.getVenue().getSeats().size())));
         } else {
             addToCartButton.setDisable(false);
             SeatsLeftEventText.setText("");

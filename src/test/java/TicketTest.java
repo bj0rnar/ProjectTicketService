@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class TicketTest {
 
-    Event oneSeatEvent, manySeatsEvent;
+    Event oneSeatEvent, manySeatsEvent, noSeatEvent;
     Customer customer;
     TicketHandler ticketHandler;
 
@@ -22,6 +22,7 @@ public class TicketTest {
         customer = new Customer("A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100,false, organizer);
         manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
 
     }
@@ -153,9 +154,9 @@ public class TicketTest {
 
     }
 
-    @DisplayName("Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
+    @DisplayName("Event med seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
     @Test
-    public void verifiyCorrectlyWrittenReceiptFromEvent(){
+    public void verifiyCorrectlyWrittenReceiptFromEventWithSeats(){
         StringBuilder s = new StringBuilder();
         s.append("Customer: " + "A " + "B" + "\n");
         s.append("manySeatedEvent " +  LocalDate.of(2000,1,1) + "\n");
@@ -164,6 +165,26 @@ public class TicketTest {
 
 
         ticketHandler.createTicket(manySeatsEvent, 1);
+        ticketHandler.giveTicketToCustomer();
+
+        int index = customer.getReceiptList().size();
+
+
+        Assertions.assertEquals(s.toString(), customer.getReceiptList().get(index-1));
+
+    }
+
+    @DisplayName("Event uten seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
+    @Test
+    public void verifiyCorrectlyWrittenReceiptFromEventWithoutSeats(){
+        StringBuilder s = new StringBuilder();
+        s.append("Customer: " + "A " + "B" + "\n");
+        s.append("noSeatEvent " +  LocalDate.of(2000,1,1) + "\n");
+        s.append("Hall 2" + "\n");
+        s.append("Price: " + 100);
+
+
+        ticketHandler.createTicket(noSeatEvent, 0);
         ticketHandler.giveTicketToCustomer();
 
         int index = customer.getReceiptList().size();

@@ -1,28 +1,21 @@
 package TicketService.Controller;
 
-import TicketService.Model.Event;
-import TicketService.Model.EventHandler;
-import TicketService.Model.TicketHandler;
+import TicketService.DataAccess.DataContext;
 import TicketService.Users.Customer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import TicketService.Users.Organizer;
+import TicketService.Users.User;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
-import java.io.IOException;
 
 public class LoginWindowController {
 
     public static ScreenController screenController;
 
     @FXML private Button loginButton;
-    @FXML TextField usernameText, passwordText,firstNameText,lastNameText,emailText;
+    @FXML
+    TextField usernameText, passwordText;
 
 
     @FXML
@@ -30,15 +23,16 @@ public class LoginWindowController {
 
     }
 
-
-
-
     public void logInUser() {
-        try{
-            MainWindowController.customer = new Customer(usernameText.getText(),passwordText.getText(),firstNameText.getText(), lastNameText.getText(), emailText.getText());
-            screenController.active("Main");
-        } catch (NullPointerException e) {
-            System.out.println("A field was not filled.");
+        User user = DataContext.authUserLogin(usernameText.getText(), passwordText.getText());
+        if( user != null) {
+            if(user instanceof Customer) {
+                MainWindowController.customer = (Customer)user;
+                screenController.active("Main");
+            }
+            if(user instanceof Organizer) {
+
+            }
         }
     }
 }

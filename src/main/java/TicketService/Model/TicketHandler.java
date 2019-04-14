@@ -2,11 +2,9 @@ package TicketService.Model;
 
 import TicketService.DataAccess.Bank;
 import TicketService.Users.Customer;
-import TicketService.Utility.PriceCalculator;
-import TicketService.Utility.ReceiptMaker;
-import TicketService.Utility.Validator;
-import TicketService.Utility.VerificationCodeMaker;
+import TicketService.Utility.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +13,7 @@ import java.util.ArrayList;
 public class TicketHandler {
 
     private Customer customer;
+    private Ticket ticket;
     /**
      * TicketHandler is designed to function as a shopping cart in online stores.
      * All purchases are stored in customers personal list (Customer TicketList)
@@ -125,7 +124,11 @@ public class TicketHandler {
     }
 
     public void createPhysicalTicket(){
-
+        try {
+            PDFCreator.initializePdfCreation(ticket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

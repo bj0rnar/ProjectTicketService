@@ -18,26 +18,8 @@ import javax.swing.*;
 
 
 public class PDFCreator {
-    public static void initializePdfCreation(Ticket ticket) throws IOException {
-        String selectedPath = chooseSaveDestination();
 
-        createPDFToPath(selectedPath, ticket);
-
-    }
-
-    private static String chooseSaveDestination(){
-        //Blabla file open picker?
-        //Swing looks like poo
-        String newPath = "";
-        JFileChooser saver = new JFileChooser();
-        if(saver.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-            File file = saver.getSelectedFile();
-            newPath = file.getPath();
-        }
-        return newPath;
-    }
-
-    private static void createPDFToPath(String path, Ticket ticket) throws IOException {
+    public static void createPDFToPath(String path, Ticket ticket) throws IOException {
         PdfDocument pdf = new PdfDocument(new PdfWriter(path));
         try (Document document = new Document(pdf)){
             document.add(new Paragraph("Hello World!"));

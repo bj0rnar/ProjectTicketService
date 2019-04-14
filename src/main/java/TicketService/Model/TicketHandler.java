@@ -123,13 +123,13 @@ public class TicketHandler {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
-    public void createPhysicalTicket(){
+    /*public void createPhysicalTicket(){
         try {
             PDFCreator.initializePdfCreation(ticket);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /**
      * Process is canceled and the seat reserved

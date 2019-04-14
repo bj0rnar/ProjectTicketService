@@ -118,32 +118,31 @@ public class MainWindowController {
         }
     }
 
-    public void testNewStage() {
+    public void goToMyTickets(MouseEvent mouseEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
 
-            fxmlLoader.setLocation(getClass().getResource("../View/SecondWindow.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("../View/MyTicketsWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("TestStage");
+            dialogStage.setTitle("My tickets");
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            //dialogStage.initOwner(primatyStage);
+            dialogStage.initOwner(buyTicketsButton.getScene().getWindow());
 
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
 
-            BuyTicketController secondController = fxmlLoader.getController();
+            MyTicketsController myTicketsController = fxmlLoader.getController();
+            myTicketsController.setCustomer(customer);
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();
 
         } catch (IOException | IllegalStateException exception) {
-            System.out.println(exception.toString());
+            exception.printStackTrace();
         }
     }
 
-    public void goToMyTickets(MouseEvent mouseEvent) {
-        //Go to my tickets
-    }
+
 }

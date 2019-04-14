@@ -7,12 +7,16 @@ import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
 
 
 public class BuyTicketController {
 
     @FXML
     private ListView<Ticket> ticketsListView;
+
+    @FXML
+    private Text priceField;
 
 
 
@@ -27,5 +31,15 @@ public class BuyTicketController {
             list.add(ticket);
         }
         ticketsListView.setItems(list);
+        updatePrice();
     }
+
+    private void updatePrice() {
+        int totalPrice = 0;
+        for(Ticket ticket : ticketsListView.getItems()) {
+            priceField.setText("Total price: " + (totalPrice += ticket.getEvent().getTicketPrice()) + ",-");
+        }
+    }
+
+
 }

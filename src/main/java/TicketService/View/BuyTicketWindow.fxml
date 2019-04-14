@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -28,6 +29,8 @@
                                     <Text layoutX="32.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:" />
                                     <TextField fx:id="csvField" alignment="CENTER" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="46.0" text="123" />
                                     <Text layoutX="31.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CSV :" />
+                                    <Text fx:id="priceField" layoutX="31.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price: 0,-" />
+                                    <Line endX="100.0" layoutX="99.0" layoutY="178.0" startX="-100.0" />
                                             </children>
                                         </AnchorPane>
                                     </items>

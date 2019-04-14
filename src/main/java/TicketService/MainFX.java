@@ -1,17 +1,12 @@
 package TicketService;
 
-import TicketService.Controller.MainWindowController;
-import TicketService.Controller.SecondWindowController;
+import TicketService.Controller.LoginWindowController;
+import TicketService.Controller.ScreenController;
 import TicketService.DataAccess.DataContext;
-import TicketService.Model.EventHandler;
-import TicketService.Model.Venue;
-import TicketService.Users.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,21 +18,30 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+
         DataContext.CreateVenues();
         DataContext.CreateEvents();
         minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
-            primaryStage.setTitle("Ticket service");
+            primaryStage.setTitle("Ticket service login");
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("View/MainWindow.fxml"));
-            Parent MainOverviewLayout = fxmlLoader.load();
-            MainWindowController.primatyStage = primaryStage;
-            Scene hovedScene = new Scene(MainOverviewLayout, 700, 500);
+            fxmlLoader.setLocation(getClass().getResource("View/LoginWindow.fxml"));
+            Parent LoginWindowOverview = fxmlLoader.load();
+            Scene hovedScene = new Scene(LoginWindowOverview, 580, 400);
+
+            ScreenController screenController = new ScreenController(hovedScene);
+            screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
+            screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/MainWindow.fxml")));
+
+
+
+            LoginWindowController.screenController = screenController;
             primaryStage.setScene(hovedScene);
-
-
             primaryStage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

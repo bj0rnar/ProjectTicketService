@@ -2,9 +2,9 @@ package TicketService.Model;
 
 import TicketService.DataAccess.Bank;
 import TicketService.Users.Customer;
-import TicketService.Utility.PriceCalculator;
-import TicketService.Utility.ReceiptMaker;
+import TicketService.Utility.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +13,10 @@ import java.util.ArrayList;
 public class TicketHandler {
 
     private Customer customer;
+    private Ticket ticket;
     /**
      * TicketHandler is designed to function as a shopping cart in online stores.
-     * All purchaes are stored in customers personal list (Customer TicketList)
+     * All purchases are stored in customers personal list (Customer TicketList)
      * and processed in "tickets" array below.
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();
@@ -84,6 +85,7 @@ public class TicketHandler {
         }
         ticket.setSeat(event.getEventSeats().get(seatNumber));
         event.popSeatFromEventSeatList(seatNumber);
+        event.getVerificationCodeList().add(ticket.getVerificationCode());
     }
 
     /**
@@ -121,6 +123,13 @@ public class TicketHandler {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
+    /*public void createPhysicalTicket(){
+        try {
+            PDFCreator.initializePdfCreation(ticket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 
     /**
      * Process is canceled and the seat reserved
@@ -135,6 +144,7 @@ public class TicketHandler {
                         event = ticket.getEvent();
                         event.getEventSeats().add(ticket.getSeat());
                         ticket.setSeat(null);
+                        ticket.setVerificationCode(null);
                     }
                 }
             } catch (NullPointerException e) {

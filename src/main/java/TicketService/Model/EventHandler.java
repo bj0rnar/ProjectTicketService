@@ -3,6 +3,7 @@ package TicketService.Model;
 import TicketService.DataAccess.DataContext;
 import TicketService.Users.Organizer;
 import TicketService.Utility.FakeDB;
+import TicketService.Utility.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,40 +24,49 @@ public class EventHandler {
 
     private Organizer organizer;
 
-    //Organizer private list
-    private ArrayList<Event> organizerEventList = new ArrayList<>();
-
     public EventHandler(Organizer organizer){
         this.organizer = organizer;
     }
 
     public void createNewEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable){
         Event event = new Event(name, venue, date, ticketPrice, areSeatsAvailable, organizer);
-       // organizerEventList.add(event);
-       // FakeDB.uploadedEvents.add(event);
-        upload(event);
+        uploadEvents(event);
     }
 
-    public void upload(Event event){
-        organizerEventList.add(event);
+    public void uploadEvents(Event event){
+        organizer.getEvents().add(event);
         FakeDB.uploadedEvents.add(event);
+    }
+
+    public void createNewVenue(int numberOfSeats, String nameOfVenue){
+        Venue venue = new Venue(numberOfSeats, nameOfVenue);
+        uploadVenues(venue);
+    }
+
+    private void uploadVenues(Venue venue) {
+        organizer.getUserCreatedVenues().add(venue);
+        FakeDB.officialVenueList.add(venue);
     }
 
     public void removeArrangementFromDB(String name){
         Event event = SelectEvent(name);
         if(event != null) {
             FakeDB.uploadedEvents.remove(event);
-            organizerEventList.remove(event);
+            organizer.getEvents().remove(event);
         }
         else
             System.out.println("That's not yours to delete");
+    }
+
+    public boolean validateTicket(Ticket t, Event e){
+        return Validator.validateTicket(e, t);
     }
 
     /**
      * Representation of onClick, remove once added to javaFX
      */
     private Event SelectEvent(String name) {
-        for(Event e : organizerEventList){
+        for(Event e : organizer.getEvents()){
             System.out.println(e.getName() + " " +  e.getDate() + " " + e.getVenue().getName());
             if(e.getName().equals(name)){
                 return e;
@@ -64,11 +74,6 @@ public class EventHandler {
         }
         return null;
     }
-
-    public ArrayList<Event> getOrganizerEventList() {
-        return organizerEventList;
-    }
-
 
     public static ArrayList<Event> getEventList() {
         return DataContext.getEventList();

@@ -13,6 +13,7 @@ public class Event {
     private LocalDate date;
     private Boolean areSeatsAvailable;
     private ArrayList<Venue.Seat> eventSeats;
+    private ArrayList<String> verificationCodeList = new ArrayList<>();
 
     public Event(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable, Organizer organizer) {
         this.name = name;
@@ -27,6 +28,8 @@ public class Event {
             }
         }
     }
+
+    public ArrayList<String> getVerificationCodeList() { return verificationCodeList; }
 
     public String getName() {
         return name;

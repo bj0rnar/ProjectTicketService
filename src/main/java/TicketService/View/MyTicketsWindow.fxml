@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="414.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.MyTicketsController">
+   <left>
+      <ListView fx:id="myTicketsList" prefHeight="536.0" prefWidth="233.0" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <SplitPane prefHeight="360.0" prefWidth="151.0" BorderPane.alignment="CENTER">
+         <items>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#downloadTicket" prefHeight="103.0" prefWidth="103.0" style="-fx-background-color: lightgreen;" text="Download ticket" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <Pane prefHeight="54.0" prefWidth="669.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

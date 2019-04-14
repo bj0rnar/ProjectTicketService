@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="276.0" minWidth="300.0" prefHeight="276.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.BuyTicketController">
+    <children>
+        <GridPane prefHeight="302.0" prefWidth="344.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.0" minWidth="10.0" prefWidth="202.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="142.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="272.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <SplitPane dividerPositions="0.8131868131868132" orientation="VERTICAL" prefHeight="275.0" prefWidth="289.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="219.0" prefWidth="323.0">
+                            <children>
+                                <SplitPane prefHeight="220.0" prefWidth="200.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="101.0">
+                                            <children>
+                                                <TextField fx:id="accountNumberField" alignment="CENTER" layoutX="32.0" layoutY="45.0" prefHeight="25.0" prefWidth="134.0" text="1234432112344321" />
+                                    <Text layoutX="32.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:" />
+                                    <TextField fx:id="csvField" alignment="CENTER" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="46.0" text="123" />
+                                    <Text layoutX="31.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CSV :" />
+                                    <Text fx:id="priceField" layoutX="31.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price: 0,-" />
+                                    <Line endX="100.0" layoutX="99.0" layoutY="178.0" startX="-100.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="342.0">
+                            <children>
+                                <SplitPane prefHeight="63.0" prefWidth="200.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="198.0">
+                                            <children>
+                                                <Button fx:id="confirmPaymentButton" layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#PayTickets" text="Confirm payment" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            <ListView fx:id="ticketsListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

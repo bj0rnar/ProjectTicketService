@@ -3,16 +3,13 @@ import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 
 public class TicketTest {
 
-    Event oneSeatEvent, manySeatsEvent;
+    Event oneSeatEvent, manySeatsEvent, noSeatEvent;
     Customer customer;
     TicketHandler ticketHandler;
 
@@ -25,10 +22,12 @@ public class TicketTest {
         customer = new Customer("A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100,false, organizer);
         manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
 
     }
 
+    @DisplayName("Sjekker at ID på billett økes ved hver ny billett")
     @Test
     public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
         int idChecker;
@@ -64,7 +63,6 @@ public class TicketTest {
         Assertions.assertNotNull(ticketHandler.getTickets().get(0).getSeat());
     }
 
-
     @Test
     public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
         ticketHandler.createTicket(manySeatsEvent,0);
@@ -81,6 +79,7 @@ public class TicketTest {
         Assertions.assertEquals(250, ticketHandler.getTickets().get(0).getPrice());
     }
 
+    @DisplayName("Sjekke at pris blir summert")
     @Test
     public void TicketHandlerReturnCorrectTotalPrice() {
         ticketHandler.createTicket(manySeatsEvent,0);
@@ -88,6 +87,7 @@ public class TicketTest {
         Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
     }
 
+    @DisplayName("Sjekker om sete faktisk blir reservert når noen reserverer det")
     @Test
     public void checkSeatAvailability(){
         ticketHandler.createTicket(manySeatsEvent, 4);
@@ -98,6 +98,7 @@ public class TicketTest {
         ticketHandler2.giveTicketToCustomer();
     }
 
+    @DisplayName("Sete 0-100 blir laget. Hvis man legger på 10 seter til, vil sete nr 101 få seteNr 1. (to be fixed)")
     @Test
     public void newlyCreatedSeatsAreFucked(){
         //TODO: Add functionality for adding seats to already created Venue
@@ -108,6 +109,7 @@ public class TicketTest {
         System.out.println(manySeatsEvent.getEventSeats().get(101).getSeatNumber());
     }
 
+    @DisplayName("Sjekk at 1 kvittering blir lagt til i kundens kvitteringsliste når kunden kjøper billett")
     @Test
     public void receiptAreAddedToCustomerReceiptList(){
         ticketHandler.createTicket(manySeatsEvent, 4);
@@ -115,6 +117,7 @@ public class TicketTest {
         Assertions.assertEquals(1, customer.getReceiptList().size());
     }
 
+    @DisplayName("Sjekk at alle kvitteringer blir lagt til i kundens kvitteringsliste når kunden kjøper nye billetter")
     @Test
     public void multipleReceiptsAddedToCustomerReceiptList(){
         ticketHandler.createTicket(manySeatsEvent, 9);
@@ -124,6 +127,7 @@ public class TicketTest {
         Assertions.assertEquals(3, customer.getReceiptList().size());
     }
 
+    @DisplayName("Printer ut alle billetter for demo")
     @Test
     public void printAllTicketsForUser(){
         ticketHandler.createTicket(manySeatsEvent, 9);
@@ -133,6 +137,7 @@ public class TicketTest {
         ticketHandler.printAllTickets();
     }
 
+    @DisplayName("Sjekker tickethandler logikk. tickethandler.getTickets er et midlertidig array som funker som handlekurv. customer.getTicketList er permanent")
     @Test
     public void ticketHandlerArrayNowWorksAsTemporaryList(){
         ticketHandler.createTicket(manySeatsEvent, 1);
@@ -148,5 +153,67 @@ public class TicketTest {
         Assertions.assertEquals(0, ticketHandler.getTickets().size());
 
     }
+
+    @DisplayName("Event med seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
+    @Test
+    public void verifiyCorrectlyWrittenReceiptFromEventWithSeats(){
+        StringBuilder s = new StringBuilder();
+        s.append("Customer: " + "A " + "B" + "\n");
+        s.append("manySeatedEvent " +  LocalDate.of(2000,1,1) + "\n");
+        s.append("Hall 42" + " Seat: " + 1 + "\n");
+        s.append("Price: " + 250);
+
+
+        ticketHandler.createTicket(manySeatsEvent, 1);
+        ticketHandler.giveTicketToCustomer();
+
+        int index = customer.getReceiptList().size();
+
+
+        Assertions.assertEquals(s.toString(), customer.getReceiptList().get(index-1));
+
+    }
+
+    @DisplayName("Event uten seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
+    @Test
+    public void verifiyCorrectlyWrittenReceiptFromEventWithoutSeats(){
+        StringBuilder s = new StringBuilder();
+        s.append("Customer: " + "A " + "B" + "\n");
+        s.append("noSeatEvent " +  LocalDate.of(2000,1,1) + "\n");
+        s.append("Hall 2" + "\n");
+        s.append("Price: " + 100);
+
+
+        ticketHandler.createTicket(noSeatEvent, 0);
+        ticketHandler.giveTicketToCustomer();
+
+        int index = customer.getReceiptList().size();
+
+
+        Assertions.assertEquals(s.toString(), customer.getReceiptList().get(index-1));
+
+    }
+
+    @DisplayName("TicketHandler sin liste er handlekurv, customer sin liste er kjøpshistorikk.")
+    @Test
+    public void customerIsGivenTickets(){
+        int ticketHandlerTemporaryList = ticketHandler.getTickets().size();
+        int customerPermanentList = customer.getTicketList().size();
+
+        ticketHandler.createTicket(manySeatsEvent, 17);
+        ++ticketHandlerTemporaryList;
+        Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
+        Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
+
+        ticketHandler.giveTicketToCustomer();
+
+        --ticketHandlerTemporaryList;
+        ++customerPermanentList;
+
+        Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
+        Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
+
+    }
+
 
 }

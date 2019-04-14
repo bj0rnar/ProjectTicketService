@@ -2,6 +2,7 @@ package TicketService.Model;
 
 import TicketService.Utility.PriceCalculator;
 import TicketService.Utility.ReceiptMaker;
+import TicketService.Utility.VerificationCodeMaker;
 
 public class Ticket {
 
@@ -12,6 +13,7 @@ public class Ticket {
     private Event event;
     private Venue.Seat seat;
     private String receipt;
+    private String verificationCode;
 
     //idCounter is a very simple ID handler. Maybe change it out with hash?
     public Ticket(Event event) {
@@ -19,7 +21,12 @@ public class Ticket {
         this.id = idCounter;
         this.price = event.getTicketPrice();
         idCounter++;
+        verificationCode = VerificationCodeMaker.createVerificationCode(event);
     }
+
+    public String getVerificationCode() { return verificationCode; }
+
+    public void setVerificationCode(String verificationCode) { this.verificationCode = verificationCode; }
 
     public void setReceipt(String receipt){ this.receipt = receipt; }
 
@@ -35,5 +42,8 @@ public class Ticket {
 
     public void setSeat(Venue.Seat seat) { this.seat = seat; }
 
-
+    @Override
+    public String toString() {
+        return this.event.getName() + " ticket";
+    }
 }

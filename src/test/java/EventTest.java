@@ -96,4 +96,20 @@ public class EventTest {
         oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100,true, organizer);
         Assertions.assertEquals(venue, oneSeatEvent.getVenue());
     }
+
+    @DisplayName("Sjekker antall billetter går ned i Event når billett er reservert")
+    @Test
+    public void confirmThatTicketIsReservedOnReservation(){
+        int numberOfSeats = manySeatsEvent.getEventSeats().size();
+        ticketHandler.createTicket(manySeatsEvent, 4);
+        Assertions.assertEquals(manySeatsEvent.getEventSeats().size(), numberOfSeats-1);
+    }
+
+    @DisplayName("Sjekker at reservert sete i TicketHandler og Event er samme objekt")
+    @Test
+    public void checkThatTheCorrectSeatIsReservedOnReservation(){
+        Venue.Seat x = manySeatsEvent.getEventSeats().get(manySeatsEvent.getEventSeats().size()-1);
+        ticketHandler.createTicket(manySeatsEvent, manySeatsEvent.getEventSeats().size()-1);
+        Assertions.assertEquals(x, ticketHandler.getTickets().get(0).getSeat());
+    }
 }

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-        minHeight="276.0"
-        minWidth="300.0"
-        prefHeight="276.0"
-        prefWidth="344.0"
-        xmlns="http://javafx.com/javafx/8"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="TicketService.Controller.BuyTicketController">
+<AnchorPane minHeight="276.0" minWidth="300.0" prefHeight="276.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.BuyTicketController">
     <children>
         <GridPane prefHeight="302.0" prefWidth="344.0">
             <columnConstraints>
@@ -30,9 +24,9 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="101.0">
                                             <children>
-                                                <TextField fx:id="firstNameText" alignment="CENTER" layoutX="32.0" layoutY="45.0" prefHeight="25.0" prefWidth="134.0" text="1234432112344321" />
+                                                <TextField fx:id="accountNumberField" alignment="CENTER" layoutX="32.0" layoutY="45.0" prefHeight="25.0" prefWidth="134.0" text="1234432112344321" />
                                     <Text layoutX="32.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:" />
-                                    <TextField fx:id="firstNameText1" alignment="CENTER" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="46.0" text="123" />
+                                    <TextField fx:id="csvField" alignment="CENTER" layoutX="31.0" layoutY="97.0" prefHeight="25.0" prefWidth="46.0" text="123" />
                                     <Text layoutX="31.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CSV :" />
                                             </children>
                                         </AnchorPane>
@@ -46,7 +40,7 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="27.0" prefWidth="198.0">
                                             <children>
-                                                <Button fx:id="loginButton" layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#logInUser" text="Confirm payment" />
+                                                <Button fx:id="confirmPaymentButton" layoutX="45.0" layoutY="14.0" mnemonicParsing="false" text="Confirm payment" />
                                             </children>
                                         </AnchorPane>
                                     </items>

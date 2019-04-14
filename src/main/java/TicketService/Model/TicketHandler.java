@@ -17,7 +17,7 @@ public class TicketHandler {
     private Customer customer;
     /**
      * TicketHandler is designed to function as a shopping cart in online stores.
-     * All purchaes are stored in customers personal list (Customer TicketList)
+     * All purchases are stored in customers personal list (Customer TicketList)
      * and processed in "tickets" array below.
      */
     private ArrayList<Ticket> tickets = new ArrayList<>();

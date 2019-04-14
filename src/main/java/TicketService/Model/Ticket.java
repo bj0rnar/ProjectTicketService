@@ -42,5 +42,8 @@ public class Ticket {
 
     public void setSeat(Venue.Seat seat) { this.seat = seat; }
 
-
+    @Override
+    public String toString() {
+        return this.event.getName() + " ticket";
+    }
 }

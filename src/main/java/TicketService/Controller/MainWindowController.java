@@ -50,15 +50,17 @@ public class MainWindowController {
         eventNameText.setText(event.getName());
         VenueNameText.setText(event.getVenue().getName());
         EventDateText.setText(event.getDate().toString());
-        if ((event.getEventSeats().size() != 0)) {
-            addToCartButton.setDisable(false);
-        } else {
-            addToCartButton.setDisable(true);
-        }
+
         if (event.getAreSeatsAvailable()) {
+            if ((event.getEventSeats().size() != 0)) {
+                addToCartButton.setDisable(false);
+            } else {
+                addToCartButton.setDisable(true);
+            }
             seatsLeftStaticText.setText("Seats left: ");
             SeatsLeftEventText.setText(event.getVenue().getSeats().size() + ".");
         } else {
+            addToCartButton.setDisable(false);
             SeatsLeftEventText.setText("");
             seatsLeftStaticText.setText("");
         }
@@ -86,14 +88,15 @@ public class MainWindowController {
             Parent dialogLayout = fxmlLoader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Rediger film");
+            dialogStage.setTitle("Payment");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(buyTicketsButton.getScene().getWindow());
 
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
 
-            BuyTicketController secondController = fxmlLoader.getController();
+            BuyTicketController buyTicketController = fxmlLoader.getController();
+            buyTicketController.AddTicketsToCartList(ticketHandler);
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();
@@ -111,7 +114,7 @@ public class MainWindowController {
             Parent dialogLayout = fxmlLoader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Rediger film");
+            dialogStage.setTitle("TestStage");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             //dialogStage.initOwner(primatyStage);
 

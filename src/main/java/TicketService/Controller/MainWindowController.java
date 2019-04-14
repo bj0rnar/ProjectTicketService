@@ -31,18 +31,17 @@ public class MainWindowController {
     private Text eventNameText, VenueNameText, EventDateText, SeatsLeftEventText, seatsLeftStaticText, totalAmountOfItems;
 
     @FXML
-    private Button buyTicketsButton;
+    private Button buyTicketsButton, addToCartButton;
 
     @FXML
     private void initialize() {
-        System.out.println("This is sparta");
         eventListView.setItems(EventHandler.getEventListFX());
         updateEventDetails(eventListView.getItems().get(0));
-
         eventListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Event>() {
             @Override
             public void changed(ObservableValue<? extends Event> observableValue, Event oldEvent, Event newEvent) {
-                updateEventDetails(newEvent);
+                if(newEvent != null)
+                    updateEventDetails(newEvent);
             }
         });
     }
@@ -51,7 +50,12 @@ public class MainWindowController {
         eventNameText.setText(event.getName());
         VenueNameText.setText(event.getVenue().getName());
         EventDateText.setText(event.getDate().toString());
-        if(event.getAreSeatsAvailable()) {
+        if ((event.getEventSeats().size() != 0)) {
+            addToCartButton.setDisable(false);
+        } else {
+            addToCartButton.setDisable(true);
+        }
+        if (event.getAreSeatsAvailable()) {
             seatsLeftStaticText.setText("Seats left: ");
             SeatsLeftEventText.setText(event.getVenue().getSeats().size() + ".");
         } else {
@@ -61,18 +65,19 @@ public class MainWindowController {
     }
 
     public void AddEventToCart() {
-        if(ticketHandler == null) {
+        if (ticketHandler == null) {
             ticketHandler = new TicketHandler(customer);
         }
-        Event event = (Event)eventListView.getSelectionModel().getSelectedItem();
-        if(event != null) {
+        Event event = eventListView.getSelectionModel().getSelectedItem();
+        if (event != null) {
             ticketHandler.createTicket(event, 0);
             totalAmountOfItems.setText("Shopping cart items: " + ticketHandler.getTickets().size());
         }
+        updateEventDetails(event);
 
     }
 
-    public void buyTickets(){
+    public void buyTickets() {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -83,7 +88,7 @@ public class MainWindowController {
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Rediger film");
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner((Stage)buyTicketsButton.getScene().getWindow());
+            dialogStage.initOwner(buyTicketsButton.getScene().getWindow());
 
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
@@ -93,8 +98,7 @@ public class MainWindowController {
 
             dialogStage.showAndWait();
 
-        }
-        catch (IOException | IllegalStateException exception) {
+        } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }
     }
@@ -119,8 +123,7 @@ public class MainWindowController {
 
             dialogStage.showAndWait();
 
-        }
-        catch (IOException | IllegalStateException exception) {
+        } catch (IOException | IllegalStateException exception) {
             System.out.println(exception.toString());
         }
     }

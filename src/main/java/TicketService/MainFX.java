@@ -29,7 +29,7 @@ public class MainFX extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("View/LoginWindow.fxml"));
             Parent LoginWindowOverview = fxmlLoader.load();
-            Scene hovedScene = new Scene(LoginWindowOverview, 700, 500);
+            Scene hovedScene = new Scene(LoginWindowOverview, 580, 400);
 
             ScreenController screenController = new ScreenController(hovedScene);
             screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));

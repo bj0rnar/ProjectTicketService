@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,12 +37,20 @@ public class MainWindowController {
     @FXML
     private void initialize() {
         eventListView.setItems(EventHandler.getEventListFX());
-        updateEventDetails(eventListView.getItems().get(0));
+        if(eventListView.getItems().get(0) != null)
+            updateEventDetails(eventListView.getItems().get(0));
+
+        buyTicketsButton.setDisable(true);
+        addToCartButton.setDisable(true);
         eventListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Event>() {
             @Override
             public void changed(ObservableValue<? extends Event> observableValue, Event oldEvent, Event newEvent) {
-                if(newEvent != null)
+                if(newEvent != null) {
                     updateEventDetails(newEvent);
+                    addToCartButton.setDisable(false);
+                } else {
+                    addToCartButton.setDisable(true);
+                }
             }
         });
     }
@@ -64,6 +73,9 @@ public class MainWindowController {
             SeatsLeftEventText.setText("");
             seatsLeftStaticText.setText("");
         }
+        if(ticketHandler != null)
+            if(ticketHandler.getTickets().size() > 0)
+                buyTicketsButton.setDisable(false);
     }
 
     public void AddEventToCart() {
@@ -129,5 +141,9 @@ public class MainWindowController {
         } catch (IOException | IllegalStateException exception) {
             System.out.println(exception.toString());
         }
+    }
+
+    public void goToMyTickets(MouseEvent mouseEvent) {
+        //Go to my tickets
     }
 }

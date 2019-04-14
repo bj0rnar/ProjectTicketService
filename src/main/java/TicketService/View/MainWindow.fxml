@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.MainWindowController">
+<BorderPane prefHeight="414.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.MainWindowController">
    <left>
       <ListView fx:id="eventListView" prefHeight="536.0" prefWidth="233.0" BorderPane.alignment="CENTER" />
    </left>
    <center>
       <SplitPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-            <GridPane prefHeight="456.0" prefWidth="322.0">
+            <GridPane prefHeight="429.0" prefWidth="211.0">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="112.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="10.0" prefWidth="239.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="88.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="10.0" prefWidth="130.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="35.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" valignment="CENTER" vgrow="NEVER" />
+                  <RowConstraints maxHeight="70.0" minHeight="35.0" prefHeight="35.0" valignment="CENTER" vgrow="NEVER" />
                   <RowConstraints maxHeight="35.0" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event: " textAlignment="RIGHT" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue: " textAlignment="RIGHT" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " textAlignment="RIGHT" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event: " textAlignment="RIGHT" />
-                  <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Seats left: " textAlignment="RIGHT" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue : " textAlignment="RIGHT" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date : " textAlignment="RIGHT" GridPane.rowIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event : " textAlignment="RIGHT" />
+                  <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Seats left : " textAlignment="RIGHT" GridPane.rowIndex="3" />
                   <Text fx:id="eventNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="TG 2019" textAlignment="RIGHT" GridPane.columnIndex="1" />
                   <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Viking hallen" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="17 april 2019" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fx:id="SeatsLeftEventText" strokeType="OUTSIDE" strokeWidth="0.0" text="2304" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Button fx:id="addToCartButton" mnemonicParsing="false" onMouseClicked="#AddEventToCart" text="Add to cart" textAlignment="RIGHT" GridPane.rowIndex="4" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                </children>
             </GridPane>
         </items>
@@ -44,13 +49,18 @@
       <Pane prefHeight="458.0" prefWidth="121.0" BorderPane.alignment="CENTER">
          <children>
             <Text fx:id="totalAmountOfItems" layoutX="12.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping cart items: 0" wrappingWidth="97.564453125" />
+            <Button fx:id="buyTicketsButton" layoutX="8.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#buyTickets" prefHeight="74.0" prefWidth="106.0" style="-fx-background-color: #0654ba;" text="Go to checkout" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </right>
    <bottom>
-      <Pane prefHeight="42.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="54.0" prefWidth="669.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="buyTicketsButton" layoutX="613.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#buyTickets" text="Buy tickets" />
+            <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goToMyTickets" text="My tickets" textAlignment="RIGHT" />
          </children>
       </Pane>
    </bottom>

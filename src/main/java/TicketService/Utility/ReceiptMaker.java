@@ -10,7 +10,11 @@ public class ReceiptMaker {
         StringBuilder s = new StringBuilder();
         s.append("Customer: " + c.getFirstname() + " " + c.getLastname() + "\n");
         s.append(t.getEvent().getName() + " " + t.getEvent().getDate() + "\n");
-        s.append(t.getEvent().getVenue().getName()  + " Seat: " + t.getSeat().getSeatNumber() + "\n");
+        if(t.getEvent().getVenue() != null) {
+            s.append(t.getEvent().getVenue().getName() + "\n");
+        } else {
+            s.append(t.getEvent().getVenue().getName() + " Seat: " + t.getSeat().getSeatNumber() + "\n");
+        }
         s.append("Price: " + t.getPrice());
 
         return s.toString();

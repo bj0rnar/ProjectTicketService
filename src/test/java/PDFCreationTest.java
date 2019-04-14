@@ -32,13 +32,14 @@ public class PDFCreationTest {
         ticketHandler.createTicket(manySeatsEvent, 14);
         ticketHandler.giveTicketToCustomer();
     }
-
-    /*@Test
+    /*
+    @Test
     public void cmonBaby(){
         try {
             PDFCreator.initializePdfCreation(customer.getTicketList().get(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
+    */
 }

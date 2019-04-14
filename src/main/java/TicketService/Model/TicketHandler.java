@@ -124,6 +124,9 @@ public class TicketHandler {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
+    public void createPhysicalTicket(){
+
+    }
 
     /**
      * Process is canceled and the seat reserved

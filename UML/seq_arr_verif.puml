@@ -1,0 +1,23 @@
+@startuml
+Actor Arrangør as A
+Participant Validator as V
+DataBase Database as DB
+
+A -> V: Authentication request \n(Verification code)
+activate V
+V -> DB: Search \n(EventId, Verification code)
+activate DB
+DB --> V: Result
+V -> V: Check ticket not already used
+deactivate DB
+alt Found match
+    V -> DB: Set ticket used \n(EventId, verification code)
+    activate DB
+    DB --> V: Confirmation
+    deactivate DB
+    V --> A: Verification successful
+else No match
+    V --> A: Verification failed
+    deactivate V
+end
+@enduml

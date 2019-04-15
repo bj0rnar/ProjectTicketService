@@ -27,7 +27,7 @@ public class LoginWindowController {
         User user = DataContext.authUserLogin(usernameText.getText(), passwordText.getText());
         if( user != null) {
             if(user instanceof Customer) {
-                MainWindowController.customer = (Customer)user;
+                ShopWindowController.customer = (Customer)user;
                 screenController.active("Main");
             }
             if(user instanceof Organizer) {

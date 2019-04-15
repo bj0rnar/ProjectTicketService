@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainWindowController {
+public class ShopWindowController {
 
     public static ScreenController screenController;
     public static Customer customer;

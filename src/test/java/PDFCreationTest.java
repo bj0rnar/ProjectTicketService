@@ -3,15 +3,9 @@ import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
-import TicketService.Utility.PDFCreator;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.time.LocalDate;
-
-import static TicketService.Controller.MainWindowController.customer;
-import TicketService.Model.Ticket;
 
 public class PDFCreationTest {
     Event oneSeatEvent, manySeatsEvent;

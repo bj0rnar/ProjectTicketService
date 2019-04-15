@@ -1,5 +1,5 @@
-@startuml
-Actor Customer as C
+startuml
+Actor JAU as C
 Control GUI as GUI
 Participant DataContext as DC
 Participant TicketHandler as T

@@ -1,0 +1,46 @@
+@startuml
+Actor Customer as C
+Participant TicketHandler as T
+Participant DataContext as DC
+Participant PriceSummerizer as P
+Collections Database as D
+Entity PaymentService as P
+
+C -> T: 1.1: Create new handler
+T -> D: 1.2 Select Event
+D -> T: 1.3 Return selected Event
+FE -> DC: 1.2: AuthUser(username, password)
+DC --> D: 1.3: Check authentication
+activate D
+D --> FE: 1.3: Authentication confirmed
+deactivate D
+activate DC
+DC --> T: 1.4: Create new handler
+deactivate DC
+
+activate T
+T --> C: 1.4: Ticket available
+deactivate T
+
+C -> T: 1.5: Select options
+activate T
+T -> D: 1.6: Update ticket status
+activate D
+D --> T: 1.7: Ticket status updated
+deactivate D
+T --> C: 1.8: Ticket reserved
+deactivate T
+
+C -> T: 1.9: Pay product
+activate T
+T -> P: 1.10: Confirm payment
+activate P
+P --> T: 1.11: Payment confirmed
+deactivate P
+T -> D: 1.12: Update ticket information
+activate D
+D --> D: 1.13: Updated information
+deactivate D
+T --> C: 1.14: Purchase successful
+deactivate T
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+Actor Customer
+Participant TicketHandler
+Participant Event
+Participant DataContext
+Database Database
+TicketHandler -> DataContext: Get all events
+DataContext -> Database: Request all events
+DataContext <- Database: Response events
+TicketHandler <- DataContext: Return all events
+Customer -> TicketHandler: Select event
+TicketHandler -> Event: Is it a seated event
+Event -> TicketHandler: Reponse
+alt Non-seated event
+TicketHandler -> TicketHandler: Create ticket
+else Seated event
+Event <- TicketHandler: Is seat available
+Event -> TicketHandler: Response
+alt Seat available
+TicketHandler -> TicketHandler: Create ticket
+else Not available
+TicketHandler -> Customer: No more seats available
+end
+end
+
+
+@enduml

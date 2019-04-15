@@ -1,0 +1,15 @@
+@startuml
+Actor Customer
+Customer -> TicketHandler: Give credentials
+TicketHandler -> IPaymentOption: Forward credentials
+IPaymentOption -> BankConnection: Authenticate credentials\n and payment
+IPaymentOption <-- BankConnection: Authenticate response
+IPaymentOption --> TicketHandler: Authenticate response
+alt Unsuccessful
+TicketHandler --> Customer: Authentication failed
+else Successful
+TicketHandler --> Customer: Give tickets to customer
+end
+
+
+@enduml

@@ -1,10 +1,11 @@
 package TicketService.Model;
 
-import TicketService.DataAccess.Bank;
+import TicketService.DataAccess.BankConnection;
+import TicketService.DataAccess.IPaymentOptions;
+import TicketService.DataAccess.PayPalConnection;
 import TicketService.Users.Customer;
 import TicketService.Utility.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 public class TicketHandler {
 
     private Customer customer;
-    private Ticket ticket;
     /**
      * TicketHandler is designed to function as a shopping cart in online stores.
      * All purchases are stored in customers personal list (Customer TicketList)
@@ -31,6 +31,8 @@ public class TicketHandler {
     public ArrayList<Ticket> getTickets() {
         return tickets;
     }
+
+
 
     /**
      * Creates a ticket to event.
@@ -110,10 +112,19 @@ public class TicketHandler {
     }
 
     /**
-     * Bank.PayTotalPrice should be stubbed/faked/mocked. Currently only returns true
+     * BankConnection.PayTotalPrice should be stubbed/faked/mocked. Currently only returns true
      */
-    public void buyAllTickets(long accountNumber, int cvs) {
-        if (Bank.PayTotalPrice(accountNumber, cvs, calculatedTotalPrice())) {
+
+    public void payForTicketsWithCreditCard(long accountNumber, int cvs){
+        IPaymentOptions bankIntermediary = new BankConnection();
+        if (bankIntermediary.payWithCreditCardDetails(accountNumber, cvs, calculatedTotalPrice())) {
+            giveTicketToCustomer();
+        }
+    }
+
+    public void payForTicketsWithPayPal(long accountNumber, int cvs){
+        IPaymentOptions payPalIntermediary = new PayPalConnection();
+        if(payPalIntermediary.payWithCreditCardDetails(accountNumber, cvs, calculatedTotalPrice())){
             giveTicketToCustomer();
         }
     }
@@ -123,6 +134,7 @@ public class TicketHandler {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
+    //This should be the only way to print physical tickets. Controller should refer to this method instead. !RemindMe 1 day
     /*public void createPhysicalTicket(){
         try {
             PDFCreator.initializePdfCreation(ticket);

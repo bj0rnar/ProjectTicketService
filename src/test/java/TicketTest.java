@@ -1,8 +1,8 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
+import TicketService.DataAccess.IPaymentOptions;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -12,6 +12,7 @@ public class TicketTest {
     Event oneSeatEvent, manySeatsEvent, noSeatEvent;
     Customer customer;
     TicketHandler ticketHandler;
+    IPaymentOptions iPaymentOptions;
 
 
     @BeforeEach
@@ -213,6 +214,18 @@ public class TicketTest {
         Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
         Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
 
+    }
+
+    @Test
+    public void payAtZheBank(){
+        ticketHandler.createTicket(manySeatsEvent, 1);
+        ticketHandler.payForTicketsWithCreditCard(53423233, 123);
+    }
+
+    @Test
+    public void payAtZhePayPal(){
+        ticketHandler.createTicket(manySeatsEvent, 15);
+        ticketHandler.payForTicketsWithPayPal(1312312, 123);
     }
 
 

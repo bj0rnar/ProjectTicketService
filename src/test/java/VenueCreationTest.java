@@ -1,7 +1,6 @@
 import TicketService.Model.EventHandler;
 import TicketService.Users.Organizer;
-import TicketService.Utility.FakeDB;
-import org.junit.Assert;
+import TicketService.DataAccess.FakeDB;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

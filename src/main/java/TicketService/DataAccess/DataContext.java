@@ -28,13 +28,18 @@ public class DataContext {
     }
     public static void CreateUsers() {
         if(userList.size() == 0) {
-            userList.add(new Customer("Kombo", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
-            userList.add(new Organizer("Damba", "MyPassword","Damba", "Samba","DambaSamba@mail.com"));
+            userList.add(new Customer("Mats", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
+            userList.add(new Organizer("Lars", "MyPassword","Damba", "Samba","DambaSamba@mail.com"));
         }
     }
 
-    public static void authUserLogin(User user) {
-
+    public static User authUserLogin(String username, String password) {
+        for(User user : userList) {
+            if(user.getUsername().equals(username))
+                if(user.getPassword().equals(password))
+                    return user;
+        }
+        return null;
     }
 
     public static void CreateVenues() {

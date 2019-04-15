@@ -45,7 +45,7 @@
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <Button fx:id="loginButton" layoutX="94.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#logInUser" text="Login" />
+                        <Button fx:id="registerButton" layoutX="94.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#registerUser" text="Register" />
                      </children>
                   </AnchorPane>
               </items>

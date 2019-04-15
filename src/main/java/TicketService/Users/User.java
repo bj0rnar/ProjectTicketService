@@ -29,6 +29,14 @@ public abstract class User {
         return id;
     }
 
+    public String getUsername() {
+        return Username;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
     public String getFirstname() {
         return Firstname;
     }

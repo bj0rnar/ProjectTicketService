@@ -1,0 +1,31 @@
+@startuml
+Actor Organizer as O
+Control GUI as GUI
+Participant DataContext as DC
+Participant EventHandler as E
+Database Database as D
+
+
+O -> GUI: 1.1: Press login button
+activate GUI
+GUI -> DC: 1.2: AuthUser(username, password)
+deactivate GUI
+activate DC
+DC --> D: 1.3: Check authentication
+deactivate DC
+activate D
+D --> DC: 1.4: Authentication confirmed
+deactivate D
+activate DC
+DC --> GUI: 1.5: User authenticated
+deactivate DC
+activate GUI
+GUI --> GUI: 1.6: User instance of organizer
+
+GUI --> E: 1.7: Create new handler
+deactivate GUI
+activate E
+E --> O: 1.8: Ready for input
+deactivate E
+
+@enduml

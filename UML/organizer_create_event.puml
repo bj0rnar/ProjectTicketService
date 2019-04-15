@@ -1,0 +1,25 @@
+@startuml
+Actor Organizer as O
+Participant EventHandler as E
+Participant IRepository as R
+Database Database as D
+
+
+O -> E: 1.1: Create new event(Venue, Info, Date)
+activate E
+E -> R: 1.2: Upload event
+activate R
+E -> O: 1.3: Upload to personal list
+deactivate E
+R -> D: 1.4: Add to public list
+activate D
+D -> R: 1.5: Response message
+deactivate D
+R -> E: 1.6: Successfully uploaded
+deactivate R
+activate E
+E -> O: 1.7: Update successful
+deactivate E
+
+
+@enduml

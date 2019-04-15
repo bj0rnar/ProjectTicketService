@@ -1,0 +1,33 @@
+@startuml
+Actor Organizer as O
+Participant EventHandler as EH
+Participant Validator as V
+Database database as E
+
+
+O -> EH: 1.1: Ticket ready for verification
+activate EH
+EH -> V: 1.2: Pass ticket
+deactivate EH
+activate V
+V -> E: 1.3: Get specified event
+activate E
+E -> V: 1.4: Return event
+deactivate E
+loop
+V -> V: 1.5: Compare event code with ticket code
+end
+alt match confrimed
+V -> EH: 1.6: Found match
+activate EH
+EH -> O: 1.7: Ticket validated
+deactivate EH
+else zero matches
+V -> EH: 1.8: No verification
+deactivate V
+activate EH
+EH -> O: 1.9: No validation
+deactivate EH
+end
+
+@enduml

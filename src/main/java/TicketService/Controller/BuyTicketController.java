@@ -1,12 +1,9 @@
 package TicketService.Controller;
 
-import TicketService.DataAccess.Bank;
+import TicketService.DataAccess.BankConnection;
 import TicketService.Model.Ticket;
 import TicketService.Model.TicketHandler;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -48,7 +45,7 @@ public class BuyTicketController {
     public void PayTickets(MouseEvent mouseEvent) {
         long accountNmber = Long.parseLong(accountNumberField.getText());
         int csv = Integer.parseInt(csvField.getText());
-        if(Bank.PayTotalPrice(accountNmber, csv, ticketHandler.calculatedTotalPrice())) {
+        if(BankConnection.PayTotalPrice(accountNmber, csv, ticketHandler.calculatedTotalPrice())) {
             ticketHandler.giveTicketToCustomer();
             Stage stage = (Stage)priceField.getScene().getWindow();
             stage.close();

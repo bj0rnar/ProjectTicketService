@@ -4,7 +4,6 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -30,7 +29,7 @@ public class IntegrationTest {
         ticketHandler.createTicket(eSportEvent,0);
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
 
-        ticketHandler.buyAllTickets(123123123123L, 123);
+        ticketHandler.payForTicketsWithCreditCard(123123123123L, 123);
         Assertions.assertEquals(1,customer.getTicketList().size());
     }
 }

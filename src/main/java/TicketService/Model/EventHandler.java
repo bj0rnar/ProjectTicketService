@@ -1,8 +1,9 @@
 package TicketService.Model;
 
 import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.IRepository;
 import TicketService.Users.Organizer;
-import TicketService.Utility.FakeDB;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Utility.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +22,13 @@ public class EventHandler {
     //Static demo lists.
     private static ArrayList<Event> eventList = new ArrayList<>();
     private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
+    private IRepository repository;
 
     private Organizer organizer;
 
     public EventHandler(Organizer organizer){
         this.organizer = organizer;
+        repository = new FakeDB();
     }
 
     public void createNewEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable){
@@ -33,9 +36,10 @@ public class EventHandler {
         uploadEvents(event);
     }
 
-    public void uploadEvents(Event event){
+    private void uploadEvents(Event event){
+        repository.uploadEvent(event);
         organizer.getEvents().add(event);
-        FakeDB.uploadedEvents.add(event);
+        //FakeDB.uploadedEvents.add(event);
     }
 
     public void createNewVenue(int numberOfSeats, String nameOfVenue){
@@ -45,17 +49,27 @@ public class EventHandler {
 
     private void uploadVenues(Venue venue) {
         organizer.getUserCreatedVenues().add(venue);
-        FakeDB.officialVenueList.add(venue);
+        repository.uploadVenue(venue);
     }
 
-    public void removeArrangementFromDB(String name){
+    public void deleteEventFromDB(String name){
         Event event = SelectEvent(name);
         if(event != null) {
-            FakeDB.uploadedEvents.remove(event);
+            repository.deleteEvent(event);
             organizer.getEvents().remove(event);
         }
         else
             System.out.println("That's not yours to delete");
+    }
+
+    public void deleteVenueFromDB(String name){
+        Venue venue = selectVenue(name);
+        if(venue != null){
+                repository.deleteVenue(venue);
+                organizer.getUserCreatedVenues().remove(venue);
+            }
+        else
+            System.out.println("Found no venue in list");
     }
 
     public boolean validateTicket(Ticket t, Event e){
@@ -65,6 +79,16 @@ public class EventHandler {
     /**
      * Representation of onClick, remove once added to javaFX
      */
+    private Venue selectVenue(String name){
+        for(Venue v : organizer.getUserCreatedVenues()){
+            if(v.getName().equals(name)){
+                return v;
+            }
+        }
+        return null;
+    }
+
+
     private Event SelectEvent(String name) {
         for(Event e : organizer.getEvents()){
             System.out.println(e.getName() + " " +  e.getDate() + " " + e.getVenue().getName());

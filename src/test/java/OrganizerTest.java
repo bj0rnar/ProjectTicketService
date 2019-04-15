@@ -1,8 +1,7 @@
-import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Organizer;
-import TicketService.Utility.FakeDB;
+import TicketService.DataAccess.FakeDB;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +14,7 @@ public class OrganizerTest {
     private Organizer organizer;
     private EventHandler eventHandler;
     private Venue v;
-    private int currentStateOfDB, currentStateOfLocal;
+    private int currentStateOfDB, currentStateOfLocal,currentStateOfVenueDB,currentStateOfLocalVenueDB;
 
     @BeforeEach
     public void setup(){
@@ -24,6 +23,8 @@ public class OrganizerTest {
         v = new Venue(48, "Sjoa samvirkelag");
         currentStateOfDB = FakeDB.uploadedEvents.size();
         currentStateOfLocal = organizer.getEvents().size();
+        currentStateOfVenueDB = FakeDB.officialVenueList.size();
+        currentStateOfLocalVenueDB = organizer.getUserCreatedVenues().size();
     }
 
     @DisplayName("Organizer har en liste over sine egne events, Databasen har liste over alle. Sjekker at nye events blir lastet opp til begge")
@@ -49,11 +50,36 @@ public class OrganizerTest {
         currentStateOfLocal++;
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());
         Assertions.assertEquals(currentStateOfLocal, organizer.getEvents().size());
-        eventHandler.removeArrangementFromDB("Tjohei");
+        eventHandler.deleteEventFromDB("Tjohei");
         currentStateOfDB--;
         currentStateOfLocal--;
         Assertions.assertEquals(currentStateOfLocal, organizer.getEvents().size());
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());
+    }
+
+    @Test
+    public void addVenueFromBothLocalAndDB(){
+        eventHandler.createNewVenue(1, "hei");
+        ++currentStateOfVenueDB;
+        ++currentStateOfLocalVenueDB;
+        //Checks if last element is the same.
+        Assertions.assertEquals(FakeDB.officialVenueList.get(currentStateOfVenueDB-1), organizer.getUserCreatedVenues().get(currentStateOfLocalVenueDB-1));
+    }
+
+    @Test
+    public void removeVenueFromBothLocalAndDB(){
+        eventHandler.createNewVenue(23, "lal");
+        ++currentStateOfLocalVenueDB;
+        ++currentStateOfVenueDB;
+        Assertions.assertEquals("lal", organizer.getUserCreatedVenues().get(currentStateOfLocalVenueDB-1).getName());
+        Assertions.assertEquals("lal", FakeDB.officialVenueList.get(currentStateOfVenueDB-1).getName());
+        Assertions.assertEquals(currentStateOfVenueDB, FakeDB.officialVenueList.size());
+        Assertions.assertEquals(currentStateOfLocalVenueDB, organizer.getUserCreatedVenues().size());
+        eventHandler.deleteVenueFromDB("lal");
+        --currentStateOfVenueDB;
+        --currentStateOfLocalVenueDB;
+        Assertions.assertEquals(currentStateOfVenueDB, FakeDB.officialVenueList.size());
+        Assertions.assertEquals(currentStateOfLocalVenueDB, organizer.getUserCreatedVenues().size());
     }
 
 

@@ -1,9 +1,7 @@
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
-import TicketService.Users.User;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -76,7 +74,7 @@ public class UserTest {
         ticketHandler.createTicket(manySeatsEvent,0);
         ticketHandler.createTicket(manySeatsEvent,0);
         ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.buyAllTickets(123412341234L,123);
+        ticketHandler.payForTicketsWithCreditCard(123412341234L,123);
         Assertions.assertEquals(3, customer.getTicketList().size());
     }
 

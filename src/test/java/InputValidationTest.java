@@ -30,7 +30,7 @@ public class InputValidationTest {
     @Test
     public void eventCreationInputIsValidated(){
         Assertions.assertTrue(InputValidator.validateSeatedEventInput("ManyspotEvent", manySpotVenue, LocalDate.now(), 100));
-        Assertions.assertTrue(InputValidator.validateSeatedEventInput("ManyspotEvent", manySpotVenue, LocalDate.now(), 100));
+        Assertions.assertTrue(InputValidator.validateSeatedEventInput("Jauda", manySpotVenue, LocalDate.now(), 5));
 
         Assertions.assertFalse(InputValidator.validateSeatedEventInput("", manySpotVenue, LocalDate.now(), 100));
         Assertions.assertFalse(InputValidator.validateSeatedEventInput("rere", manySpotVenue, LocalDate.now(), 0));

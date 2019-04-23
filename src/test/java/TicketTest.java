@@ -1,3 +1,4 @@
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
@@ -16,15 +17,15 @@ public class TicketTest {
 
 
     @BeforeEach
-    public void eachStartUp() {
+    public void eachStartUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Herald", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100,false, organizer);
-        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer, 77);
+        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250, organizer);
 
     }
 
@@ -51,8 +52,8 @@ public class TicketTest {
     }
 
     @Test
-    public void TicketHasCorrectEventGivenToIt() {
-        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true, new Organizer("yeeee","password","a","b","c"));
+    public void TicketHasCorrectEventGivenToIt() throws VenueHasNoSeatsException {
+        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299, new Organizer("yeeee","password","a","b","c"));
         ticketHandler.createTicket(event, 0);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());

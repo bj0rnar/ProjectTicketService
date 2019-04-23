@@ -22,4 +22,7 @@ public class ScreenController {
     public void active(String name) {
         main.setRoot(screenMap.get(name));
     }
+    public Pane getScreen(String name) {
+        return screenMap.get(name);
+    }
 }

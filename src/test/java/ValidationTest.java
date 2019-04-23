@@ -1,3 +1,4 @@
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -20,15 +21,15 @@ public class ValidationTest {
     EventHandler eventHandler;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("BrukernavnetErIBruk", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         eventHandler = new EventHandler(organizer);
         customer = new Customer("BrukernavnetErIkkeIBruk", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250, organizer);
     }
 
     @Test

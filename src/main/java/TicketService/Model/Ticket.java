@@ -21,6 +21,7 @@ public class Ticket {
         this.id = idCounter;
         this.price = event.getTicketPrice();
         idCounter++;
+        event.setAvailableTickets(event.getAvailableTickets() - 1);
         verificationCode = VerificationCodeMaker.createVerificationCode(event);
     }
 

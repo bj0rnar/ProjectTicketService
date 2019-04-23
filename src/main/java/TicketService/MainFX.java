@@ -5,11 +5,14 @@ import TicketService.Controller.ShopWindowController;
 import TicketService.Controller.RegisterWindowController;
 import TicketService.Controller.ScreenController;
 import TicketService.DataAccess.DataContext;
+import TicketService.Exception.VenueHasNoSeatsException;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -29,14 +32,18 @@ public class MainFX extends Application {
      * */
 
     private static MainFX minApplikasjon;
-    private Stage primaryStage;
+    public static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
 
 
         DataContext.CreateVenues();
-        DataContext.CreateEvents();
+        try {
+            DataContext.CreateEvents();
+        } catch (VenueHasNoSeatsException e) {
+            e.printStackTrace();
+        }
         DataContext.CreateUsers();
         minApplikasjon = this;
         try{

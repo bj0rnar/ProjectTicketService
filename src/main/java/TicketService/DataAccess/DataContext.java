@@ -1,5 +1,6 @@
 package TicketService.DataAccess;
 
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
@@ -18,12 +19,12 @@ public class DataContext {
     private static ArrayList<Venue> venues = new ArrayList<>();
     private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
-    public static void CreateEvents() {
+    public static void CreateEvents() throws VenueHasNoSeatsException {
 
         if(eventList.size() == 0) {
-            eventList.add(new Event("TG19", Venue.getVenues().get(0), LocalDate.of(2019,3,21), 100, true, new Organizer("Egil", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("EnSetersEvent", Venue.getVenues().get(1), LocalDate.of(2019,3,21), 100,true, new Organizer("Haraldio", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
-            eventList.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100,false, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("TG19", Venue.getVenues().get(0), LocalDate.of(2019,3,21), 100,  new Organizer("Egil", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("EnSetersEvent", Venue.getVenues().get(1), LocalDate.of(2019,3,21), 299, new Organizer("Haraldio", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            eventList.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com"), 33));
         }
     }
     public static void CreateUsers() {
@@ -51,7 +52,11 @@ public class DataContext {
 
     public static ArrayList<Event> getEventList() {
         if(eventList.isEmpty()) {
-            CreateEvents();
+            try {
+                CreateEvents();
+            } catch (VenueHasNoSeatsException e) {
+                e.printStackTrace();
+            }
         }
         return eventList;
     }

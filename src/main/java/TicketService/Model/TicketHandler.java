@@ -43,11 +43,14 @@ public class TicketHandler {
      * @param event Event that ticket will point to
      */
     public void createTicket(Event event, int seatNumber) {
+        if(event.getAvailableTickets() > 0) {
+            if (event.getAreSeatsAvailable())
+                CreateSeatedTicket(event, seatNumber);
+            else
+                createUnseatedTicket(event);
 
-        if (event.getAreSeatsAvailable()) {
-            checkSeatAvailability(event, seatNumber);
         } else {
-            tickets.add(new Ticket(event));
+            //No more tickets available
         }
     }
 
@@ -55,7 +58,7 @@ public class TicketHandler {
      * Checks for available seats and specific seat
      */
 
-    private void checkSeatAvailability(Event event, int seatNumber) {
+    private void CreateSeatedTicket(Event event, int seatNumber) {
 
         boolean availableSeats = event.getEventSeats().size() != 0;
 
@@ -64,6 +67,10 @@ public class TicketHandler {
         } else {
             System.out.println("No more seats available for event: " + event.getName());
         }
+    }
+
+    private void createUnseatedTicket(Event event) {
+        tickets.add(new Ticket(event));
     }
 
     /**

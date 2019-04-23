@@ -2,6 +2,7 @@ package TicketService.Model;
 
 import TicketService.DataAccess.DataContext;
 import TicketService.DataAccess.IRepository;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
 import TicketService.DataAccess.FakeDB;
 import TicketService.Utility.Validator;
@@ -31,8 +32,12 @@ public class EventHandler {
         repository = new FakeDB();
     }
 
-    public void createNewEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable){
-        Event event = new Event(name, venue, date, ticketPrice, areSeatsAvailable, organizer);
+    public void createNewSeatedEvent(String name, Venue venue, LocalDate date, int ticketPrice) throws VenueHasNoSeatsException {
+        Event event = new Event(name, venue, date, ticketPrice, organizer);
+        uploadEvents(event);
+    }
+    public void createNewNoneSeatedEvent(String name, Venue venue, LocalDate date, int ticketPrice, int totalTickets){
+        Event event = new Event(name, venue, date, ticketPrice, organizer, totalTickets);
         uploadEvents(event);
     }
 

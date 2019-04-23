@@ -1,4 +1,5 @@
 import TicketService.DataAccess.DataContext;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
@@ -17,14 +18,14 @@ public class EventTest {
 
 
     @BeforeEach
-    public void eachStartUp() {
+    public void eachStartUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         organizer = new Organizer("MyUsername", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("MyUsernameCustomer", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100, organizer);
     }
 
     //ADDED
@@ -74,7 +75,7 @@ public class EventTest {
 
     @Test
     @DisplayName("GUI stuff")
-    public void EventFXListIsEqualToEventList() {
+    public void EventFXListIsEqualToEventList() throws VenueHasNoSeatsException {
         DataContext.CreateEvents();
         ArrayList<Event> list = EventHandler.getEventList();
         ObservableList<Event> listFx = EventHandler.getEventListFX();
@@ -91,9 +92,9 @@ public class EventTest {
         Assertions.assertEquals("JustOneSpotLeft", oneSeatEvent.getName());
     }
     @Test
-    public void EventHasCorrectVenue() {
+    public void EventHasCorrectVenue() throws VenueHasNoSeatsException {
         Venue venue = new Venue(256, "Dorororo");
-        oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100, organizer);
         Assertions.assertEquals(venue, oneSeatEvent.getVenue());
     }
 

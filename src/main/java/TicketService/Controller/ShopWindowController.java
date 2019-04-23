@@ -1,5 +1,6 @@
 package TicketService.Controller;
 
+import TicketService.MainFX;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -16,8 +17,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ShopWindowController {
 
@@ -29,7 +33,7 @@ public class ShopWindowController {
     private ListView<Event> eventListView;
 
     @FXML
-    private Text eventNameText, VenueNameText, EventDateText, SeatsLeftEventText, seatsLeftStaticText, totalAmountOfItems;
+    private Text eventNameText, VenueNameText, EventDateText, SeatsLeftEventText, seatsLeftStaticText, totalAmountOfItems, TicketPriceText, totalPriceText;
 
     @FXML
     private Button buyTicketsButton, addToCartButton;
@@ -59,6 +63,7 @@ public class ShopWindowController {
         eventNameText.setText(event.getName());
         VenueNameText.setText(event.getVenue().getName());
         EventDateText.setText(event.getDate().toString());
+        TicketPriceText.setText(event.getTicketPrice() + ",-");
 
         if (event.getAreSeatsAvailable()) {
             if ((event.getEventSeats().size() != 0)) {
@@ -73,9 +78,11 @@ public class ShopWindowController {
             SeatsLeftEventText.setText("");
             seatsLeftStaticText.setText("");
         }
-        if(ticketHandler != null)
-            if(ticketHandler.getTickets().size() > 0)
+        if(ticketHandler != null) {
+            if (ticketHandler.getTickets().size() > 0)
                 buyTicketsButton.setDisable(false);
+            totalPriceText.setText(ticketHandler.calculatedTotalPrice() + ",-");
+        }
     }
 
     public void AddEventToCart() {
@@ -112,6 +119,7 @@ public class ShopWindowController {
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();
+            initialize();
 
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();

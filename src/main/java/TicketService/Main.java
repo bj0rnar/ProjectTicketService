@@ -1,6 +1,7 @@
 package TicketService;
 
 import TicketService.DataAccess.DataContext;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -17,7 +18,11 @@ public class Main {
 
     public static void main(String[] args){
         DataContext.CreateVenues();
-        DataContext.CreateEvents();
+        try {
+            DataContext.CreateEvents();
+        } catch (VenueHasNoSeatsException e) {
+            e.printStackTrace();
+        }
 
         Event event = EventHandler.getEventList().stream()
                 .filter(asd -> "TG19".equals(asd.getName()))
@@ -32,4 +37,6 @@ public class Main {
     public static void StartBuyTicketProcess() {
 
     }
+
+
 }

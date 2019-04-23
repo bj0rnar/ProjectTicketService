@@ -33,10 +33,10 @@ public class BuyTicketController {
             list.add(ticket);
         }
         ticketsListView.setItems(list);
-        updatePrice();
+        updateGUIPrice();
     }
 
-    private void updatePrice() {
+    private void updateGUIPrice() {
         for(Ticket ticket : ticketsListView.getItems()) {
             priceField.setText("Total price: " + ticketHandler.calculatedTotalPrice() + ",-");
         }

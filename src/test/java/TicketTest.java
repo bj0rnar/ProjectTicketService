@@ -251,8 +251,6 @@ public class TicketTest {
             e.printStackTrace();
         }
         Assertions.assertThrows(IllegalTicketCreationException.class, () -> new Ticket(oneSeatEvent));
-
-
     }
 
 }

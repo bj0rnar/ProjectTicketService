@@ -122,4 +122,13 @@ public class EventTest {
         ticketHandler.createTicket(manySeatsEvent, manySeatsEvent.getEventSeats().size()-1);
         Assertions.assertEquals(x, ticketHandler.getTickets().get(0).getSeat());
     }
+
+
+    @DisplayName("Throws exception if event is created as a seated event when venue has no seats")
+    @Test
+    public void throwsExceptionWhenTryingToCreateTicketWhenNoMoreTicketsAvailable() {
+        Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
+        Venue noSeatVenue = new Venue(0, "NoSeatesInThisPlace");
+        Assertions.assertThrows(VenueHasNoSeatsException.class, () -> new Event("SeatedEventWithoutSeatsWHAT??!!", noSeatVenue, LocalDate.now(), 175, organizer));
+    }
 }

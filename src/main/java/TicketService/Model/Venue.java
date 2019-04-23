@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Venue {
 
 
-    private ArrayList<Seat> seats;
+    private ArrayList<Seat> seats = new ArrayList<>();
     private String name;
 
 
@@ -19,7 +19,6 @@ public class Venue {
     public Venue(int totalSeats, String name) {
         this.name = name;
         if(totalSeats != 0) {
-            seats = new ArrayList<>();
             addSeats(totalSeats);
         }
     }

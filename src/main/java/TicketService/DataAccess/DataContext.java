@@ -19,6 +19,7 @@ public class DataContext {
     private static ArrayList<Venue> venues = new ArrayList<>();
     private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
+    //Dummy data
     public static void CreateEvents() throws VenueHasNoSeatsException {
 
         if(eventList.size() == 0) {
@@ -27,6 +28,7 @@ public class DataContext {
             eventList.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com"), 33));
         }
     }
+    //Dummy data
     public static void CreateUsers() {
         if(userList.size() == 0) {
             userList.add(new Customer("Mats", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
@@ -42,7 +44,7 @@ public class DataContext {
         }
         return null;
     }
-
+    //Dummy data
     public static void CreateVenues() {
         venues.add(new Venue(100, "Hall 1"));
         venues.add(new Venue(1, "Hall 2"));
@@ -50,6 +52,7 @@ public class DataContext {
 
     }
 
+    //Create dummy data
     public static ArrayList<Event> getEventList() {
         if(eventList.isEmpty()) {
             try {
@@ -68,11 +71,15 @@ public class DataContext {
         }
         return eventListFX;
     }
-
+    //Create dummy data
     public static ArrayList<Venue> getVenues() {
         if(venues.size() == 0) {
             CreateVenues();
         }
         return venues;
+    }
+
+    public static ArrayList<User> getUserList() {
+        return userList;
     }
 }

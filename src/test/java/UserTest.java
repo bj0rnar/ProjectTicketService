@@ -1,8 +1,11 @@
+import TicketService.Controller.LoginWindowController;
+import TicketService.DataAccess.DataContext;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
+import TicketService.Users.User;
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
 
@@ -86,5 +89,13 @@ public class UserTest {
         ticketHandler.createTicket(manySeatsEvent,12);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());
+    }
+
+    @Test
+    public void userLoginMethodReturnsUser(){
+        //Create dummy data
+        DataContext.CreateUsers();
+        User user = DataContext.getUserList().get(0);
+        Assertions.assertEquals(user, DataContext.authUserLogin("Mats", "MyPassword"));
     }
 }

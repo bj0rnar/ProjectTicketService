@@ -22,11 +22,8 @@ public class PDFCreator {
     public static void createPDFToPath(String path, Ticket ticket) throws IOException {
         PdfDocument pdf = new PdfDocument(new PdfWriter(path));
         try (Document document = new Document(pdf)){
-            document.add(new Paragraph("Hello World!"));
             document.add(new Paragraph("Verification code: " + ticket.getVerificationCode()));
             document.add(new Paragraph(ticket.getReceipt()));
-
-
         }
     }
 }

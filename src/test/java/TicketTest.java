@@ -222,15 +222,19 @@ public class TicketTest {
     @Test
     public void payAtTheBank() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 1);
+        int index = customer.getTicketList().size();
         ticketHandler.payForTicketsWithCreditCard(53423233, 123);
-        //Where tf is the assert?
+        index++;
+        Assertions.assertEquals(index, customer.getTicketList().size());
     }
 
     @Test
     public void payAtThePayPal() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 15);
+        int index = customer.getTicketList().size();
         ticketHandler.payForTicketsWithPayPal(1312312, 123);
-        //Where tf is the assert?
+        index++;
+        Assertions.assertEquals(index, customer.getTicketList().size());
     }
 
     @Test

@@ -5,9 +5,23 @@ import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
+import TicketService.Utility.PDFCreator;
+import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.rules.TemporaryFolder;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.jupiter.api.io.TempDir;
+
 
 public class PDFCreationTest {
     Event oneSeatEvent, manySeatsEvent;
@@ -15,6 +29,8 @@ public class PDFCreationTest {
     Organizer organizer;
     TicketHandler ticketHandler;
 
+    @Rule
+    public TemporaryFolder localFolder = new TemporaryFolder();
 
     @BeforeEach
     public void fixMyTestClass() throws VenueHasNoSeatsException, IllegalTicketCreationException {
@@ -27,14 +43,13 @@ public class PDFCreationTest {
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100, organizer);
         ticketHandler.createTicket(manySeatsEvent, 14);
         ticketHandler.giveTicketToCustomer();
+        localFolder = new TemporaryFolder();
     }
 
-    /*@Test
-    public void cmonBaby(){
-        try {
-            PDFCreator.initializePdfCreation(customer.getTicketList().get(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+    @Test
+    public void writesPDFToFile(@TempDir Path tempDir) throws IOException{
+        Path output = tempDir.resolve("test.pdf").toAbsolutePath();
+        PDFCreator.createPDFToPath(output.toString(), customer.getTicketList().get(0));
+        Assertions.assertTrue(Files.exists(output));
+    }
 }

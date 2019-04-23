@@ -81,7 +81,6 @@ public class OrganizerTest {
         Assertions.assertEquals(currentStateOfVenueDB, FakeDB.officialVenueList.size());
         Assertions.assertEquals(currentStateOfLocalVenueDB, organizer.getUserCreatedVenues().size());
     }
-
-
+    
 
 }

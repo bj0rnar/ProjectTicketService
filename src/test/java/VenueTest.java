@@ -28,9 +28,8 @@ public class VenueTest {
     @Test
     public void VenueWithoutSeatsCanBeCreated() {
         Venue venue = new Venue(0,"NoSeats");
-        Assertions.assertNull(venue.getSeats());
+        Assertions.assertEquals(0, venue.getSeats().size());
         Assertions.assertEquals("NoSeats", venue.getName());
-
     }
 
     @Test

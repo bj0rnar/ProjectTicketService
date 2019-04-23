@@ -125,15 +125,6 @@ public class TicketHandler {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());
     }
 
-    //This should be the only way to print physical tickets. Controller should refer to this method instead. !RemindMe 1 day
-    /*public void createPhysicalTicket(){
-        try {
-            PDFCreator.initializePdfCreation(ticket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     /**
      * Process is canceled and the seat reserved
      * with ticket are returned to original event.

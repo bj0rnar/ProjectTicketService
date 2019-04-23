@@ -88,7 +88,12 @@ public class ShopWindowController {
         Event event = eventListView.getSelectionModel().getSelectedItem();
         if (event != null) {
             try {
-                ticketHandler.createTicket(event, -1);
+                if(event.getVenue().getSeats().size() != 0) {
+                    ticketHandler.createTicket(event, -1);
+                }
+                else {
+                    ticketHandler.createTicket(event);
+                }
             } catch (IllegalTicketCreationException e) {
                 e.printStackTrace();
             }

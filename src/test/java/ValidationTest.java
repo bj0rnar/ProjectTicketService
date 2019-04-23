@@ -1,3 +1,4 @@
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
@@ -33,20 +34,20 @@ public class ValidationTest {
     }
 
     @Test
-    public void verificationCodeIsMade(){
+    public void verificationCodeIsMade() throws IllegalTicketCreationException {
         Assertions.assertEquals(0, manySeatsEvent.getVerificationCodeList().size());
         ticketHandler.createTicket(manySeatsEvent, 2);
         Assertions.assertEquals(1, manySeatsEvent.getVerificationCodeList().size());
     }
 
     @Test
-    public void verificationCodeIsAccepted(){
-        ticketHandler.createTicket(oneSeatEvent, 0);
+    public void verificationCodeIsAccepted() throws IllegalTicketCreationException {
+        ticketHandler.createTicket(oneSeatEvent);
         Assertions.assertEquals(ticketHandler.getTickets().get(0).getVerificationCode(), oneSeatEvent.getVerificationCodeList().get(0));
     }
 
     @Test
-    public void validatorWorksAsIntended(){
+    public void validatorWorksAsIntended() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer();
         int index = customer.getTicketList().size();
@@ -56,7 +57,7 @@ public class ValidationTest {
     }
     
     @Test
-    public void cancellingRemovesVerificationCodeFromAccepted(){
+    public void cancellingRemovesVerificationCodeFromAccepted() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,1);
         int index = ticketHandler.getTickets().size();
         int index2 = manySeatsEvent.getVerificationCodeList().size();
@@ -68,7 +69,7 @@ public class ValidationTest {
     }
 
     @Test
-    public void multipleTicketsAreValidated(){
+    public void multipleTicketsAreValidated() throws IllegalTicketCreationException {
         int index = customer.getTicketList().size();
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.createTicket(manySeatsEvent, 69);

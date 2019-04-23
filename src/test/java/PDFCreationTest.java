@@ -1,3 +1,4 @@
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.TicketHandler;
@@ -16,7 +17,7 @@ public class PDFCreationTest {
 
 
     @BeforeEach
-    public void fixMyTestClass() throws VenueHasNoSeatsException {
+    public void fixMyTestClass() throws VenueHasNoSeatsException, IllegalTicketCreationException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "DU ska sitta her");
         organizer = new Organizer("RunAutaNames", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");

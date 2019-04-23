@@ -38,7 +38,6 @@ public class Event {
         availableTickets = totalTickets;
     }
 
-
     /**
      * Constructor for seated event
      * @param name Name of event
@@ -104,6 +103,9 @@ public class Event {
             if(seat.getSeatNumber() == seatNumber){
                 return true;
             }
+        }
+        if(seatNumber == -1 && eventSeats.size() > 0) {
+            return true;
         }
         return false;
     }

@@ -35,12 +35,12 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" wrappingWidth="96.5859375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="96.861328125" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" wrappingWidth="95.951171875" GridPane.columnIndex="1" />
-                  <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Seats left" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text fx:id="eventNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="TG 2019" textAlignment="RIGHT" GridPane.columnIndex="3" />
-                  <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Viking hallen" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="17 april 2019" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Text fx:id="SeatsLeftEventText" strokeType="OUTSIDE" strokeWidth="0.0" text="2304" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Button fx:id="addToCartButton" maxHeight="200.0" maxWidth="200.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#AddEventToCart" prefHeight="58.0" prefWidth="96.0" text="ADD TO CART" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets left" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Text fx:id="eventNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" />
+                  <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Text fx:id="EventTicketsLeftText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Button fx:id="addToCartButton" maxHeight="200.0" maxWidth="200.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#AddEventTicketToCart" prefHeight="58.0" prefWidth="96.0" text="ADD TO CART" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Button>
@@ -51,7 +51,7 @@
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <Text fx:id="seatsLeftStaticText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Text fx:id="TicketPriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="2304" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Text fx:id="TicketPriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                </children>
             </GridPane>
         </items>

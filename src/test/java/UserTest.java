@@ -1,3 +1,4 @@
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
@@ -47,7 +48,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanGetTicket(){
+    public void UserCanGetTicket() throws IllegalTicketCreationException {
         Ticket ticket = new Ticket(manySeatsEvent);
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
@@ -72,16 +73,16 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanBuyMultipleTickets() {
-        ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.createTicket(manySeatsEvent,0);
+    public void UserCanBuyMultipleTickets() throws IllegalTicketCreationException {
+        ticketHandler.createTicket(manySeatsEvent,-1);
+        ticketHandler.createTicket(manySeatsEvent,-1);
+        ticketHandler.createTicket(manySeatsEvent,-1);
         ticketHandler.payForTicketsWithCreditCard(123412341234L,123);
         Assertions.assertEquals(3, customer.getTicketList().size());
     }
 
     @Test
-    public void UserCanReserveASeatToEvent() {
+    public void UserCanReserveASeatToEvent() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,12);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());

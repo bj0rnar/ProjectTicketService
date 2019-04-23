@@ -1,5 +1,6 @@
 package TicketService.Model;
 
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Utility.PriceCalculator;
 import TicketService.Utility.ReceiptMaker;
 import TicketService.Utility.VerificationCodeMaker;
@@ -16,13 +17,17 @@ public class Ticket {
     private String verificationCode;
 
     //idCounter is a very simple ID handler. Maybe change it out with hash?
-    public Ticket(Event event) {
-        this.event = event;
-        this.id = idCounter;
-        this.price = event.getTicketPrice();
-        idCounter++;
-        event.setAvailableTickets(event.getAvailableTickets() - 1);
-        verificationCode = VerificationCodeMaker.createVerificationCode(event);
+    public Ticket(Event event) throws IllegalTicketCreationException {
+        if(event.getAvailableTickets() > 0) {
+            this.event = event;
+            this.id = idCounter;
+            this.price = event.getTicketPrice();
+            idCounter++;
+            event.setAvailableTickets(event.getAvailableTickets() - 1);
+            verificationCode = VerificationCodeMaker.createVerificationCode(event);
+        } else {
+            throw new IllegalTicketCreationException("Tried to create ticket when no more tickets available for event: " + event.getName());
+        }
     }
 
     public String getVerificationCode() { return verificationCode; }

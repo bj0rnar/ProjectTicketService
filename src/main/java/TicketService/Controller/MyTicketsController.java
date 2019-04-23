@@ -3,9 +3,12 @@ package TicketService.Controller;
 import TicketService.Model.Ticket;
 import TicketService.Users.Customer;
 import TicketService.Utility.PDFCreator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -19,9 +22,13 @@ public class MyTicketsController {
     ListView myTicketsList;
 
     @FXML
-    public void initialize() {
+    Button downloadTicketButton;
 
+    @FXML
+    public void initialize() {
+        downloadTicketButton.setDisable(true);
     }
+
     public void downloadTicket(MouseEvent mouseEvent) {
 
         FileChooser fileChooser = new FileChooser();
@@ -47,6 +54,14 @@ public class MyTicketsController {
                 list.add(ticket);
             }
             myTicketsList.setItems(list);
+        }
+    }
+
+    public void CheckIfItemIsSelected(MouseEvent mouseEvent) {
+        if(myTicketsList.getSelectionModel().getSelectedItem() != null) {
+            downloadTicketButton.setDisable(false);
+        } else {
+            downloadTicketButton.setDisable(true);
         }
     }
 }

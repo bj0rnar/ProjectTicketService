@@ -1,5 +1,6 @@
 package TicketService.Model;
 
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
 
 import java.time.LocalDate;
@@ -9,24 +10,58 @@ public class Event {
     private String name;
     private Venue venue;
     private int ticketPrice;
+    private int totalTickets;
+    private int availableTickets;
     private Organizer organizer;
     private LocalDate date;
     private Boolean areSeatsAvailable;
     private ArrayList<Venue.Seat> eventSeats;
     private ArrayList<String> verificationCodeList = new ArrayList<>();
 
-    public Event(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable, Organizer organizer) {
+    /**
+     * Constructor for none-seated event
+     * @param name Name of event
+     * @param venue location of event
+     * @param date start date of event
+     * @param ticketPrice price for each ticket
+     * @param organizer main responsible for the event
+     * @param totalTickets Total amount of tickets available for this event
+     */
+    public Event(String name, Venue venue, LocalDate date, int ticketPrice, Organizer organizer, int totalTickets) {
         this.name = name;
         this.venue = venue;
         this.date = date;
         this.ticketPrice = ticketPrice;
         this.organizer = organizer;
-        this.areSeatsAvailable = areSeatsAvailable;
-        if(areSeatsAvailable) {
-            if(venue.getSeats().size() != 0) {
-                eventSeats = venue.getSeats();
-            }
+        this.areSeatsAvailable = false;
+        this.totalTickets = totalTickets;
+        availableTickets = totalTickets;
+    }
+
+    /**
+     * Constructor for seated event
+     * @param name Name of event
+     * @param venue location of event
+     * @param date start date of event
+     * @param ticketPrice price for each ticket
+     * @param organizer main responsible for the event
+     */
+    public Event(String name, Venue venue, LocalDate date, int ticketPrice , Organizer organizer) throws VenueHasNoSeatsException {
+        if(venue.getSeats().size() != 0) {
+            this.name = name;
+            this.venue = venue;
+            this.date = date;
+            this.ticketPrice = ticketPrice;
+            this.organizer = organizer;
+            this.areSeatsAvailable = true;
+            this.totalTickets = venue.getSeats().size();
+            availableTickets = totalTickets;
+            eventSeats = venue.getSeats();
         }
+        else
+            throw new VenueHasNoSeatsException("Seated Event instantiated without venue with seats.");
+
+
     }
 
     public ArrayList<String> getVerificationCodeList() { return verificationCodeList; }
@@ -55,11 +90,22 @@ public class Event {
         return eventSeats;
     }
 
+    public int getAvailableTickets() {
+        return availableTickets;
+    }
+
+    public void setAvailableTickets(int availableTickets) {
+        this.availableTickets = availableTickets;
+    }
+
     public boolean isSeatAvailable(int seatNumber){
         for(Venue.Seat seat : eventSeats){
             if(seat.getSeatNumber() == seatNumber){
                 return true;
             }
+        }
+        if(seatNumber == -1 && eventSeats.size() > 0) {
+            return true;
         }
         return false;
     }

@@ -1,5 +1,7 @@
 package TicketService.Controller;
 
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.MainFX;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -16,8 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ShopWindowController {
 
@@ -29,7 +34,7 @@ public class ShopWindowController {
     private ListView<Event> eventListView;
 
     @FXML
-    private Text eventNameText, VenueNameText, EventDateText, SeatsLeftEventText, seatsLeftStaticText, totalAmountOfItems;
+    private Text eventNameText, VenueNameText, EventDateText, seatsLeftStaticText, totalAmountOfItems, TicketPriceText, totalPriceText, EventTicketsLeftText;
 
     @FXML
     private Button buyTicketsButton, addToCartButton;
@@ -59,32 +64,34 @@ public class ShopWindowController {
         eventNameText.setText(event.getName());
         VenueNameText.setText(event.getVenue().getName());
         EventDateText.setText(event.getDate().toString());
+        TicketPriceText.setText(event.getTicketPrice() + ",-");
 
-        if (event.getAreSeatsAvailable()) {
-            if ((event.getEventSeats().size() != 0)) {
-                addToCartButton.setDisable(false);
-            } else {
-                addToCartButton.setDisable(true);
-            }
-            seatsLeftStaticText.setText("Seats left: ");
-            SeatsLeftEventText.setText((String.valueOf(event.getVenue().getSeats().size())));
-        } else {
+        if ((event.getAvailableTickets() > 0)) {
             addToCartButton.setDisable(false);
-            SeatsLeftEventText.setText("");
-            seatsLeftStaticText.setText("");
+        } else {
+            addToCartButton.setDisable(true);
         }
-        if(ticketHandler != null)
-            if(ticketHandler.getTickets().size() > 0)
+        seatsLeftStaticText.setText("Tickets left: ");
+        EventTicketsLeftText.setText((String.valueOf(event.getAvailableTickets())));
+
+        if(ticketHandler != null) {
+            if (ticketHandler.getTickets().size() > 0)
                 buyTicketsButton.setDisable(false);
+            totalPriceText.setText(ticketHandler.calculatedTotalPrice() + ",-");
+        }
     }
 
-    public void AddEventToCart() {
+    public void AddEventTicketToCart() {
         if (ticketHandler == null) {
             ticketHandler = new TicketHandler(customer);
         }
         Event event = eventListView.getSelectionModel().getSelectedItem();
         if (event != null) {
-            ticketHandler.createTicket(event, 0);
+            try {
+                ticketHandler.createTicket(event, -1);
+            } catch (IllegalTicketCreationException e) {
+                e.printStackTrace();
+            }
             totalAmountOfItems.setText("Shopping cart items: " + ticketHandler.getTickets().size());
         }
         updateEventDetails(event);
@@ -112,6 +119,7 @@ public class ShopWindowController {
             //secondController.setEventToEdit(event);
 
             dialogStage.showAndWait();
+            initialize();
 
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();

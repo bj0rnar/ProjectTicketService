@@ -1,3 +1,5 @@
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -20,32 +22,32 @@ public class ValidationTest {
     EventHandler eventHandler;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("BrukernavnetErIBruk", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         eventHandler = new EventHandler(organizer);
         customer = new Customer("BrukernavnetErIkkeIBruk", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250, organizer);
     }
 
     @Test
-    public void verificationCodeIsMade(){
+    public void verificationCodeIsMade() throws IllegalTicketCreationException {
         Assertions.assertEquals(0, manySeatsEvent.getVerificationCodeList().size());
         ticketHandler.createTicket(manySeatsEvent, 2);
         Assertions.assertEquals(1, manySeatsEvent.getVerificationCodeList().size());
     }
 
     @Test
-    public void verificationCodeIsAccepted(){
-        ticketHandler.createTicket(oneSeatEvent, 0);
+    public void verificationCodeIsAccepted() throws IllegalTicketCreationException {
+        ticketHandler.createTicket(oneSeatEvent);
         Assertions.assertEquals(ticketHandler.getTickets().get(0).getVerificationCode(), oneSeatEvent.getVerificationCodeList().get(0));
     }
 
     @Test
-    public void validatorWorksAsIntended(){
+    public void validatorWorksAsIntended() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer();
         int index = customer.getTicketList().size();
@@ -55,7 +57,7 @@ public class ValidationTest {
     }
     
     @Test
-    public void cancellingRemovesVerificationCodeFromAccepted(){
+    public void cancellingRemovesVerificationCodeFromAccepted() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,1);
         int index = ticketHandler.getTickets().size();
         int index2 = manySeatsEvent.getVerificationCodeList().size();
@@ -67,7 +69,7 @@ public class ValidationTest {
     }
 
     @Test
-    public void multipleTicketsAreValidated(){
+    public void multipleTicketsAreValidated() throws IllegalTicketCreationException {
         int index = customer.getTicketList().size();
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.createTicket(manySeatsEvent, 69);

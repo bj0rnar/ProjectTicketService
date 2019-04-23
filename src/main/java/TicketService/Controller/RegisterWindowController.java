@@ -16,6 +16,9 @@ public class RegisterWindowController {
 
     }
 
+    @FXML
+
+
     public void registerUser() {
         try{
             ShopWindowController.customer = new Customer(usernameText.getText(), passwordText.getText(),firstNameText.getText(), lastNameText.getText(), emailText.getText());

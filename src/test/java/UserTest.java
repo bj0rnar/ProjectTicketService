@@ -1,3 +1,5 @@
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
@@ -13,14 +15,14 @@ public class UserTest {
     TicketHandler ticketHandler;
 
     @BeforeEach
-    public void eachStartUp() {
+    public void eachStartUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         customer = new Customer("Arnoldsen", "MyPassword","Jon","Doe","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         Organizer organizer = new Organizer("Knutsen", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100, organizer);
 
     }
 
@@ -46,7 +48,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanGetTicket(){
+    public void UserCanGetTicket() throws IllegalTicketCreationException {
         Ticket ticket = new Ticket(manySeatsEvent);
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
@@ -63,23 +65,24 @@ public class UserTest {
     }
 
     @Test
-    public void OrganizerCanCreateEventCorrectly() {
+    public void OrganizerCanCreateEventCorrectly() throws VenueHasNoSeatsException {
         Organizer organizer = new Organizer("Krisito", "MyPassword","Leon", "Kennedy","old@school.com");
-        organizer.createEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432, false);
+        EventHandler eventHandler = new EventHandler(organizer);
+        eventHandler.createNewSeatedEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432);
         Assertions.assertEquals("Event name", organizer.getEvents().get(0).getName());
     }
 
     @Test
-    public void UserCanBuyMultipleTickets() {
-        ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.createTicket(manySeatsEvent,0);
+    public void UserCanBuyMultipleTickets() throws IllegalTicketCreationException {
+        ticketHandler.createTicket(manySeatsEvent,-1);
+        ticketHandler.createTicket(manySeatsEvent,-1);
+        ticketHandler.createTicket(manySeatsEvent,-1);
         ticketHandler.payForTicketsWithCreditCard(123412341234L,123);
         Assertions.assertEquals(3, customer.getTicketList().size());
     }
 
     @Test
-    public void UserCanReserveASeatToEvent() {
+    public void UserCanReserveASeatToEvent() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,12);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());

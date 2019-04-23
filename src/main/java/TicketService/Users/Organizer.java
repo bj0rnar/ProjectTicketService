@@ -15,10 +15,7 @@ public class Organizer extends User {
         super(username, password, firstname, lastname, email);
     }
 
-    //This should be the only "legal" way to create an event. To force the event to be create by an organizer. (Wouldnt make sense otherwise?)
-    public void createEvent(String name, Venue venue, LocalDate date, int ticketPrice , Boolean areSeatsAvailable) {
-        events.add(new Event(name, venue, date, ticketPrice, areSeatsAvailable, this));
-    }
+
 
     public ArrayList<Event> getEvents() {
         return events;

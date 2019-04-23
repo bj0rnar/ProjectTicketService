@@ -3,6 +3,7 @@ package TicketService.Model;
 import TicketService.DataAccess.BankConnection;
 import TicketService.DataAccess.IPaymentOptions;
 import TicketService.DataAccess.PayPalConnection;
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Users.Customer;
 import TicketService.Utility.*;
 
@@ -42,47 +43,37 @@ public class TicketHandler {
      *
      * @param event Event that ticket will point to
      */
-    public void createTicket(Event event, int seatNumber) {
-
-        if (event.getAreSeatsAvailable()) {
-            checkSeatAvailability(event, seatNumber);
-        } else {
-            tickets.add(new Ticket(event));
-        }
+    public void createTicket(Event event) throws IllegalTicketCreationException {
+        Ticket ticket = new Ticket(event);
+        tickets.add(ticket);
+        event.getVerificationCodeList().add(ticket.getVerificationCode());
     }
 
-    /**
-     * Checks for available seats and specific seat
-     */
-
-    private void checkSeatAvailability(Event event, int seatNumber) {
+    public void createTicket(Event event, int seatNumber) throws IllegalTicketCreationException {
 
         boolean availableSeats = event.getEventSeats().size() != 0;
 
-        if (availableSeats && event.isSeatAvailable(seatNumber)) {
-            createSeatedEventTicket(event, seatNumber);
+        if (availableSeats) {
+            if(event.isSeatAvailable(seatNumber)) {
+                Ticket ticket = new Ticket(event);
+                seatReservation(event, seatNumber, ticket);
+                tickets.add(ticket);
+            }
+            else {
+                System.out.println("Seat is occupied");
+            }
         } else {
             System.out.println("No more seats available for event: " + event.getName());
         }
     }
 
-    /**
-     * Create ticket if seating is available and either seat is not reserved OR seating is assigned.
-     */
-
-    private void createSeatedEventTicket(Event event, int seatNumber) {
-        Ticket ticket = new Ticket(event);
-        seatReservation(event, seatNumber, ticket);
-        tickets.add(ticket);
-
-    }
 
     /**
-     * seatNumber == 0 is for cases where customers are ASSIGNED seats (not selecting seats themselves)
+     * seatNumber == -1 is for cases where customers are ASSIGNED seats (not selecting seats themselves)
      */
 
     private void seatReservation(Event event, int seatNumber, Ticket ticket) {
-        if (seatNumber == 0) {
+        if (seatNumber == -1) {
             seatNumber = event.getEventSeats().size() - 1;
         }
         ticket.setSeat(event.getEventSeats().get(seatNumber));

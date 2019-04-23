@@ -26,7 +26,7 @@ public class VenueCreationTest {
 
 
         eventHandler.createNewVenue(1, "Heisann");
-        eventHandler.createNewEvent("Her skjer dæ ting", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 12, false);
+        eventHandler.createNewNoneSeatedEvent("Her skjer dæ ting", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 12, 100);
         ++DBIndexForVenues;
         ++DBIndexForEvents;
         Assertions.assertEquals(1, organizer.getUserCreatedVenues().size());

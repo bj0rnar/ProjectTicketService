@@ -30,7 +30,7 @@ public class OrganizerTest {
     @DisplayName("Organizer har en liste over sine egne events, Databasen har liste over alle. Sjekker at nye events blir lastet opp til begge")
     @Test
     public void verifyThatTheSameEventIsUploadedToBothLocalAndDB(){
-        eventHandler.createNewEvent("rere", v , LocalDate.now(), 123, false);
+        eventHandler.createNewNoneSeatedEvent("rere", v , LocalDate.now(), 123, 10);
         Assertions.assertEquals(organizer.getEvents().get(currentStateOfLocal), FakeDB.uploadedEvents.get(currentStateOfDB));
     }
 
@@ -38,14 +38,14 @@ public class OrganizerTest {
     @Test
     public void organizerCanCreateEvents(){
         int indexOfOrganizerList = organizer.getEvents().size();
-        eventHandler.createNewEvent("rere", v , LocalDate.now(), 123, false);
+        eventHandler.createNewNoneSeatedEvent("rere", v , LocalDate.now(), 123, 10);
         Assertions.assertNotNull(organizer.getEvents().get(indexOfOrganizerList));
     }
 
     @DisplayName("Se beskrivelse over. Sjekker her at man fjerner fra begge events")
     @Test
     public void removeEventFromBothLocalAndDB(){
-        eventHandler.createNewEvent("Tjohei", v, LocalDate.now(), 123, true);
+        eventHandler.createNewNoneSeatedEvent("Tjohei", v , LocalDate.now(), 123, 10);
         currentStateOfDB++;
         currentStateOfLocal++;
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());

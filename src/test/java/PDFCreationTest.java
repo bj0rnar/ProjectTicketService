@@ -1,3 +1,5 @@
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
@@ -15,14 +17,14 @@ public class PDFCreationTest {
 
 
     @BeforeEach
-    public void fixMyTestClass(){
+    public void fixMyTestClass() throws VenueHasNoSeatsException, IllegalTicketCreationException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "DU ska sitta her");
         organizer = new Organizer("RunAutaNames", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Dingeling", "MyPassword","Adolf","Critler","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100, organizer);
         ticketHandler.createTicket(manySeatsEvent, 14);
         ticketHandler.giveTicketToCustomer();
     }

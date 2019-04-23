@@ -1,4 +1,7 @@
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
+import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
 import TicketService.Model.Venue;
 import TicketService.Users.Customer;
@@ -11,7 +14,7 @@ import java.time.LocalDate;
 public class IntegrationTest {
     
     @Test
-    public void BuyTicketProcessLimitedSeats() {
+    public void BuyTicketProcessLimitedSeats() throws VenueHasNoSeatsException, IllegalTicketCreationException {
         Customer customer = new Customer("Baislo", "MyPassword","Jon", "Doe", "Jond@mail.com");
         Assertions.assertEquals("Jon Doe", customer.getFullname());
 
@@ -20,13 +23,13 @@ public class IntegrationTest {
 
         Venue telenorArena = new Venue(123,"Telenor Arena");
         Assertions.assertEquals(123, telenorArena.getSeats().size());
-
-        organizer.createEvent("ESport 2019", telenorArena, LocalDate.of(2019, 12, 12),100,true);
+        EventHandler eventHandler = new EventHandler(organizer);
+        eventHandler.createNewSeatedEvent("ESport 2019", telenorArena, LocalDate.of(2019, 12, 12),100);
         Event eSportEvent = organizer.getEvents().get(0);
         Assertions.assertTrue(eSportEvent.getAreSeatsAvailable());
 
         TicketHandler ticketHandler = new TicketHandler(customer);
-        ticketHandler.createTicket(eSportEvent,0);
+        ticketHandler.createTicket(eSportEvent,-1);
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
 
         ticketHandler.payForTicketsWithCreditCard(123123123123L, 123);

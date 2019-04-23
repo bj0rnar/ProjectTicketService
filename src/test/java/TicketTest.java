@@ -1,9 +1,12 @@
+import TicketService.Exception.IllegalTicketCreationException;
+import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import TicketService.DataAccess.IPaymentOptions;
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
 
@@ -16,21 +19,21 @@ public class TicketTest {
 
 
     @BeforeEach
-    public void eachStartUp() {
+    public void eachStartUp() throws VenueHasNoSeatsException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "Hall 42");
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Herald", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
-        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100,true, organizer);
-        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100,false, organizer);
-        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250,true, organizer);
+        oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
+        noSeatEvent = new Event("noSeatEvent", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer, 77);
+        manySeatsEvent = new Event("manySeatedEvent", manySpotVenue, LocalDate.of(2000,1,1),250, organizer);
 
     }
 
     @DisplayName("Sjekker at ID på billett økes ved hver ny billett")
     @Test
-    public void EachTicketGetsUniqueIdWhenTicketIsCreated(){
+    public void EachTicketGetsUniqueIdWhenTicketIsCreated() throws IllegalTicketCreationException {
         int idChecker;
         Ticket ticket = new Ticket(manySeatsEvent);
         idChecker = ticket.getId();
@@ -44,28 +47,28 @@ public class TicketTest {
     }
 
     @Test
-    public void TicketHandlerCanReceiveTicket() {
+    public void TicketHandlerCanReceiveTicket() throws IllegalTicketCreationException {
         Assert.assertEquals(0, ticketHandler.getTickets().size());
         ticketHandler.getTickets().add(new Ticket(manySeatsEvent));
         Assert.assertEquals(1, ticketHandler.getTickets().size());
     }
 
     @Test
-    public void TicketHasCorrectEventGivenToIt() {
-        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299,true, new Organizer("yeeee","password","a","b","c"));
+    public void TicketHasCorrectEventGivenToIt() throws VenueHasNoSeatsException, IllegalTicketCreationException {
+        Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299, new Organizer("yeeee","password","a","b","c"));
         ticketHandler.createTicket(event, 0);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());
     }
 
     @Test
-    public void TicketCanGetSeat() {
+    public void TicketCanGetSeat() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertNotNull(ticketHandler.getTickets().get(0).getSeat());
     }
 
     @Test
-    public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() {
+    public void TicketHandlerCanCreateCompleteTicketAndGiveToUser() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,0);
         //customer = new Customer("A","B","A@B.COM"); <--- resets the list.
         Assert.assertEquals(0, customer.getTicketList().size());
@@ -75,28 +78,29 @@ public class TicketTest {
     }
 
     @Test
-    public void TicketHasCorrectPrice() {
+    public void TicketHasCorrectPrice() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,0);
         Assertions.assertEquals(250, ticketHandler.getTickets().get(0).getPrice());
     }
 
     @DisplayName("Sjekke at pris blir summert")
     @Test
-    public void TicketHandlerReturnCorrectTotalPrice() {
-        ticketHandler.createTicket(manySeatsEvent,0);
-        ticketHandler.createTicket(manySeatsEvent,0);
+    public void TicketHandlerReturnCorrectTotalPrice() throws IllegalTicketCreationException {
+        ticketHandler.createTicket(manySeatsEvent,-1);
+        ticketHandler.createTicket(manySeatsEvent,-1);
         Assertions.assertEquals(500, ticketHandler.calculatedTotalPrice());
     }
 
     @DisplayName("Sjekker om sete faktisk blir reservert når noen reserverer det")
     @Test
-    public void checkSeatAvailability(){
+    public void checkSeatAvailability() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer();
         Customer customer2 = new Customer("Hobba", "MyPassword","x", "y", "z");
         TicketHandler ticketHandler2 = new TicketHandler(customer2);
         ticketHandler2.createTicket(manySeatsEvent, 4);
         ticketHandler2.giveTicketToCustomer();
+        //Where tf is the assert?
     }
 
     @DisplayName("Sete 0-100 blir laget. Hvis man legger på 10 seter til, vil sete nr 101 få seteNr 1. (to be fixed)")
@@ -104,15 +108,13 @@ public class TicketTest {
     public void newlyCreatedSeatsAreFucked(){
         //TODO: Add functionality for adding seats to already created Venue
         //Currently adds wrong seatNumber to added seats. Seat 100 gets seatNumber 1 in below example
-        System.out.println(manySeatsEvent.getEventSeats().get(0).getSeatNumber());
-        System.out.println(manySeatsEvent.getEventSeats().get(99).getSeatNumber());
         manySeatsEvent.getVenue().addSeats(10);
-        System.out.println(manySeatsEvent.getEventSeats().get(101).getSeatNumber());
+        //Where tf is the assert?
     }
 
     @DisplayName("Sjekk at 1 kvittering blir lagt til i kundens kvitteringsliste når kunden kjøper billett")
     @Test
-    public void receiptAreAddedToCustomerReceiptList(){
+    public void receiptAreAddedToCustomerReceiptList() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(1, customer.getReceiptList().size());
@@ -120,27 +122,28 @@ public class TicketTest {
 
     @DisplayName("Sjekk at alle kvitteringer blir lagt til i kundens kvitteringsliste når kunden kjøper nye billetter")
     @Test
-    public void multipleReceiptsAddedToCustomerReceiptList(){
+    public void multipleReceiptsAddedToCustomerReceiptList() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 9);
         ticketHandler.createTicket(manySeatsEvent,7);
-        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.createTicket(oneSeatEvent, -1);
         ticketHandler.giveTicketToCustomer();
         Assertions.assertEquals(3, customer.getReceiptList().size());
     }
 
     @DisplayName("Printer ut alle billetter for demo")
     @Test
-    public void printAllTicketsForUser(){
+    public void printAllTicketsForUser() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 9);
         ticketHandler.createTicket(manySeatsEvent,7);
-        ticketHandler.createTicket(oneSeatEvent, 0);
+        ticketHandler.createTicket(oneSeatEvent, -1);
         ticketHandler.giveTicketToCustomer();
         ticketHandler.printAllTickets();
+        //Where tf is the assert?
     }
 
     @DisplayName("Sjekker tickethandler logikk. tickethandler.getTickets er et midlertidig array som funker som handlekurv. customer.getTicketList er permanent")
     @Test
-    public void ticketHandlerArrayNowWorksAsTemporaryList(){
+    public void ticketHandlerArrayNowWorksAsTemporaryList() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.createTicket(manySeatsEvent, 4);
         Assertions.assertEquals(2, ticketHandler.getTickets().size());
@@ -157,7 +160,7 @@ public class TicketTest {
 
     @DisplayName("Event med seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
     @Test
-    public void verifiyCorrectlyWrittenReceiptFromEventWithSeats(){
+    public void verifiyCorrectlyWrittenReceiptFromEventWithSeats() throws IllegalTicketCreationException {
         StringBuilder s = new StringBuilder();
         s.append("Customer: " + "A " + "B" + "\n");
         s.append("manySeatedEvent " +  LocalDate.of(2000,1,1) + "\n");
@@ -177,7 +180,7 @@ public class TicketTest {
 
     @DisplayName("Event uten seter: Sammenlign kvittering med StringBuilder for å sjekke at alt er på plass")
     @Test
-    public void verifiyCorrectlyWrittenReceiptFromEventWithoutSeats(){
+    public void verifiyCorrectlyWrittenReceiptFromEventWithoutSeats() throws IllegalTicketCreationException {
         StringBuilder s = new StringBuilder();
         s.append("Customer: " + "A " + "B" + "\n");
         s.append("noSeatEvent " +  LocalDate.of(2000,1,1) + "\n");
@@ -185,7 +188,7 @@ public class TicketTest {
         s.append("Price: " + 100);
 
 
-        ticketHandler.createTicket(noSeatEvent, 0);
+        ticketHandler.createTicket(noSeatEvent);
         ticketHandler.giveTicketToCustomer();
 
         int index = customer.getReceiptList().size();
@@ -197,7 +200,7 @@ public class TicketTest {
 
     @DisplayName("TicketHandler sin liste er handlekurv, customer sin liste er kjøpshistorikk.")
     @Test
-    public void customerIsGivenTickets(){
+    public void customerIsGivenTickets() throws IllegalTicketCreationException {
         int ticketHandlerTemporaryList = ticketHandler.getTickets().size();
         int customerPermanentList = customer.getTicketList().size();
 
@@ -217,16 +220,37 @@ public class TicketTest {
     }
 
     @Test
-    public void payAtZheBank(){
+    public void payAtTheBank() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.payForTicketsWithCreditCard(53423233, 123);
+        //Where tf is the assert?
     }
 
     @Test
-    public void payAtZhePayPal(){
+    public void payAtThePayPal() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 15);
         ticketHandler.payForTicketsWithPayPal(1312312, 123);
+        //Where tf is the assert?
     }
 
+    @Test
+    public void availableTicketsReducedByOneForEachTicketCreated() throws IllegalTicketCreationException {
+        int startNumber = manySeatsEvent.getAvailableTickets();
+        ticketHandler.createTicket(manySeatsEvent, -1);
+        Assertions.assertEquals(startNumber-1, manySeatsEvent.getAvailableTickets());
+    }
+
+    @DisplayName("Throws exception if tickets are made without available tickets spots.")
+    @Test
+    public void throwsExceptionWhenTryingToCreateTicketWhenNoMoreTicketsAvailable() throws VenueHasNoSeatsException {
+        Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
+        noSeatEvent = new Event("noSeatEvent", new Venue(1,"OnSeatedEvent"), LocalDate.of(2000,1,1),100, organizer);
+        try {
+            ticketHandler.createTicket(oneSeatEvent, -1);
+        } catch (IllegalTicketCreationException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertThrows(IllegalTicketCreationException.class, () -> new Ticket(oneSeatEvent));
+    }
 
 }

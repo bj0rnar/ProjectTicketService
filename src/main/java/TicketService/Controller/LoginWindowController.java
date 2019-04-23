@@ -31,7 +31,7 @@ public class LoginWindowController {
                 screenController.active("Main");
             }
             if(user instanceof Organizer) {
-
+                //Show organizer gui
             }
         }
     }

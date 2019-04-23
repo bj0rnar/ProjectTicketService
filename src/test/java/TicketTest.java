@@ -130,16 +130,6 @@ public class TicketTest {
         Assertions.assertEquals(3, customer.getReceiptList().size());
     }
 
-    @DisplayName("Printer ut alle billetter for demo")
-    @Test
-    public void printAllTicketsForUser() throws IllegalTicketCreationException {
-        ticketHandler.createTicket(manySeatsEvent, 9);
-        ticketHandler.createTicket(manySeatsEvent,7);
-        ticketHandler.createTicket(oneSeatEvent, -1);
-        ticketHandler.giveTicketToCustomer();
-        ticketHandler.printAllTickets();
-        //Where tf is the assert?
-    }
 
     @DisplayName("Sjekker tickethandler logikk. tickethandler.getTickets er et midlertidig array som funker som handlekurv. customer.getTicketList er permanent")
     @Test

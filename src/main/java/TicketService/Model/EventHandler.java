@@ -5,6 +5,7 @@ import TicketService.DataAccess.IRepository;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
 import TicketService.DataAccess.FakeDB;
+import TicketService.Utility.InputValidator;
 import TicketService.Utility.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,12 +34,22 @@ public class EventHandler {
     }
 
     public void createNewSeatedEvent(String name, Venue venue, LocalDate date, int ticketPrice) throws VenueHasNoSeatsException {
-        Event event = new Event(name, venue, date, ticketPrice, organizer);
-        uploadEvents(event);
+        if(InputValidator.validateSeatedEventInput(name, venue, date, ticketPrice)) {
+            Event event = new Event(name, venue, date, ticketPrice, organizer);
+            uploadEvents(event);
+        }
+        else{
+            System.out.println("False input");
+        }
     }
     public void createNewNoneSeatedEvent(String name, Venue venue, LocalDate date, int ticketPrice, int totalTickets){
-        Event event = new Event(name, venue, date, ticketPrice, organizer, totalTickets);
-        uploadEvents(event);
+        if(InputValidator.validateUnseatedEventInput(name, venue, date, ticketPrice, totalTickets)){
+            Event event = new Event(name, venue, date, ticketPrice, organizer, totalTickets);
+            uploadEvents(event);
+        }
+        else {
+            System.out.println("False input");
+        }
     }
 
     private void uploadEvents(Event event){

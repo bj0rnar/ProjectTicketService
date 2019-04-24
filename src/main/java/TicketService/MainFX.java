@@ -58,6 +58,7 @@ public class MainFX extends Application {
             screenController.addScreen("Register", FXMLLoader.load(getClass().getResource("View/RegisterWindow.fxml")));
             screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
             screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/ShopWindow.fxml")));
+            screenController.addScreen("OrganizerMain", FXMLLoader.load(getClass().getResource("View/OrganizerMainWindow.fxml")));
 
             LoginWindowController.screenController = screenController;
             RegisterWindowController.screenController = screenController;

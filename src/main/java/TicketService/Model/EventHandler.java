@@ -86,8 +86,8 @@ public class EventHandler {
             System.out.println("Found no venue in list");
     }
 
-    public boolean validateTicket(Ticket t, Event e){
-        return Validator.validateTicket(e, t);
+    public boolean validateTicket(String s, Event e){
+        return Validator.validateTicket(e, s);
     }
 
     /**
@@ -101,16 +101,11 @@ public class EventHandler {
         }
         return null;
     }
-    /*
-    private Event SelectEvent(String name) {
-        for(Event e : organizer.getEvents()){
-            if(e.getName().equals(name)){
-                return e;
-            }
-        }
-        return null;
+
+    public Organizer getOrganizer() {
+        return organizer;
     }
-       */
+
     public static ArrayList<Event> getEventList() {
         return FakeDB.getEventList();
     }

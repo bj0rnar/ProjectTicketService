@@ -33,7 +33,7 @@ public class PDFCreationTest {
     public TemporaryFolder localFolder = new TemporaryFolder();
 
     @BeforeEach
-    public void fixMyTestClass() throws VenueHasNoSeatsException, IllegalTicketCreationException {
+    public void setup() throws VenueHasNoSeatsException, IllegalTicketCreationException {
         Venue oneSpotVenue = new Venue(1, "Hall 2");
         Venue manySpotVenue = new Venue(100, "DU ska sitta her");
         organizer = new Organizer("RunAutaNames", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
@@ -42,7 +42,7 @@ public class PDFCreationTest {
         oneSeatEvent = new Event("JustOneSpotLeft", oneSpotVenue, LocalDate.of(2000,1,1),100, organizer);
         manySeatsEvent = new Event("JustOneSpotLeft", manySpotVenue, LocalDate.of(2000,1,1),100, organizer);
         ticketHandler.createTicket(manySeatsEvent, 14);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         localFolder = new TemporaryFolder();
     }
 

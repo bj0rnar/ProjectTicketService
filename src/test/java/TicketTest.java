@@ -57,7 +57,7 @@ public class TicketTest {
     public void TicketHasCorrectEventGivenToIt() throws VenueHasNoSeatsException, IllegalTicketCreationException {
         Event event = new Event("Gutta på tur", manySeatsEvent.getVenue(), LocalDate.of(2020, 1, 1),299, new Organizer("yeeee","password","a","b","c"));
         ticketHandler.createTicket(event, 0);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals("Gutta på tur", customer.getTicketList().get(0).getEvent().getName());
     }
 
@@ -72,7 +72,7 @@ public class TicketTest {
         ticketHandler.createTicket(manySeatsEvent,0);
         //customer = new Customer("A","B","A@B.COM"); <--- resets the list.
         Assert.assertEquals(0, customer.getTicketList().size());
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assert.assertEquals(1, customer.getTicketList().size());
         Assert.assertEquals(manySeatsEvent.getName(), customer.getTicketList().get(0).getEvent().getName());
     }
@@ -95,28 +95,19 @@ public class TicketTest {
     @Test
     public void checkSeatAvailability() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
-        ticketHandler.giveTicketToCustomer();
         Customer customer2 = new Customer("Hobba", "MyPassword","x", "y", "z");
         TicketHandler ticketHandler2 = new TicketHandler(customer2);
-        ticketHandler2.createTicket(manySeatsEvent, 4);
-        ticketHandler2.giveTicketToCustomer();
+
+        Assertions.assertThrows(IllegalTicketCreationException.class, () -> ticketHandler2.createTicket(manySeatsEvent, 4));
         //Where tf is the assert?
     }
 
-    @DisplayName("Sete 0-100 blir laget. Hvis man legger på 10 seter til, vil sete nr 101 få seteNr 1. (to be fixed)")
-    @Test
-    public void newlyCreatedSeatsAreFucked(){
-        //TODO: Add functionality for adding seats to already created Venue
-        //Currently adds wrong seatNumber to added seats. Seat 100 gets seatNumber 1 in below example
-        manySeatsEvent.getVenue().addSeats(10);
-        //Where tf is the assert?
-    }
 
     @DisplayName("Sjekk at 1 kvittering blir lagt til i kundens kvitteringsliste når kunden kjøper billett")
     @Test
     public void receiptAreAddedToCustomerReceiptList() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(1, customer.getReceiptList().size());
     }
 
@@ -126,7 +117,7 @@ public class TicketTest {
         ticketHandler.createTicket(manySeatsEvent, 9);
         ticketHandler.createTicket(manySeatsEvent,7);
         ticketHandler.createTicket(oneSeatEvent, -1);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(3, customer.getReceiptList().size());
     }
 
@@ -137,12 +128,12 @@ public class TicketTest {
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.createTicket(manySeatsEvent, 4);
         Assertions.assertEquals(2, ticketHandler.getTickets().size());
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(0, ticketHandler.getTickets().size());
         Assertions.assertEquals(2, customer.getTicketList().size());
         ticketHandler.createTicket(manySeatsEvent, 2);
         Assertions.assertEquals(1, ticketHandler.getTickets().size());
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(3, customer.getTicketList().size());
         Assertions.assertEquals(0, ticketHandler.getTickets().size());
 
@@ -159,7 +150,7 @@ public class TicketTest {
 
 
         ticketHandler.createTicket(manySeatsEvent, 1);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
 
         int index = customer.getReceiptList().size();
 
@@ -179,7 +170,7 @@ public class TicketTest {
 
 
         ticketHandler.createTicket(noSeatEvent);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
 
         int index = customer.getReceiptList().size();
 
@@ -199,7 +190,7 @@ public class TicketTest {
         Assertions.assertEquals(ticketHandlerTemporaryList, ticketHandler.getTickets().size());
         Assertions.assertEquals(customerPermanentList, customer.getTicketList().size());
 
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
 
         --ticketHandlerTemporaryList;
         ++customerPermanentList;

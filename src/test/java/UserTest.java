@@ -86,7 +86,7 @@ public class UserTest {
     @Test
     public void UserCanReserveASeatToEvent() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,12);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());
     }
 

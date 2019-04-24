@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class VerificationCodeMaker {
     public static String createVerificationCode(Event e){
-        return e.getName() + e.getDate().toString() + randomGenerator();
+        return randomGenerator();
     }
 
     private static String randomGenerator(){

@@ -45,8 +45,7 @@ public class BuyTicketController {
     public void PayTickets(MouseEvent mouseEvent) {
         long accountNmber = Long.parseLong(accountNumberField.getText());
         int csv = Integer.parseInt(csvField.getText());
-        if(BankConnection.PayTotalPrice(accountNmber, csv, ticketHandler.calculatedTotalPrice())) {
-            ticketHandler.giveTicketToCustomer();
+        if(ticketHandler.payForTicketsWithCreditCard(accountNmber, csv)) {
             Stage stage = (Stage)priceField.getScene().getWindow();
             stage.close();
         }

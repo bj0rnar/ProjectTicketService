@@ -1,9 +1,6 @@
 package TicketService;
 
-import TicketService.Controller.LoginWindowController;
-import TicketService.Controller.ShopWindowController;
-import TicketService.Controller.RegisterWindowController;
-import TicketService.Controller.ScreenController;
+import TicketService.Controller.*;
 import TicketService.DataAccess.DataContext;
 import TicketService.Exception.VenueHasNoSeatsException;
 import javafx.application.Application;
@@ -31,7 +28,7 @@ public class MainFX extends Application {
      *   Yes, we could do it trough pom, but I was too lazy to do it that way.
      * */
 
-    private static MainFX minApplikasjon;
+    public static FXMLLoader loader;
     public static Stage primaryStage;
 
     @Override
@@ -45,7 +42,6 @@ public class MainFX extends Application {
             e.printStackTrace();
         }
         DataContext.CreateUsers();
-        minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");
@@ -58,8 +54,9 @@ public class MainFX extends Application {
             screenController.addScreen("Register", FXMLLoader.load(getClass().getResource("View/RegisterWindow.fxml")));
             screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
             screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/ShopWindow.fxml")));
-            screenController.addScreen("OrganizerMain", FXMLLoader.load(getClass().getResource("View/OrganizerMainWindow.fxml")));
+            screenController.addScreen("OrganizerWindow", FXMLLoader.load(getClass().getResource("View/OrganizerMainWindow.fxml")));
 
+            OrganizerMainWindowController.screenController = screenController;
             LoginWindowController.screenController = screenController;
             RegisterWindowController.screenController = screenController;
             ShopWindowController.screenController = screenController;

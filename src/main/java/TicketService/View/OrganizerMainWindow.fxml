@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="414.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.ShopWindowController">
+<BorderPane prefHeight="414.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.OrganizerMainWindowController">
     <left>
         <ListView fx:id="eventListView" prefHeight="536.0" prefWidth="233.0" BorderPane.alignment="CENTER" />
     </left>
@@ -77,7 +77,7 @@
     <bottom>
         <Pane prefHeight="54.0" prefWidth="669.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goToMyTickets" text="Log out" textAlignment="RIGHT" />
+                <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#LogOut" text="Log out" textAlignment="RIGHT" />
             </children>
         </Pane>
     </bottom>

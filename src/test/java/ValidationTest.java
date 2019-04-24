@@ -49,11 +49,11 @@ public class ValidationTest {
     @Test
     public void validatorWorksAsIntended() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent, 4);
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         int index = customer.getTicketList().size();
         --index;
-        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
-        Assertions.assertFalse(eventHandler.validateTicket(customer.getTicketList().get(index), oneSeatEvent));
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index).getVerificationCode(), manySeatsEvent));
+        Assertions.assertFalse(eventHandler.validateTicket(customer.getTicketList().get(index).getVerificationCode(), oneSeatEvent));
     }
     
     @Test
@@ -73,10 +73,10 @@ public class ValidationTest {
         int index = customer.getTicketList().size();
         ticketHandler.createTicket(manySeatsEvent, 1);
         ticketHandler.createTicket(manySeatsEvent, 69);
-        ticketHandler.giveTicketToCustomer();
-        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index).getVerificationCode(), manySeatsEvent));
         ++index;
-        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index), manySeatsEvent));
+        Assertions.assertTrue(eventHandler.validateTicket(customer.getTicketList().get(index).getVerificationCode(), manySeatsEvent));
     }
 
 }

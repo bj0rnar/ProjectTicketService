@@ -23,11 +23,6 @@ public class Venue {
         }
     }
 
-
-    public static ArrayList<Venue> getVenues() {
-        return FakeDB.getVenues();
-    }
-
     public void addSeats(int totalSeats) {
         for(int x=0; x<totalSeats;x++) {
             seats.add(new Seat(x));
@@ -51,5 +46,10 @@ public class Venue {
         public int getSeatNumber() {
             return seatNumber;
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

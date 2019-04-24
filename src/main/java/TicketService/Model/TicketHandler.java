@@ -60,7 +60,7 @@ public class TicketHandler {
                 tickets.add(ticket);
             }
             else {
-                System.out.println("Seat is occupied");
+                throw new IllegalTicketCreationException("Seat already in use");
             }
         } else {
             System.out.println("No more seats available for event: " + event.getName());
@@ -72,19 +72,21 @@ public class TicketHandler {
      * seatNumber == -1 is for cases where customers are ASSIGNED seats (not selecting seats themselves)
      */
 
-    private void seatReservation(Event event, int seatNumber, Ticket ticket) {
+    private void seatReservation(Event event, int seatNumber, Ticket ticket) throws IllegalTicketCreationException {
         if (seatNumber == -1) {
             seatNumber = event.getEventSeats().size() - 1;
         }
+
         ticket.setSeat(event.getEventSeats().get(seatNumber));
         event.popSeatFromEventSeatList(seatNumber);
         event.getVerificationCodeList().add(ticket.getVerificationCode());
+
     }
 
     /**
      * Adds all tickets in tickets list to customer. + Receipts
      */
-    public void giveTicketToCustomer() {
+    private void giveTicketToCustomer() {
         for (Ticket ticket : tickets) {
             customer.getTicketList().add(ticket);
 
@@ -106,20 +108,23 @@ public class TicketHandler {
      * BankConnection.PayTotalPrice should be stubbed/faked/mocked. Currently only returns true
      */
 
-    public void payForTicketsWithCreditCard(long accountNumber, int cvs){
+    public boolean payForTicketsWithCreditCard(long accountNumber, int cvs){
         IPaymentOptions bankIntermediary = new BankConnection();
         if (bankIntermediary.payWithCreditCardDetails(accountNumber, cvs, calculatedTotalPrice())) {
             giveTicketToCustomer();
+            return true;
         }
+        return false;
     }
 
-    public void payForTicketsWithPayPal(long accountNumber, int cvs){
+    public boolean payForTicketsWithPayPal(long accountNumber, int cvs){
         IPaymentOptions payPalIntermediary = new PayPalConnection();
         if(payPalIntermediary.payWithCreditCardDetails(accountNumber, cvs, calculatedTotalPrice())){
             giveTicketToCustomer();
+            return true;
         }
+        return false;
     }
-
 
     public void printAllTickets() {
         ReceiptMaker.printAllTickets(customer.getReceiptList(), calculatedTotalPrice());

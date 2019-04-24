@@ -44,7 +44,7 @@ public class EventTest {
             e.printStackTrace();
         }
         Assert.assertEquals(1,ticketHandler.getTickets().size());
-        ticketHandler.giveTicketToCustomer();
+        ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assert.assertEquals(1,customer.getTicketList().size());
     }
 
@@ -80,16 +80,6 @@ public class EventTest {
     @DisplayName("Event can get seats from Venue")
     public void EventReceivesSeatListFromVenue() {
         Assertions.assertNotNull(manySeatsEvent.getEventSeats());
-    }
-
-    @Test
-    @DisplayName("GUI stuff")
-    public void EventFXListIsEqualToEventList() throws VenueHasNoSeatsException {
-        FakeDB.CreateEvents();
-        ArrayList<Event> list = EventHandler.getEventList();
-        ObservableList<Event> listFx = EventHandler.getEventListFX();
-
-        Assertions.assertEquals(listFx.size(), list.size());
     }
 
     @Test

@@ -4,9 +4,9 @@ import TicketService.Model.Event;
 import TicketService.Model.Ticket;
 
 public class Validator {
-    public static boolean validateTicket(Event e, Ticket t){
+    public static boolean validateTicket(Event e, String t){
         for(String x : e.getVerificationCodeList()){
-            if(x.equals(t.getVerificationCode())){
+            if(x.equals(t)){
                 return true;
             }
         }

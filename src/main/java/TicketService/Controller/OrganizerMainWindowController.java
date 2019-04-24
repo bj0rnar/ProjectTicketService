@@ -1,19 +1,26 @@
 package TicketService.Controller;
 
+import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
-import TicketService.Model.Venue;
+import TicketService.Model.TicketHandler;
+import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class OrganizerMainWindowController {
@@ -24,26 +31,31 @@ public class OrganizerMainWindowController {
     private ListView<Event> eventListView;
 
     private ObservableList<Event> eventListFX = FXCollections.observableArrayList();
-    private Organizer organizer;
     private EventHandler eventHandler;
 
     @FXML
-    private Text eventNameText, VenueNameText, EventDateText, seatsLeftStaticText, TicketPriceText, EventTicketsLeftText;
+    private Text eventNameText, VenueNameText, EventDateText, ticketsLeftStaticText, TicketPriceText, EventTicketsLeftText;
 
     @FXML
-    private Button a;
+    private Button DeleteEventButton, CheckInnCustomerButton;
 
     @FXML
     private void initialize() {
+        if(eventHandler == null) {
+            updateEventDetails(null);
+
+        DeleteEventButton.setDisable(true);
+        CheckInnCustomerButton.setDisable(true);
+        }
         eventListView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldEvent, newEvent) -> {
-            if (newEvent != null)
                 updateEventDetails(newEvent);
+                DeleteEventButton.setDisable(newEvent == null);
+                CheckInnCustomerButton.setDisable(newEvent == null);
         });
 
     }
 
     public void setupController(Organizer organizer) {
-        this.organizer = organizer;
         this.eventHandler = new EventHandler(organizer);
 
         /*DUMMY DATA*/
@@ -53,30 +65,32 @@ public class OrganizerMainWindowController {
         } catch (VenueHasNoSeatsException e) {
             e.printStackTrace();
         }
-        /*DUMMY DATA*/
+        Customer customer = new Customer("TestUser","x","x","x","x");
+        TicketHandler ticketHandler = new TicketHandler(customer);
+        try {
+            ticketHandler.createTicket(eventHandler.getOrganizer().getEvents().get(0), -1);
+        } catch (IllegalTicketCreationException e) {
+            e.printStackTrace();
+        }
+            ticketHandler.payForTicketsWithCreditCard(12324123412341234L, 123);
 
-        for(Event event : organizer.getEvents()) {
+        /*DUMMY DATA*/
+        updateEventList();
+    }
+    private void updateEventList() {
+        eventListFX.clear();
+        for(Event event : eventHandler.getOrganizer().getEvents()) {
             addEventToFxList(event);
         }
         eventListView.setItems(eventListFX);
     }
 
     private void updateEventDetails(Event event) {
-        if(event != null) {
-            eventNameText.setText(event.getName());
-            VenueNameText.setText(event.getVenue().getName());
-            EventDateText.setText(event.getDate().toString());
-            TicketPriceText.setText(event.getTicketPrice() + ",- ");
-            seatsLeftStaticText.setText("Tickets left: ");
-            EventTicketsLeftText.setText((String.valueOf(event.getAvailableTickets())));
-        } else {
-            eventNameText.setText("");
-            VenueNameText.setText("");
-            EventDateText.setText("");
-            TicketPriceText.setText("");
-            seatsLeftStaticText.setText("");
-            EventTicketsLeftText.setText("");
-        }
+        eventNameText.setText(event != null ? event.getName() : "");
+        VenueNameText.setText(event!= null ? event.getVenue().getName() : "");
+        EventDateText.setText(event!= null ? event.getDate().toString() : "");
+        TicketPriceText.setText(event != null ? event.getTicketPrice() + ",-" : "");
+        EventTicketsLeftText.setText(event  != null ? (String.valueOf(event.getAvailableTickets())) : "");
 
     }
 
@@ -85,7 +99,29 @@ public class OrganizerMainWindowController {
     }
 
     public void CheckInnCustomers(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
 
+            fxmlLoader.setLocation(getClass().getResource("../View/ValidateTicketsWindow.fxml"));
+            Parent dialogLayout = fxmlLoader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Check-inn Customers");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(DeleteEventButton.getScene().getWindow());
+
+            Scene dialogScene = new Scene(dialogLayout);
+            dialogStage.setScene(dialogScene);
+
+            ValidateTicketsController validateTicketsController = fxmlLoader.getController();
+            validateTicketsController.setEvent(eventListView.getSelectionModel().getSelectedItem(), eventHandler);
+
+            dialogStage.showAndWait();
+            initialize();
+
+        } catch (IOException | IllegalStateException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void DeleteEvent(MouseEvent mouseEvent) {
@@ -97,6 +133,29 @@ public class OrganizerMainWindowController {
     }
 
     public void CreateEvent(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+
+            fxmlLoader.setLocation(getClass().getResource("../View/CreateNewEventWindow.fxml"));
+            Parent dialogLayout = fxmlLoader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Create new Event");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(DeleteEventButton.getScene().getWindow());
+
+            Scene dialogScene = new Scene(dialogLayout);
+            dialogStage.setScene(dialogScene);
+
+            CreateNewEventController createNewEventController = fxmlLoader.getController();
+            createNewEventController.setEventHandler(eventHandler);
+
+            dialogStage.showAndWait();
+            updateEventList();
+
+        } catch (IOException | IllegalStateException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void LogOut(MouseEvent mouseEvent) {

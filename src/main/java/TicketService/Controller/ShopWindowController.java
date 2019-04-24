@@ -158,4 +158,12 @@ public class ShopWindowController {
     }
 
 
+    public void CheckInnCustomers(MouseEvent mouseEvent) {
+    }
+
+    public void DeleteEvent(MouseEvent mouseEvent) {
+    }
+
+    public void CreateEvent(MouseEvent mouseEvent) {
+    }
 }

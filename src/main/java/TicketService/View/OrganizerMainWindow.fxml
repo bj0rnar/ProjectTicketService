@@ -1,7 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="414.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.OrganizerMainWindowController">
-
+<BorderPane prefHeight="414.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.ShopWindowController">
+    <left>
+        <ListView fx:id="eventListView" prefHeight="536.0" prefWidth="233.0" BorderPane.alignment="CENTER" />
+    </left>
+    <center>
+        <SplitPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <GridPane prefHeight="429.0" prefWidth="211.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="23.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="85.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="37.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="546.0" minWidth="10.0" prefWidth="94.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="35.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="34.0" valignment="CENTER" vgrow="NEVER" />
+                        <RowConstraints maxHeight="69.0" minHeight="-Infinity" prefHeight="66.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" />
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" wrappingWidth="96.5859375" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="96.861328125" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event" wrappingWidth="95.951171875" GridPane.columnIndex="1" />
+                        <Text fx:id="seatsLeftStaticText" strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets left" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Text fx:id="eventNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" />
+                        <Text fx:id="VenueNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Text fx:id="EventDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="..." textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Text fx:id="EventTicketsLeftText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Text fx:id="seatsLeftStaticText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Text fx:id="TicketPriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                    </children>
+                </GridPane>
+            </items>
+        </SplitPane>
+    </center>
+    <right>
+        <Pane prefHeight="458.0" prefWidth="121.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="CheckInnCustomerButton" layoutX="8.0" layoutY="242.0" mnemonicParsing="false" onMouseClicked="#CheckInnCustomers" prefHeight="74.0" prefWidth="106.0" style="-fx-background-color: #0654ba;" text="Check-inn customers" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                    <font>
+                        <Font name="Arial" size="17.0" />
+                    </font>
+                </Button>
+            <Button fx:id="DeleteEventButton" layoutX="8.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#DeleteEvent" prefHeight="74.0" prefWidth="106.0" style="-fx-background-color: red;" text="Delete event" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="CreateEventButton" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#CreateEvent" prefHeight="74.0" prefWidth="106.0" style="-fx-background-color: #00aa22;" text="Create event" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Button>
+            </children>
+        </Pane>
+    </right>
+    <bottom>
+        <Pane prefHeight="54.0" prefWidth="669.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goToMyTickets" text="Log out" textAlignment="RIGHT" />
+            </children>
+        </Pane>
+    </bottom>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="234.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="220.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="121.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="My events" textAlignment="CENTER" wrappingWidth="234.13671875" />
+         </children>
+      </GridPane>
+   </top>
 </BorderPane>

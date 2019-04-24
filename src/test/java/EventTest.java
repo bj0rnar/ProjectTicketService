@@ -83,16 +83,6 @@ public class EventTest {
     }
 
     @Test
-    @DisplayName("GUI stuff")
-    public void EventFXListIsEqualToEventList() throws VenueHasNoSeatsException {
-        FakeDB.CreateEvents();
-        ArrayList<Event> list = EventHandler.getEventList();
-        ObservableList<Event> listFx = EventHandler.getEventListFX();
-
-        Assertions.assertEquals(listFx.size(), list.size());
-    }
-
-    @Test
     public void EventHasCorrectDate() {
         Assertions.assertEquals(LocalDate.of(2000,1,1), oneSeatEvent.getDate());
     }

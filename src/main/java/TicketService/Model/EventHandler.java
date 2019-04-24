@@ -110,7 +110,4 @@ public class EventHandler {
         return FakeDB.getEventList();
     }
 
-    public static ObservableList<Event> getEventListFX() {
-        return FakeDB.getEventListFX();
-    }
 }

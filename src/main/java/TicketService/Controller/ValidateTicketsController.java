@@ -41,8 +41,8 @@ public class ValidateTicketsController {
     public void setEvent(Event event, EventHandler eventHandler) {
         this.event = event;
         this.eventHandler = eventHandler;
-        dummyCodeText.setText(event.getVerificationCodeList().get(0));
-        codeTextField.setText(event.getVerificationCodeList().get(0));
+        dummyCodeText.setText(event.getVerificationCodeList().size() > 0 ? event.getVerificationCodeList().get(0) : "NO TICKETS BOUGHT");
+        codeTextField.setText(event.getVerificationCodeList().size() > 0 ? event.getVerificationCodeList().get(0) : "");
     }
 
     public void ValidateTicket(ActionEvent actionEvent) {

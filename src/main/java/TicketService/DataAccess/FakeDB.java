@@ -17,15 +17,15 @@ public class FakeDB implements IRepository{
     public static final ArrayList<Event> uploadedEvents = new ArrayList<>();
     public static final ArrayList<Venue> officialVenueList = new ArrayList<>();
     private static ArrayList<User> userList = new ArrayList<>();
-    private static ObservableList<Event> eventListFX = FXCollections.observableArrayList();
+
 
     //Dummy data
     public static void CreateEvents() throws VenueHasNoSeatsException {
-
+        IRepository repo = new FakeDB();
         if(uploadedEvents.size() == 0) {
-            uploadedEvents.add(new Event("TG19", Venue.getVenues().get(0), LocalDate.of(2019,3,21), 100,  new Organizer("Egil", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
-            uploadedEvents.add(new Event("EnSetersEvent", Venue.getVenues().get(1), LocalDate.of(2019,3,21), 299, new Organizer("Haraldio", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
-            uploadedEvents.add(new Event("Sopptur", Venue.getVenues().get(2), LocalDate.of(2019,3,21), 100, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com"), 33));
+            uploadedEvents.add(new Event("TG19", repo.getVenues().get(0), LocalDate.of(2019,3,21), 100,  new Organizer("Egil", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            uploadedEvents.add(new Event("EnSetersEvent", repo.getVenues().get(1), LocalDate.of(2019,3,21), 299, new Organizer("Haraldio", "MyPassword","Eddy", "Normann","eventMaker@mail.com")));
+            uploadedEvents.add(new Event("Sopptur", repo.getVenues().get(2), LocalDate.of(2019,3,21), 100, new Organizer("Kimblalololo", "MyPassword","Eddy", "Normann","eventMaker@mail.com"), 33));
         }
     }
     //Dummy data
@@ -64,15 +64,8 @@ public class FakeDB implements IRepository{
         return uploadedEvents;
     }
 
-    public static ObservableList<Event> getEventListFX() {
-        eventListFX.clear();
-        for(Event event : getEventList()) {
-            eventListFX.add(event);
-        }
-        return eventListFX;
-    }
-    //Create dummy data
-    public static ArrayList<Venue> getVenues() {
+    @Override
+    public ArrayList<Venue> getVenues() {
         if(officialVenueList.size() == 0) {
             CreateVenues();
         }
@@ -91,6 +84,11 @@ public class FakeDB implements IRepository{
     @Override
     public void deleteEvent(Event e) {
         uploadedEvents.remove(e);
+    }
+
+    @Override
+    public ArrayList<Event> getEvents() {
+        return new ArrayList<>(getEventList());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package TicketService.Controller;
 
+import TicketService.DataAccess.FakeDB;
+import TicketService.DataAccess.IRepository;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.MainFX;
 import TicketService.Model.Event;
@@ -8,6 +10,8 @@ import TicketService.Model.TicketHandler;
 import TicketService.Users.Customer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +33,7 @@ public class ShopWindowController {
     public static ScreenController screenController;
     public static Customer customer;
     public TicketHandler ticketHandler;
+    private ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
     @FXML
     private ListView<Event> eventListView;
@@ -41,7 +46,11 @@ public class ShopWindowController {
 
     @FXML
     private void initialize() {
-        eventListView.setItems(EventHandler.getEventListFX());
+        if(eventListFX.isEmpty()) {
+            IRepository repo = new FakeDB();
+            eventListFX.addAll(repo.getEvents());
+            eventListView.setItems(eventListFX);
+        }
         if(eventListView.getItems().get(0) != null)
             updateEventDetails(eventListView.getItems().get(0));
 

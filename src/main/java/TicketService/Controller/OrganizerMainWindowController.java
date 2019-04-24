@@ -5,7 +5,6 @@ import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
-import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import javafx.collections.FXCollections;
@@ -76,8 +75,11 @@ public class OrganizerMainWindowController {
             ticketHandler.payForTicketsWithCreditCard(12324123412341234L, 123);
 
         /*DUMMY DATA*/
-
-        for(Event event : organizer.getEvents()) {
+        updateEventList();
+    }
+    private void updateEventList() {
+        eventListFX.clear();
+        for(Event event : eventHandler.getOrganizer().getEvents()) {
             addEventToFxList(event);
         }
         eventListView.setItems(eventListFX);
@@ -131,6 +133,29 @@ public class OrganizerMainWindowController {
     }
 
     public void CreateEvent(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+
+            fxmlLoader.setLocation(getClass().getResource("../View/CreateNewEventWindow.fxml"));
+            Parent dialogLayout = fxmlLoader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Create new Event");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(DeleteEventButton.getScene().getWindow());
+
+            Scene dialogScene = new Scene(dialogLayout);
+            dialogStage.setScene(dialogScene);
+
+            CreateNewEventController createNewEventController = fxmlLoader.getController();
+            createNewEventController.setEventHandler(eventHandler);
+
+            dialogStage.showAndWait();
+            updateEventList();
+
+        } catch (IOException | IllegalStateException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void LogOut(MouseEvent mouseEvent) {

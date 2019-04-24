@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TicketService.Controller.CreateNewEventController">
+   <center>
+      <GridPane prefHeight="400.0" prefWidth="193.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="70.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="173.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="129.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="312.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="312.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="312.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="92.13671875" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" wrappingWidth="92.13671875" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start date" wrappingWidth="90.13671875" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket price" wrappingWidth="91.13671875" GridPane.rowIndex="3" />
+            <Text fx:id="totalTicketText" strokeType="OUTSIDE" strokeWidth="0.0" text="Total tickets" wrappingWidth="90.13671875" GridPane.rowIndex="4" />
+            <TextField fx:id="eventNameText" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" />
+            <TextField fx:id="eventTicketPrice" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="eventTotalTickets" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="venueChoice" prefHeight="25.0" prefWidth="138.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="eventStartDate" prefHeight="25.0" prefWidth="137.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+   </center>
+   <left>
+      <Pane prefHeight="400.0" prefWidth="157.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="28.0" layoutY="254.0" mnemonicParsing="false" onAction="#backButton" prefHeight="52.0" prefWidth="89.0" style="-fx-background-color: lightgrey;" text="Back" />
+         </children>
+      </Pane>
+   </left>
+   <top>
+      <Pane prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </top>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="createNewVenueButton" layoutX="14.0" layoutY="37.0" mnemonicParsing="false" onAction="#createNewVenue" prefHeight="25.0" prefWidth="135.0" text="Create new venue" />
+            <Button fx:id="createEventButton" layoutX="-44.0" layoutY="169.0" mnemonicParsing="false" onAction="#createNewEvent" prefHeight="83.0" prefWidth="89.0" style="-fx-background-color: lightgreen;" text="Create event" />
+         </children>
+      </Pane>
+   </right>
+</BorderPane>

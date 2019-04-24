@@ -1,7 +1,6 @@
 package TicketService.Controller;
 
 import TicketService.DataAccess.FakeDB;
-import TicketService.DataAccess.DataContext;
 import TicketService.MainFX;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;

@@ -1,7 +1,7 @@
 package TicketService;
 
 import TicketService.Controller.*;
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
 import javafx.application.Application;
@@ -41,7 +41,6 @@ public class MainFX extends Application {
             e.printStackTrace();
         }
         FakeDB.CreateUsers();
-        minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");
@@ -76,12 +75,12 @@ public class MainFX extends Application {
     }
 
     private static void CreateDummyData() {
-        DataContext.CreateVenues();
+        FakeDB.CreateVenues();
         try {
-            DataContext.CreateEvents();
+            FakeDB.CreateEvents();
         } catch (VenueHasNoSeatsException e) {
             e.printStackTrace();
         }
-        DataContext.CreateUsers();
+        FakeDB.CreateUsers();
     }
 }

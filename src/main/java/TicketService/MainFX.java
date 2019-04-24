@@ -1,11 +1,9 @@
 package TicketService;
 
-import TicketService.Controller.LoginWindowController;
-import TicketService.Controller.ShopWindowController;
-import TicketService.Controller.RegisterWindowController;
-import TicketService.Controller.ScreenController;
+import TicketService.Controller.*;
 import TicketService.DataAccess.FakeDB;
 import TicketService.Exception.VenueHasNoSeatsException;
+import TicketService.Users.Organizer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,7 +27,7 @@ public class MainFX extends Application {
      *   Yes, we could do it trough pom, but I was too lazy to do it that way.
      * */
 
-    private static MainFX minApplikasjon;
+    public static FXMLLoader loader;
     public static Stage primaryStage;
 
     @Override
@@ -43,7 +41,6 @@ public class MainFX extends Application {
             e.printStackTrace();
         }
         FakeDB.CreateUsers();
-        minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");
@@ -56,7 +53,9 @@ public class MainFX extends Application {
             screenController.addScreen("Register", FXMLLoader.load(getClass().getResource("View/RegisterWindow.fxml")));
             screenController.addScreen("Login", FXMLLoader.load(getClass().getResource("View/LoginWindow.fxml")));
             screenController.addScreen("Main", FXMLLoader.load(getClass().getResource("View/ShopWindow.fxml")));
+            screenController.addScreen("OrganizerWindow", FXMLLoader.load(getClass().getResource("View/OrganizerMainWindow.fxml")));
 
+            OrganizerMainWindowController.screenController = screenController;
             LoginWindowController.screenController = screenController;
             RegisterWindowController.screenController = screenController;
             ShopWindowController.screenController = screenController;
@@ -71,6 +70,17 @@ public class MainFX extends Application {
 
 
     public static void main(String[] args) {
+        CreateDummyData();
         launch(args);
+    }
+
+    private static void CreateDummyData() {
+        FakeDB.CreateVenues();
+        try {
+            FakeDB.CreateEvents();
+        } catch (VenueHasNoSeatsException e) {
+            e.printStackTrace();
+        }
+        FakeDB.CreateUsers();
     }
 }

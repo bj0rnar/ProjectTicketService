@@ -1,12 +1,20 @@
 package TicketService.Controller;
 
 import TicketService.DataAccess.FakeDB;
+import TicketService.MainFX;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import TicketService.Users.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
+import java.net.URL;
 
 
 public class LoginWindowController {
@@ -14,6 +22,7 @@ public class LoginWindowController {
     public static ScreenController screenController;
 
     @FXML private Button loginButton;
+
     @FXML
     TextField usernameText, passwordText;
 
@@ -31,7 +40,23 @@ public class LoginWindowController {
                 screenController.active("Main");
             }
             if(user instanceof Organizer) {
-                //Show organizer gui
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    MainFX.primaryStage.setTitle("Organizer view");
+                    fxmlLoader.setLocation(getClass().getResource("../View/OrganizerMainWindow.fxml"));
+                    Parent OrganizerMainWindow = fxmlLoader.load();
+                    Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+                    OrganizerMainWindowController controller = fxmlLoader.getController();
+                    controller.setupController((Organizer)user);
+
+                    MainFX.primaryStage.setScene(hovedScene);
+
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

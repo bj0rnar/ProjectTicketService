@@ -1,5 +1,4 @@
-import TicketService.Controller.LoginWindowController;
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
@@ -94,8 +93,8 @@ public class UserTest {
     @Test
     public void userLoginMethodReturnsUser(){
         //Create dummy data
-        DataContext.CreateUsers();
-        User user = DataContext.getUserList().get(0);
-        Assertions.assertEquals(user, DataContext.authUserLogin("Mats", "MyPassword"));
+        FakeDB.CreateUsers();
+        User user = FakeDB.getUserList().get(0);
+        Assertions.assertEquals(user, FakeDB.authUserLogin("Mats", "MyPassword"));
     }
 }

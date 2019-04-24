@@ -1,4 +1,4 @@
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
@@ -85,7 +85,7 @@ public class EventTest {
     @Test
     @DisplayName("GUI stuff")
     public void EventFXListIsEqualToEventList() throws VenueHasNoSeatsException {
-        DataContext.CreateEvents();
+        FakeDB.CreateEvents();
         ArrayList<Event> list = EventHandler.getEventList();
         ObservableList<Event> listFx = EventHandler.getEventListFX();
 

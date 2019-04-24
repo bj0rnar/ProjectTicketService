@@ -1,6 +1,6 @@
 package TicketService.Model;
 
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class Venue {
 
 
     public static ArrayList<Venue> getVenues() {
-        return DataContext.getVenues();
+        return FakeDB.getVenues();
     }
 
     public void addSeats(int totalSeats) {

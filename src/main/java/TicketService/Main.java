@@ -1,25 +1,16 @@
 package TicketService;
 
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
-import TicketService.Model.TicketHandler;
-import TicketService.Model.Venue;
-import TicketService.Users.Customer;
-import TicketService.Users.Organizer;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args){
-        DataContext.CreateVenues();
+        FakeDB.CreateVenues();
         try {
-            DataContext.CreateEvents();
+            FakeDB.CreateEvents();
         } catch (VenueHasNoSeatsException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,5 @@
 package TicketService.Model;
 
-import TicketService.DataAccess.DataContext;
 import TicketService.DataAccess.IRepository;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
@@ -116,10 +115,10 @@ public class EventHandler {
     }
 
     public static ArrayList<Event> getEventList() {
-        return DataContext.getEventList();
+        return FakeDB.getEventList();
     }
 
     public static ObservableList<Event> getEventListFX() {
-        return DataContext.getEventListFX();
+        return FakeDB.getEventListFX();
     }
 }

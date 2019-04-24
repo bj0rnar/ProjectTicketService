@@ -1,6 +1,6 @@
 package TicketService.Controller;
 
-import TicketService.DataAccess.DataContext;
+import TicketService.DataAccess.FakeDB;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import TicketService.Users.User;
@@ -24,7 +24,7 @@ public class LoginWindowController {
     }
 
     public void logInUser() {
-        User user = DataContext.authUserLogin(usernameText.getText(), passwordText.getText());
+        User user = FakeDB.authUserLogin(usernameText.getText(), passwordText.getText());
         if( user != null) {
             if(user instanceof Customer) {
                 ShopWindowController.customer = (Customer)user;

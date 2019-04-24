@@ -3,6 +3,7 @@ package TicketService;
 import TicketService.Controller.*;
 import TicketService.DataAccess.DataContext;
 import TicketService.Exception.VenueHasNoSeatsException;
+import TicketService.Users.Organizer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +35,6 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
-        DataContext.CreateVenues();
-        try {
-            DataContext.CreateEvents();
-        } catch (VenueHasNoSeatsException e) {
-            e.printStackTrace();
-        }
-        DataContext.CreateUsers();
         try{
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");
@@ -71,6 +64,17 @@ public class MainFX extends Application {
 
 
     public static void main(String[] args) {
+        CreateDummyData();
         launch(args);
+    }
+
+    private static void CreateDummyData() {
+        DataContext.CreateVenues();
+        try {
+            DataContext.CreateEvents();
+        } catch (VenueHasNoSeatsException e) {
+            e.printStackTrace();
+        }
+        DataContext.CreateUsers();
     }
 }

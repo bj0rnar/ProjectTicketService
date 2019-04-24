@@ -68,14 +68,13 @@ public class EventHandler {
         repository.uploadVenue(venue);
     }
 
-    public void deleteEventFromDB(String name){
-        Event event = SelectEvent(name);
-        if(event != null) {
-            repository.deleteEvent(event);
-            organizer.getEvents().remove(event);
+    public void deleteEventFromDB(Event event){
+        for(int x=0;x<organizer.getEvents().size();x++) {
+            if(organizer.getEvents().get(x).equals(event)) {
+                repository.deleteEvent(organizer.getEvents().get(x));
+                organizer.getEvents().remove(organizer.getEvents().get(x));
+            }
         }
-        else
-            System.out.println("That's not yours to delete");
     }
 
     public void deleteVenueFromDB(String name){
@@ -103,18 +102,16 @@ public class EventHandler {
         }
         return null;
     }
-
-
+    /*
     private Event SelectEvent(String name) {
         for(Event e : organizer.getEvents()){
-            System.out.println(e.getName() + " " +  e.getDate() + " " + e.getVenue().getName());
             if(e.getName().equals(name)){
                 return e;
             }
         }
         return null;
     }
-
+       */
     public static ArrayList<Event> getEventList() {
         return DataContext.getEventList();
     }

@@ -40,13 +40,19 @@ public class LoginWindowController {
                 screenController.active("Main");
             }
             if(user instanceof Organizer) {
-                OrganizerMainWindowController.organizer = (Organizer)user;
-                screenController.active("OrganizerWindow");
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    URL path = getClass().getResource("../View/OrganizerMainWindow.fxml");
-                    Pane p = fxmlLoader.load(getClass().getResource("../View/OrganizerMainWindow.fxml").openStream());
-                    OrganizerMainWindowController controller = (OrganizerMainWindowController)fxmlLoader.getController();
+                    MainFX.primaryStage.setTitle("Organizer view");
+                    fxmlLoader.setLocation(getClass().getResource("../View/OrganizerMainWindow.fxml"));
+                    Parent OrganizerMainWindow = fxmlLoader.load();
+                    Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+                    OrganizerMainWindowController controller = fxmlLoader.getController();
+                    controller.setupController((Organizer)user);
+
+                    MainFX.primaryStage.setScene(hovedScene);
+
+
+
 
                 } catch (IOException e) {
                     e.printStackTrace();

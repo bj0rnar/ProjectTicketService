@@ -50,7 +50,7 @@ public class OrganizerTest {
         currentStateOfLocal++;
         Assertions.assertEquals(currentStateOfDB, FakeDB.uploadedEvents.size());
         Assertions.assertEquals(currentStateOfLocal, organizer.getEvents().size());
-        eventHandler.deleteEventFromDB("Tjohei");
+        eventHandler.deleteEventFromDB(organizer.getEvents().get(0));
         currentStateOfDB--;
         currentStateOfLocal--;
         Assertions.assertEquals(currentStateOfLocal, organizer.getEvents().size());

@@ -5,12 +5,10 @@ import TicketService.DataAccess.DataContext;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Users.Organizer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -35,6 +33,15 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+
+        FakeDB.CreateVenues();
+        try {
+            FakeDB.CreateEvents();
+        } catch (VenueHasNoSeatsException e) {
+            e.printStackTrace();
+        }
+        FakeDB.CreateUsers();
+        minApplikasjon = this;
         try{
             this.primaryStage = primaryStage;
             primaryStage.setTitle("Ticket service login");

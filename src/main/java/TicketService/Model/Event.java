@@ -94,6 +94,10 @@ public class Event {
         return availableTickets;
     }
 
+    public int getTotalTickets() {
+        return totalTickets;
+    }
+
     public void setAvailableTickets(int availableTickets) {
         this.availableTickets = availableTickets;
     }

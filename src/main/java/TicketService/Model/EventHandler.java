@@ -66,39 +66,31 @@ public class EventHandler {
         repository.uploadVenue(venue);
     }
 
-    public void deleteEventFromDB(Event event){
+    public boolean deleteEvent(Event event){
         for(int x=0;x<organizer.getEvents().size();x++) {
             if(organizer.getEvents().get(x).equals(event)) {
                 repository.deleteEvent(organizer.getEvents().get(x));
                 organizer.getEvents().remove(organizer.getEvents().get(x));
+                return true;
             }
         }
+        return false;
     }
 
-    public void deleteVenueFromDB(String name){
-        Venue venue = selectVenue(name);
-        if(venue != null){
-                repository.deleteVenue(venue);
-                organizer.getUserCreatedVenues().remove(venue);
+    public boolean deleteVenue(Venue venue){
+        for(int x=0;x<organizer.getUserCreatedVenues().size();x++) {
+            if(organizer.getUserCreatedVenues().get(x).equals(venue)) {
+                repository.deleteVenue(organizer.getUserCreatedVenues().get(x));
+                organizer.getUserCreatedVenues().remove(organizer.getUserCreatedVenues().get(x));
+                return true;
             }
-        else
-            System.out.println("Found no venue in list");
+        }
+        return false;
     }
+
 
     public boolean validateTicket(String s, Event e){
         return Validator.validateTicket(e, s);
-    }
-
-    /**
-     * Representation of onClick, remove once added to javaFX
-     */
-    private Venue selectVenue(String name){
-        for(Venue v : organizer.getUserCreatedVenues()){
-            if(v.getName().equals(name)){
-                return v;
-            }
-        }
-        return null;
     }
 
     public Organizer getOrganizer() {

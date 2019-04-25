@@ -24,8 +24,8 @@
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="34.0" valignment="CENTER" vgrow="NEVER" />
-                        <RowConstraints maxHeight="69.0" minHeight="-Infinity" prefHeight="66.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="35.0" valignment="CENTER" vgrow="NEVER" />
+                        <RowConstraints maxHeight="69.0" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
@@ -45,9 +45,12 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Text fx:id="ticketsLeftStaticText1" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets sold" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Text fx:id="TicketPriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Text fx:id="ticketsSoldText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <Text fx:id="ticketsLeftStaticText11" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="96.205078125" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="25.6015625" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Text fx:id="TicketPriceText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                     </children>
                 </GridPane>
             </items>

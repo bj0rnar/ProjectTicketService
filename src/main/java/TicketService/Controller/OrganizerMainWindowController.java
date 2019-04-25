@@ -38,7 +38,7 @@ public class OrganizerMainWindowController {
     private IRepository repo;
 
     @FXML
-    private Text eventNameText, VenueNameText, EventDateText, ticketsLeftStaticText, TicketPriceText, EventTicketsLeftText;
+    private Text eventNameText, VenueNameText, EventDateText, TicketPriceText, EventTicketsLeftText,ticketsSoldText;
 
     @FXML
     private Button DeleteEventButton, CheckInnCustomerButton;
@@ -63,9 +63,8 @@ public class OrganizerMainWindowController {
 
     public void setupController(Organizer organizer) {
         this.eventHandler = new EventHandler(organizer);
-        for(Event event : FakeDB.getEventList()) {
-            if(event.getName().equals("My Event") && event.getAvailableTickets() < 99)
-                createDummyData(organizer);
+        if(organizer.getEvents().isEmpty()) {
+            createDummyData(organizer);
         }
         updateEventList();
     }
@@ -101,6 +100,7 @@ public class OrganizerMainWindowController {
         VenueNameText.setText(event!= null ? event.getVenue().getName() : "");
         EventDateText.setText(event!= null ? event.getDate().toString() : "");
         TicketPriceText.setText(event != null ? event.getTicketPrice() + ",-" : "");
+        ticketsSoldText.setText(event != null ? String.valueOf(event.getTotalTickets() - event.getAvailableTickets()) : "" );
         EventTicketsLeftText.setText(event  != null ? (String.valueOf(event.getAvailableTickets())) : "");
 
     }
@@ -133,7 +133,7 @@ public class OrganizerMainWindowController {
     public void DeleteEvent(MouseEvent mouseEvent) {
         Event event = eventListView.getSelectionModel().getSelectedItem();
         if(event != null)
-            eventHandler.deleteEventFromDB(event);
+            eventHandler.deleteEvent(event);
         eventListFX.remove(event);
         updateEventDetails(null);
     }

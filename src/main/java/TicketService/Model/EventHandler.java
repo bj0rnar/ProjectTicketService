@@ -56,8 +56,8 @@ public class EventHandler {
         organizer.getEvents().add(event);
     }
 
-    public void createNewVenue(int numberOfSeats, String nameOfVenue){
-        Venue venue = new Venue(numberOfSeats, nameOfVenue);
+    public void createNewVenue(int numberOfSeats, String nameOfVenue, String venueAddress){
+        Venue venue = new Venue(numberOfSeats, nameOfVenue, venueAddress);
         uploadVenues(venue);
     }
 

@@ -44,9 +44,9 @@ public class FakeDB implements IRepository{
     }
     //Dummy data
     public static void CreateVenues() {
-        officialVenueList.add(new Venue(100, "Hall 1"));
-        officialVenueList.add(new Venue(1, "Hall 2"));
-        officialVenueList.add(new Venue(0,"Skogen"));
+        officialVenueList.add(new Venue(100, "Hall 1","Gata 2, Halden"));
+        officialVenueList.add(new Venue(1, "Hall 2","Gata 2, Halden"));
+        officialVenueList.add(new Venue(0,"Skogen","Gata 2, Halden"));
 
     }
 

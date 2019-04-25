@@ -15,19 +15,19 @@ public class VenueTest {
 
     @BeforeEach
     public void eachStartUp() {
-        venue = new Venue(10,"TG12");
+        venue = new Venue(10,"TG12","Gata 2, Halden");
 
     }
 
     @Test
     public void VenueHasCorrectName() {
-        Venue strangerNames = new Venue(10,"ABC ÆØÅæøå102!");
+        Venue strangerNames = new Venue(10,"ABC ÆØÅæøå102!","Gata 2, Halden");
         Assertions.assertEquals("ABC ÆØÅæøå102!", strangerNames.getName());
     }
 
     @Test
     public void VenueWithoutSeatsCanBeCreated() {
-        Venue venue = new Venue(0,"NoSeats");
+        Venue venue = new Venue(0,"NoSeats","Gata 2, Halden");
         Assertions.assertEquals(0, venue.getSeats().size());
         Assertions.assertEquals("NoSeats", venue.getName());
     }

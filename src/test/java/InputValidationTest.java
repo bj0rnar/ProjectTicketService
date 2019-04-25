@@ -22,7 +22,7 @@ public class InputValidationTest {
 
     @BeforeEach
     public void setUp() throws VenueHasNoSeatsException {
-        manySpotVenue = new Venue(100, "Hall 42");
+        manySpotVenue = new Venue(100, "Hall 42","Gata 2, Halden");
     }
 
     @Test

@@ -20,8 +20,8 @@ public class TicketTest {
 
     @BeforeEach
     public void eachStartUp() throws VenueHasNoSeatsException {
-        Venue oneSpotVenue = new Venue(1, "Hall 2");
-        Venue manySpotVenue = new Venue(100, "Hall 42");
+        Venue oneSpotVenue = new Venue(1, "Hall 2","Gata 2, Halden");
+        Venue manySpotVenue = new Venue(100, "Hall 42","Gata 2, Halden");
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Herald", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
@@ -227,7 +227,7 @@ public class TicketTest {
     @Test
     public void throwsExceptionWhenTryingToCreateTicketWhenNoMoreTicketsAvailable() throws VenueHasNoSeatsException {
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
-        noSeatEvent = new Event("noSeatEvent", new Venue(1,"OnSeatedEvent"), LocalDate.of(2000,1,1),100, organizer);
+        noSeatEvent = new Event("noSeatEvent", new Venue(1,"OnSeatedEvent","Gata 2, Halden"), LocalDate.of(2000,1,1),100, organizer);
         try {
             ticketHandler.createTicket(oneSeatEvent, -1);
         } catch (IllegalTicketCreationException e) {

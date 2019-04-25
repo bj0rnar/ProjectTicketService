@@ -20,8 +20,8 @@ public class EventTest {
 
     @BeforeEach
     public void eachStartUp() throws VenueHasNoSeatsException {
-        Venue oneSpotVenue = new Venue(1, "Hall 2");
-        Venue manySpotVenue = new Venue(100, "Hall 42");
+        Venue oneSpotVenue = new Venue(1, "Hall 2","Gata 2, Halden");
+        Venue manySpotVenue = new Venue(100, "Hall 42","Gata 2, Halden");
         organizer = new Organizer("MyUsername", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("MyUsernameCustomer", "MyPassword","A","B","A@B.COM");
         ticketHandler = new TicketHandler(customer);
@@ -92,7 +92,7 @@ public class EventTest {
     }
     @Test
     public void eventHasCorrectVenue() throws VenueHasNoSeatsException {
-        Venue venue = new Venue(256, "Dorororo");
+        Venue venue = new Venue(256, "Dorororo","Gata 2, Halden");
         oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100, organizer);
         Assertions.assertEquals(venue, oneSeatEvent.getVenue());
     }
@@ -118,7 +118,7 @@ public class EventTest {
     @Test
     public void throwsExceptionWhenTryingToCreateSeatedEventVenueHasNoSeats() {
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
-        Venue noSeatVenue = new Venue(0, "NoSeatesInThisPlace");
+        Venue noSeatVenue = new Venue(0, "NoSeatesInThisPlace","Gata 2, Halden");
         Assertions.assertThrows(VenueHasNoSeatsException.class, () -> new Event("SeatedEventWithoutSeatsWHAT??!!", noSeatVenue, LocalDate.now(), 175, organizer));
     }
 }

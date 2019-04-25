@@ -34,8 +34,8 @@ public class PDFCreationTest {
 
     @BeforeEach
     public void setup() throws VenueHasNoSeatsException, IllegalTicketCreationException {
-        Venue oneSpotVenue = new Venue(1, "Hall 2");
-        Venue manySpotVenue = new Venue(100, "DU ska sitta her");
+        Venue oneSpotVenue = new Venue(1, "Hall 2","Gata 2, Halden");
+        Venue manySpotVenue = new Venue(100, "DU ska sitta her","Gata 2, Halden");
         organizer = new Organizer("RunAutaNames", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         customer = new Customer("Dingeling", "MyPassword","Adolf","Critler","A@B.COM");
         ticketHandler = new TicketHandler(customer);

@@ -9,6 +9,7 @@ public class Venue {
 
     private ArrayList<Seat> seats = new ArrayList<>();
     private String name;
+    private String address;
 
 
     /**
@@ -16,8 +17,9 @@ public class Venue {
      * @param totalSeats set to 0 if venue has no seats
      * @param name name of venue. e.g Telenor Arena
      */
-    public Venue(int totalSeats, String name) {
+    public Venue(int totalSeats, String name, String address) {
         this.name = name;
+        this.address = address;
         if(totalSeats != 0) {
             addSeats(totalSeats);
         }

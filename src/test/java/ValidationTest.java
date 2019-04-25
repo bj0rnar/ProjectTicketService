@@ -23,8 +23,8 @@ public class ValidationTest {
 
     @BeforeEach
     public void setUp() throws VenueHasNoSeatsException {
-        Venue oneSpotVenue = new Venue(1, "Hall 2");
-        Venue manySpotVenue = new Venue(100, "Hall 42");
+        Venue oneSpotVenue = new Venue(1, "Hall 2","Gata 2, Halden");
+        Venue manySpotVenue = new Venue(100, "Hall 42","Gata 2, Halden");
         Organizer organizer = new Organizer("BrukernavnetErIBruk", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         eventHandler = new EventHandler(organizer);
         customer = new Customer("BrukernavnetErIkkeIBruk", "MyPassword","A","B","A@B.COM");

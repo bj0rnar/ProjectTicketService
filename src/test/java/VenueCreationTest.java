@@ -25,7 +25,7 @@ public class VenueCreationTest {
         int DBIndexForEvents = FakeDB.uploadedEvents.size();
 
 
-        eventHandler.createNewVenue(1, "Heisann");
+        eventHandler.createNewVenue(1, "Heisann","Gata 2, Halden");
         eventHandler.createNewNoneSeatedEvent("Her skjer dæ ting", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 12, 100);
         ++DBIndexForVenues;
         ++DBIndexForEvents;
@@ -37,7 +37,7 @@ public class VenueCreationTest {
 
     @Test
     public void organizerCreatesJustAVenue(){
-        eventHandler.createNewVenue(7, "Heime sjå ho mor");
+        eventHandler.createNewVenue(7, "Heime sjå ho mor","Gata 2, Halden");
         Assertions.assertNotNull(organizer.getUserCreatedVenues().get(0));
     }
 }

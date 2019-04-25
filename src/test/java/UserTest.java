@@ -19,8 +19,8 @@ public class UserTest {
 
     @BeforeEach
     public void eachStartUp() throws VenueHasNoSeatsException {
-        Venue oneSpotVenue = new Venue(1, "Hall 2");
-        Venue manySpotVenue = new Venue(100, "Hall 42");
+        Venue oneSpotVenue = new Venue(1, "Hall 2","Gata 2, Halden");
+        Venue manySpotVenue = new Venue(100, "Hall 42","Gata 2, Halden");
         customer = new Customer("Arnoldsen", "MyPassword","Jon","Doe","A@B.COM");
         ticketHandler = new TicketHandler(customer);
         Organizer organizer = new Organizer("Knutsen", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");

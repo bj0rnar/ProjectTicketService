@@ -14,7 +14,7 @@ public class CreateNewVenueController {
     Button createVenueButton;
 
     @FXML
-    TextField venueNameText, venueTotalSeats;
+    TextField venueNameText, venueTotalSeats, venueAddressText;
 
 
     public void setEventHandler(EventHandler eventHandler) {
@@ -22,7 +22,7 @@ public class CreateNewVenueController {
     }
 
     public void createNewVenue(ActionEvent actionEvent) {
-        eventHandler.createNewVenue(Integer.parseInt(venueTotalSeats.getText()), venueNameText.getText());
+        eventHandler.createNewVenue(Integer.parseInt(venueTotalSeats.getText()), venueNameText.getText(), venueAddressText.getText());
         Stage dialogStage = (Stage)createVenueButton.getScene().getWindow();
         dialogStage.close();
     }

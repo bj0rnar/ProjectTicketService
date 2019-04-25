@@ -20,7 +20,7 @@ public class OrganizerTest {
     public void setup(){
         organizer = new Organizer("BillyBob", "MyPassword","James", "Bond", "007@MI6.UK");
         eventHandler = new EventHandler(organizer);
-        v = new Venue(48, "Sjoa samvirkelag");
+        v = new Venue(48, "Sjoa samvirkelag","Gata 2, Halden");
         currentStateOfDB = FakeDB.uploadedEvents.size();
         currentStateOfLocal = organizer.getEvents().size();
     }
@@ -59,7 +59,7 @@ public class OrganizerTest {
     public void addVenueFromBothLocalAndDB(){
         int currentStateOfVenueDB = FakeDB.officialVenueList.size();
         int currentStateOfLocalVenueDB = organizer.getUserCreatedVenues().size();
-        eventHandler.createNewVenue(1, "hei");
+        eventHandler.createNewVenue(1, "hei","Gata 2, Halden");
         ++currentStateOfVenueDB;
         ++currentStateOfLocalVenueDB;
         //Checks if last element is the same.
@@ -70,7 +70,7 @@ public class OrganizerTest {
     public void customVenueExistsInBothLocalAndDB() {
         int currentStateOfVenueDB = FakeDB.officialVenueList.size();
         int currentStateOfLocalVenueDB = organizer.getUserCreatedVenues().size();
-        eventHandler.createNewVenue(23, "venueOne");
+        eventHandler.createNewVenue(23, "venueOne","Gata 2, Halden");
         Assertions.assertEquals((currentStateOfVenueDB+1), FakeDB.officialVenueList.size());
         Assertions.assertEquals((currentStateOfLocalVenueDB+1), organizer.getUserCreatedVenues().size());
         Assertions.assertEquals("venueOne", organizer.getUserCreatedVenues().get(currentStateOfLocalVenueDB).getName());
@@ -79,7 +79,7 @@ public class OrganizerTest {
 
     @Test
     public void removeVenueFromBothLocalAndDB(){
-        eventHandler.createNewVenue(23, "venueTwo");
+        eventHandler.createNewVenue(23, "venueTwo","Gata 2, Halden");
         int currentStateOfVenueDB = FakeDB.officialVenueList.size();
         int currentStateOfLocalVenueDB = organizer.getUserCreatedVenues().size();
         eventHandler.deleteVenue(FakeDB.officialVenueList.get(currentStateOfVenueDB-1));

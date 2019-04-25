@@ -20,6 +20,8 @@
                   <Font size="21.0" />
                </font>
             </Text>
+            <TextField fx:id="venueAddressText" layoutX="98.0" layoutY="163.0" prefHeight="25.0" prefWidth="152.0" promptText="Gata 2, Halden" />
+            <Text fx:id="totalSeatsText1" layoutX="7.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="90.13671875" />
          </children>
       </Pane>
    </center>

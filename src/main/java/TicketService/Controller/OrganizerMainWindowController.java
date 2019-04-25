@@ -71,7 +71,7 @@ public class OrganizerMainWindowController {
 
     private void createDummyData(Organizer organizer) {
 
-        eventHandler.createNewVenue(100, "My custom venue");
+        eventHandler.createNewVenue(100, "My custom venue","Gata 2, Halden");
         try {
             eventHandler.createNewSeatedEvent("My Event", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 150);
         } catch (VenueHasNoSeatsException e) {

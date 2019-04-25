@@ -1,4 +1,5 @@
 import TicketService.DataAccess.FakeDB;
+import TicketService.DataAccess.IRepository;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
 import TicketService.Model.*;
@@ -71,9 +72,25 @@ public class UserTest {
 
     @Test
     public void userLoginMethodReturnsUser(){
-        //Create dummy data
-        FakeDB.CreateUsers();
-        User user = FakeDB.getUserList().get(0);
-        Assertions.assertEquals(user, FakeDB.authUserLogin("Mats", "MyPassword"));
+        IRepository repo = new FakeDB();
+        Customer customer = new Customer("Egil","A","A","A","A");
+        repo.uploadUser(customer);
+        Customer user = (Customer)FakeDB.authUserLogin("Egil", "A");
+        Assertions.assertEquals(customer, user);
+    }
+
+    @Test
+    public void userRegistrationComplete() {
+        IRepository repo = new FakeDB();
+        int currentUserDBSize = repo.getUsers().size();
+        repo.uploadUser(customer);
+        Assertions.assertEquals((currentUserDBSize+1), repo.getUsers().size());
+    }
+
+    @Test
+    public void preventDoubleRegistration() {
+        IRepository repo = new FakeDB();
+        repo.uploadUser(customer);
+        Assertions.assertFalse(repo.uploadUser(customer));
     }
 }

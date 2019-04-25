@@ -74,7 +74,8 @@
    <bottom>
       <Pane prefHeight="54.0" prefWidth="669.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goToMyTickets" text="My tickets" textAlignment="RIGHT" />
+            <Button layoutX="477.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#goToMyTickets" text="My tickets" textAlignment="RIGHT" />
+            <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#logOut" onMouseClicked="#goToMyTickets" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: brown;" text="Log out" textAlignment="RIGHT" textFill="WHITE" />
          </children>
       </Pane>
    </bottom>

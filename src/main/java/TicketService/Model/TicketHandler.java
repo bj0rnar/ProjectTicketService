@@ -139,6 +139,7 @@ public class TicketHandler {
                 for (Ticket ticket : tickets) {
                     if (ticket.getSeat() != null) {
                         event = ticket.getEvent();
+                        event.setAvailableTickets(event.getAvailableTickets()+1);
                         event.getEventSeats().add(ticket.getSeat());
                         ticket.setSeat(null);
                         ticket.setVerificationCode(null);

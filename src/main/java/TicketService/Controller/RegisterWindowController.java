@@ -1,5 +1,7 @@
 package TicketService.Controller;
 
+import TicketService.DataAccess.FakeDB;
+import TicketService.DataAccess.IRepository;
 import TicketService.MainFX;
 import TicketService.Users.Customer;
 import javafx.fxml.FXML;
@@ -27,17 +29,22 @@ public class RegisterWindowController {
     public void registerUser() {
         try{
             Customer customer = new Customer(usernameText.getText(), passwordText.getText(),firstNameText.getText(), lastNameText.getText(), emailText.getText());
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                MainFX.primaryStage.setTitle("ProjectTicketService Show");
-                fxmlLoader.setLocation(getClass().getResource("../View/ShopWindow.fxml"));
-                Parent OrganizerMainWindow = fxmlLoader.load();
-                Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
-                ShopWindowController shopWindowController = fxmlLoader.getController();
-                shopWindowController.setCustomer(customer);
-                MainFX.primaryStage.setScene(hovedScene);
-            } catch (IOException | IllegalStateException exception) {
-                exception.printStackTrace();
+            IRepository repo = new FakeDB();
+            if(repo.uploadUser(customer)){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    MainFX.primaryStage.setTitle("ProjectTicketService Show");
+                    fxmlLoader.setLocation(getClass().getResource("../View/ShopWindow.fxml"));
+                    Parent OrganizerMainWindow = fxmlLoader.load();
+                    Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+                    ShopWindowController shopWindowController = fxmlLoader.getController();
+                    shopWindowController.setCustomer(customer);
+                    MainFX.primaryStage.setScene(hovedScene);
+                } catch (IOException | IllegalStateException exception) {
+                    exception.printStackTrace();
+                }
+            } else {
+                System.out.println("User already registered");
             }
         } catch (NullPointerException e) {
             System.out.println(getClass() + ": A field was not filled.");

@@ -5,6 +5,7 @@ import TicketService.MainFX;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import TicketService.Users.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -65,6 +66,19 @@ public class LoginWindowController {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void goToRegistration(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            MainFX.primaryStage.setTitle("ProjectTicketService Register");
+            fxmlLoader.setLocation(getClass().getResource("../View/RegisterWindow.fxml"));
+            Parent OrganizerMainWindow = fxmlLoader.load();
+            Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+            MainFX.primaryStage.setScene(hovedScene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

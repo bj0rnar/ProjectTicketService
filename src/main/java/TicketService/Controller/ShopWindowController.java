@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -148,6 +149,21 @@ public class ShopWindowController {
             MyTicketsController myTicketsController = fxmlLoader.getController();
             myTicketsController.setCustomer(customer);
             dialogStage.showAndWait();
+        } catch (IOException | IllegalStateException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void logOut(ActionEvent actionEvent) {
+        if(ticketHandler != null)
+            ticketHandler.cancelBuyTicketProcess();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            MainFX.primaryStage.setTitle("ProjectTicketService Login");
+            fxmlLoader.setLocation(getClass().getResource("../View/LoginWindow.fxml"));
+            Parent OrganizerMainWindow = fxmlLoader.load();
+            Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+            MainFX.primaryStage.setScene(hovedScene);
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }

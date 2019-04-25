@@ -30,10 +30,8 @@ public class FakeDB implements IRepository{
     }
     //Dummy data
     public static void CreateUsers() {
-        if(userList.size() == 0) {
-            userList.add(new Customer("Mats", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
-            userList.add(new Organizer("Lars", "MyPassword","Damba", "Samba","DambaSamba@mail.com"));
-        }
+        userList.add(new Customer("Mats", "MyPassword","Kombo", "Trombo","Kombotrombo@mail.com"));
+        userList.add(new Organizer("Lars", "MyPassword","Damba", "Samba","DambaSamba@mail.com"));
     }
 
     public static User authUserLogin(String username, String password) {
@@ -73,6 +71,21 @@ public class FakeDB implements IRepository{
     }
 
     public static ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    @Override
+    public boolean uploadUser(User user) {
+        for(User userDb : userList) {
+            if(userDb.getUsername().equals(user.getUsername()))
+                return false;
+        }
+        userList.add(user);
+        return true;
+    }
+
+    @Override
+    public ArrayList<User> getUsers() {
         return userList;
     }
 

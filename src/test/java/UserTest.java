@@ -29,27 +29,6 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Each User gets their own ID")
-    public void EachUserGetsUniqueIdWhenUserIsCreated(){
-        System.out.println("**************** USER ID CHECK *****************");
-        int idChecker;
-        Customer firstUser = new Customer("Fredrik", "MyPassword","A","B","A@B.COM");
-        idChecker = firstUser.getId();
-        Assert.assertEquals(idChecker, firstUser.getId());
-        System.out.println(idChecker);
-        Customer secondUser = new Customer("Kjetil", "MyPassword","A","B","A@B.COM");
-        idChecker++;
-        System.out.println(idChecker);
-        System.out.println(secondUser.getId());
-        Assert.assertEquals(idChecker, secondUser.getId());
-        Customer firstCustomer = new Customer("Gunnar", "MyPassword","A","B","A@B.COM");
-        idChecker++;
-        System.out.println(idChecker);
-        System.out.println(firstCustomer.getId());
-        Assert.assertEquals(idChecker, firstCustomer.getId());
-    }
-
-    @Test
     public void UserCanGetTicket() throws IllegalTicketCreationException {
         Ticket ticket = new Ticket(manySeatsEvent);
         Assert.assertEquals(0, customer.getTicketList().size());

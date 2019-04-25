@@ -5,28 +5,19 @@ import TicketService.Model.Ticket;
 import java.util.ArrayList;
 
 public abstract class User {
-    private int id;
     private String Username;
     private String Password;
     private String Firstname;
     private String Lastname;
     private String Email;
 
-    private static int idCounter = 1;
 
     public User(String username, String password, String firstname, String lastname, String email) {
-        this.id = idCounter;
         this.Username = username;
         this.Password = password;
         this.Firstname = firstname;
         this.Lastname = lastname;
         this.Email = email;
-
-        idCounter++;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getUsername() {

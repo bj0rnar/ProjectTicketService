@@ -75,24 +75,18 @@ public class CreateNewEventController {
     public void createNewVenue(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-
             fxmlLoader.setLocation(getClass().getResource("../View/CreateNewVenueWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Create new Venue");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(createEventButton.getScene().getWindow());
-
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
-
             CreateNewVenueController createNewVenueController = fxmlLoader.getController();
             createNewVenueController.setEventHandler(eventHandler);
-
             dialogStage.showAndWait();
             updateVenueChoices();
-
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }

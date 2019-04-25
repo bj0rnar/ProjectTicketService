@@ -30,14 +30,10 @@ public class MyTicketsController {
     }
 
     public void downloadTicket(MouseEvent mouseEvent) {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.pdf"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.pdf"));
         File selectedFile = fileChooser.showSaveDialog(myTicketsList.getScene().getWindow());
-
-
         if(myTicketsList.getSelectionModel().getSelectedItem() != null && selectedFile != null) {
             try {
                 PDFCreator.createPDFToPath(selectedFile.getAbsolutePath(), (Ticket)myTicketsList.getSelectionModel().getSelectedItem());
@@ -50,9 +46,7 @@ public class MyTicketsController {
     public void setCustomer(Customer customer) {
         ObservableList<Ticket> list = FXCollections.observableArrayList();
         if(customer.getTicketList().size() > 0) {
-            for (Ticket ticket : customer.getTicketList()) {
-                list.add(ticket);
-            }
+            list.addAll(customer.getTicketList());
             myTicketsList.setItems(list);
         }
     }

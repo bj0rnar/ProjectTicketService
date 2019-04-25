@@ -76,7 +76,6 @@ public class TicketHandler {
         if (seatNumber == -1) {
             seatNumber = event.getEventSeats().size() - 1;
         }
-
         ticket.setSeat(event.getEventSeats().get(seatNumber));
         event.popSeatFromEventSeatList(seatNumber);
         event.getVerificationCodeList().add(ticket.getVerificationCode());
@@ -89,7 +88,6 @@ public class TicketHandler {
     private void giveTicketToCustomer() {
         for (Ticket ticket : tickets) {
             customer.getTicketList().add(ticket);
-
             ticket.setReceipt(ReceiptMaker.addToReceipt(ticket, customer));
             customer.getReceiptList().add(ticket.getReceipt());
         }

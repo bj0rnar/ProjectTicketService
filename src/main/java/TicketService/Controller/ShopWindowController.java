@@ -107,34 +107,26 @@ public class ShopWindowController {
                 e.printStackTrace();
             }
             totalAmountOfItems.setText("Shopping cart items: " + ticketHandler.getTickets().size());
+            updateEventDetails(event);
         }
-        updateEventDetails(event);
-
     }
 
     public void buyTickets() {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-
             fxmlLoader.setLocation(getClass().getResource("../View/BuyTicketWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Payment");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(buyTicketsButton.getScene().getWindow());
-
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
-
             BuyTicketController buyTicketController = fxmlLoader.getController();
             buyTicketController.AddTicketsToCartList(ticketHandler);
-            //secondController.setEventToEdit(event);
-
             dialogStage.showAndWait();
             initialize();
-
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }
@@ -143,29 +135,19 @@ public class ShopWindowController {
     public void goToMyTickets(MouseEvent mouseEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-
             fxmlLoader.setLocation(getClass().getResource("../View/MyTicketsWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("My tickets");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(buyTicketsButton.getScene().getWindow());
-
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
-
             MyTicketsController myTicketsController = fxmlLoader.getController();
             myTicketsController.setCustomer(customer);
-            //secondController.setEventToEdit(event);
-
             dialogStage.showAndWait();
-
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }
     }
-
-
-
 }

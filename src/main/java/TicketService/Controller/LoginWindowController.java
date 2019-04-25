@@ -26,7 +26,6 @@ public class LoginWindowController {
     @FXML
     TextField usernameText, passwordText;
 
-
     @FXML
     private void initialize() {
 
@@ -48,12 +47,7 @@ public class LoginWindowController {
                     Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
                     OrganizerMainWindowController controller = fxmlLoader.getController();
                     controller.setupController((Organizer)user);
-
                     MainFX.primaryStage.setScene(hovedScene);
-
-
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

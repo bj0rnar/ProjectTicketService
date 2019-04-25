@@ -55,10 +55,14 @@ public class OrganizerMainWindowController {
 
     }
 
+
     public void setupController(Organizer organizer) {
         this.eventHandler = new EventHandler(organizer);
+        createDummyData(organizer);
+        updateEventList();
+    }
 
-        /*DUMMY DATA*/
+    private void createDummyData(Organizer organizer) {
         eventHandler.createNewVenue(100, "My custom venue");
         try {
             eventHandler.createNewSeatedEvent("My custom event", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 150);
@@ -72,11 +76,9 @@ public class OrganizerMainWindowController {
         } catch (IllegalTicketCreationException e) {
             e.printStackTrace();
         }
-            ticketHandler.payForTicketsWithCreditCard(12324123412341234L, 123);
-
-        /*DUMMY DATA*/
-        updateEventList();
+        ticketHandler.payForTicketsWithCreditCard(12324123412341234L, 123);
     }
+
     private void updateEventList() {
         eventListFX.clear();
         for(Event event : eventHandler.getOrganizer().getEvents()) {
@@ -101,21 +103,16 @@ public class OrganizerMainWindowController {
     public void CheckInnCustomers(MouseEvent mouseEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-
             fxmlLoader.setLocation(getClass().getResource("../View/ValidateTicketsWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Check-inn Customers");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(DeleteEventButton.getScene().getWindow());
-
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
-
             ValidateTicketsController validateTicketsController = fxmlLoader.getController();
             validateTicketsController.setEvent(eventListView.getSelectionModel().getSelectedItem(), eventHandler);
-
             dialogStage.showAndWait();
             initialize();
 
@@ -135,24 +132,18 @@ public class OrganizerMainWindowController {
     public void CreateEvent(MouseEvent mouseEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-
             fxmlLoader.setLocation(getClass().getResource("../View/CreateNewEventWindow.fxml"));
             Parent dialogLayout = fxmlLoader.load();
-
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Create new Event");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(DeleteEventButton.getScene().getWindow());
-
             Scene dialogScene = new Scene(dialogLayout);
             dialogStage.setScene(dialogScene);
-
             CreateNewEventController createNewEventController = fxmlLoader.getController();
             createNewEventController.setEventHandler(eventHandler);
-
             dialogStage.showAndWait();
             updateEventList();
-
         } catch (IOException | IllegalStateException exception) {
             exception.printStackTrace();
         }

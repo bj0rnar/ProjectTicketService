@@ -54,7 +54,6 @@ public class EventHandler {
     private void uploadEvents(Event event){
         repository.uploadEvent(event);
         organizer.getEvents().add(event);
-        //FakeDB.uploadedEvents.add(event);
     }
 
     public void createNewVenue(int numberOfSeats, String nameOfVenue){

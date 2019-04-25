@@ -18,13 +18,17 @@ public class ScreenController {
     public void addScreen(String name, Pane pane) {
         screenMap.put(name, pane);
     }
+
     public void removeScreen(String name) {
         screenMap.remove(name);
     }
+
     public void active(String name) {
         main.setRoot(screenMap.get(name));
     }
+
     public Pane getScreen(String name) {
         return screenMap.get(name);
     }
+
 }

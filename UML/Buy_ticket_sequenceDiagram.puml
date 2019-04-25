@@ -1,14 +1,20 @@
 @startuml
 Actor Customer
 Customer -> TicketHandler: Give credentials
+activate TicketHandler
 TicketHandler -> IPaymentOption: Forward credentials
-IPaymentOption -> BankConnection: Authenticate credentials\n and payment
+activate IPaymentOption
+IPaymentOption -> BankConnection: Authenticate credentials\n and paymentactivate customer
+activate BankConnection
 IPaymentOption <-- BankConnection: Authenticate response
+deactivate BankConnection
 IPaymentOption --> TicketHandler: Authenticate response
+deactivate IPaymentOption
 alt Unsuccessful
 TicketHandler --> Customer: Authentication failed
 else Successful
 TicketHandler --> Customer: Give tickets to customer
+deactivate TicketHandler
 end
 
 

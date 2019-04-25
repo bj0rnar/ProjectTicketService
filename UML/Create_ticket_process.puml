@@ -4,22 +4,33 @@ Participant TicketHandler
 Participant Event
 Participant DataContext
 Database Database
+
 TicketHandler -> DataContext: Get all events
+activate DataContext
 DataContext -> Database: Request all events
+activate Database
 DataContext <- Database: Response events
+deactivate Database
 TicketHandler <- DataContext: Return all events
+deactivate DataContext
 Customer -> TicketHandler: Select event
+activate TicketHandler
 TicketHandler -> Event: Is it a seated event
+activate Event
 Event -> TicketHandler: Reponse
+deactivate Event
 alt Non-seated event
 TicketHandler -> TicketHandler: Create ticket
 else Seated event
 Event <- TicketHandler: Is seat available
+activate Event
 Event -> TicketHandler: Response
+deactivate Event
 alt Seat available
 TicketHandler -> TicketHandler: Create ticket
 else Not available
 TicketHandler -> Customer: No more seats available
+deactivate TicketHandler
 end
 end
 

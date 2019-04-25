@@ -97,9 +97,7 @@ public class TicketTest {
         ticketHandler.createTicket(manySeatsEvent, 4);
         Customer customer2 = new Customer("Hobba", "MyPassword","x", "y", "z");
         TicketHandler ticketHandler2 = new TicketHandler(customer2);
-
         Assertions.assertThrows(IllegalTicketCreationException.class, () -> ticketHandler2.createTicket(manySeatsEvent, 4));
-        //Where tf is the assert?
     }
 
 

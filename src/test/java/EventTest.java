@@ -32,7 +32,7 @@ public class EventTest {
     //ADDED
     @Test
     @DisplayName("Ticket can't be created if there are no more seats")
-    public void EventCantGiveAwayTicketsIfNoMoreSeatsAvailable() {
+    public void eventCantGiveAwayTicketsIfNoMoreSeatsAvailable() {
         try {
             ticketHandler.createTicket(oneSeatEvent,-1);
         } catch (IllegalTicketCreationException e) {
@@ -50,7 +50,7 @@ public class EventTest {
 
     @Test
     @DisplayName("Reserve seat while ordering")
-    public void RemoveSeatFromEventWhenTicketUnderProcess() throws IllegalTicketCreationException {
+    public void removeSeatFromEventWhenTicketUnderProcess() throws IllegalTicketCreationException {
         //Creates a ticket.
         ticketHandler.createTicket(manySeatsEvent,-1);
         //Check if seats are n-1
@@ -65,7 +65,7 @@ public class EventTest {
 
     @Test
     @DisplayName("Un-reserve seat when order is cancelled")
-    public void EventGetSeatBackIfProcessIsCanceled() throws IllegalTicketCreationException {
+    public void eventGetSeatBackIfProcessIsCanceled() throws IllegalTicketCreationException {
         //Current ticket size == n
         ticketHandler.createTicket(manySeatsEvent,-1);
         //Current ticket size == n-1
@@ -78,20 +78,20 @@ public class EventTest {
 
     @Test
     @DisplayName("Event can get seats from Venue")
-    public void EventReceivesSeatListFromVenue() {
+    public void eventReceivesSeatListFromVenue() {
         Assertions.assertNotNull(manySeatsEvent.getEventSeats());
     }
 
     @Test
-    public void EventHasCorrectDate() {
+    public void eventHasCorrectDate() {
         Assertions.assertEquals(LocalDate.of(2000,1,1), oneSeatEvent.getDate());
     }
     @Test
-    public void EventHasCorrectName() {
+    public void eventHasCorrectName() {
         Assertions.assertEquals("OneSpotEvent", oneSeatEvent.getName());
     }
     @Test
-    public void EventHasCorrectVenue() throws VenueHasNoSeatsException {
+    public void eventHasCorrectVenue() throws VenueHasNoSeatsException {
         Venue venue = new Venue(256, "Dorororo");
         oneSeatEvent = new Event("JustOneSpotLeft", venue, LocalDate.of(2000,1,1), 100, organizer);
         Assertions.assertEquals(venue, oneSeatEvent.getVenue());
@@ -116,7 +116,7 @@ public class EventTest {
 
     @DisplayName("Throws exception if event is created as a seated event when venue has no seats")
     @Test
-    public void throwsExceptionWhenTryingToCreateTicketWhenNoMoreTicketsAvailable() {
+    public void throwsExceptionWhenTryingToCreateSeatedEventVenueHasNoSeats() {
         Organizer organizer = new Organizer("Dandelion", "MyPassword","TicketService", "ServiceTicket","Ticket@service.com");
         Venue noSeatVenue = new Venue(0, "NoSeatesInThisPlace");
         Assertions.assertThrows(VenueHasNoSeatsException.class, () -> new Event("SeatedEventWithoutSeatsWHAT??!!", noSeatVenue, LocalDate.now(), 175, organizer));

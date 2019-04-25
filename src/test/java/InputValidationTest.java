@@ -5,14 +5,12 @@ import TicketService.Model.Venue;
 import TicketService.Users.Customer;
 import TicketService.Users.Organizer;
 import TicketService.Utility.InputValidator;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static TicketService.Controller.ShopWindowController.customer;
 
 public class InputValidationTest {
 

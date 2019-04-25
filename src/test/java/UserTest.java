@@ -29,7 +29,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanGetTicket() throws IllegalTicketCreationException {
+    public void customerCanGetTicket() throws IllegalTicketCreationException {
         Ticket ticket = new Ticket(manySeatsEvent);
         Assert.assertEquals(0, customer.getTicketList().size());
         customer.getTicketList().add(ticket);
@@ -37,7 +37,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserConstructorWorksCorrectly() {
+    public void userConstructorWorksCorrectly() {
         Customer customer = new Customer("Granada", "MyPassword","Gunnar","Kristiansen", "Gk@htomail.com");
         Assertions.assertEquals("Gunnar",customer.getFirstname());
         Assertions.assertEquals("Kristiansen",customer.getLastname());
@@ -46,7 +46,7 @@ public class UserTest {
     }
 
     @Test
-    public void OrganizerCanCreateEventCorrectly() throws VenueHasNoSeatsException {
+    public void organizerCanCreateEventCorrectly() throws VenueHasNoSeatsException {
         Organizer organizer = new Organizer("Krisito", "MyPassword","Leon", "Kennedy","old@school.com");
         EventHandler eventHandler = new EventHandler(organizer);
         eventHandler.createNewSeatedEvent("Event name", manySeatsEvent.getVenue(), LocalDate.of(2019,12,12), 432);
@@ -54,7 +54,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanBuyMultipleTickets() throws IllegalTicketCreationException {
+    public void userCanBuyMultipleTickets() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,-1);
         ticketHandler.createTicket(manySeatsEvent,-1);
         ticketHandler.createTicket(manySeatsEvent,-1);
@@ -63,7 +63,7 @@ public class UserTest {
     }
 
     @Test
-    public void UserCanReserveASeatToEvent() throws IllegalTicketCreationException {
+    public void userCanReserveASeatToEvent() throws IllegalTicketCreationException {
         ticketHandler.createTicket(manySeatsEvent,12);
         ticketHandler.payForTicketsWithCreditCard(1233123312331233L, 123);
         Assertions.assertEquals(12,customer.getTicketList().get(0).getSeat().getSeatNumber());

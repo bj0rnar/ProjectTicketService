@@ -31,7 +31,7 @@ import java.util.List;
 public class ShopWindowController {
 
     public static ScreenController screenController;
-    public static Customer customer;
+    private Customer customer;
     public TicketHandler ticketHandler;
     private ObservableList<Event> eventListFX = FXCollections.observableArrayList();
 
@@ -89,7 +89,9 @@ public class ShopWindowController {
             totalPriceText.setText(ticketHandler.calculatedTotalPrice() + ",-");
         }
     }
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     public void AddEventTicketToCart() {
         if (ticketHandler == null) {
             ticketHandler = new TicketHandler(customer);

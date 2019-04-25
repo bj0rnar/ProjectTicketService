@@ -1,7 +1,10 @@
 package TicketService.Controller;
 
+import TicketService.DataAccess.FakeDB;
+import TicketService.DataAccess.IRepository;
 import TicketService.Exception.IllegalTicketCreationException;
 import TicketService.Exception.VenueHasNoSeatsException;
+import TicketService.MainFX;
 import TicketService.Model.Event;
 import TicketService.Model.EventHandler;
 import TicketService.Model.TicketHandler;
@@ -32,6 +35,7 @@ public class OrganizerMainWindowController {
 
     private ObservableList<Event> eventListFX = FXCollections.observableArrayList();
     private EventHandler eventHandler;
+    private IRepository repo;
 
     @FXML
     private Text eventNameText, VenueNameText, EventDateText, ticketsLeftStaticText, TicketPriceText, EventTicketsLeftText;
@@ -41,6 +45,7 @@ public class OrganizerMainWindowController {
 
     @FXML
     private void initialize() {
+        repo = new FakeDB();
         if(eventHandler == null) {
             updateEventDetails(null);
 
@@ -58,14 +63,18 @@ public class OrganizerMainWindowController {
 
     public void setupController(Organizer organizer) {
         this.eventHandler = new EventHandler(organizer);
-        createDummyData(organizer);
+        for(Event event : FakeDB.getEventList()) {
+            if(event.getName().equals("My Event") && event.getAvailableTickets() < 99)
+                createDummyData(organizer);
+        }
         updateEventList();
     }
 
     private void createDummyData(Organizer organizer) {
+
         eventHandler.createNewVenue(100, "My custom venue");
         try {
-            eventHandler.createNewSeatedEvent("My custom event", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 150);
+            eventHandler.createNewSeatedEvent("My Event", organizer.getUserCreatedVenues().get(0), LocalDate.now(), 150);
         } catch (VenueHasNoSeatsException e) {
             e.printStackTrace();
         }
@@ -150,5 +159,16 @@ public class OrganizerMainWindowController {
     }
 
     public void LogOut(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            MainFX.primaryStage.setTitle("ProjectTicketService Login");
+            fxmlLoader.setLocation(getClass().getResource("../View/LoginWindow.fxml"));
+            Parent OrganizerMainWindow = fxmlLoader.load();
+            Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+            MainFX.primaryStage.setScene(hovedScene);
+        } catch (IOException | IllegalStateException exception) {
+            exception.printStackTrace();
+        }
+
     }
 }

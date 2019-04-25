@@ -25,15 +25,12 @@ public class MainFX extends Application {
      *   5. Make sure javafx/lib is in the project libraries. Project Structur -> Libraries
      *
      *   Yes, we could do it trough pom, but I was too lazy to do it that way.
-     * */
+     */
 
-    public static FXMLLoader loader;
     public static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
-
-
         FakeDB.CreateVenues();
         try {
             FakeDB.CreateEvents();

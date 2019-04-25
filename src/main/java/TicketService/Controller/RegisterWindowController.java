@@ -1,7 +1,15 @@
 package TicketService.Controller;
 
+import TicketService.MainFX;
 import TicketService.Users.Customer;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class RegisterWindowController {
 
@@ -16,24 +24,22 @@ public class RegisterWindowController {
 
     }
 
-    @FXML
-
-
     public void registerUser() {
         try{
-            ShopWindowController.customer = new Customer(usernameText.getText(), passwordText.getText(),firstNameText.getText(), lastNameText.getText(), emailText.getText());
-
-        } catch (NullPointerException e) {
-            System.out.println(getClass() + ": A field was not filled.");
-        }
-        if(ShopWindowController.customer != null) {
+            Customer customer = new Customer(usernameText.getText(), passwordText.getText(),firstNameText.getText(), lastNameText.getText(), emailText.getText());
             try {
-                screenController.active("Main");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                MainFX.primaryStage.setTitle("ProjectTicketService Show");
+                fxmlLoader.setLocation(getClass().getResource("../View/ShopWindow.fxml"));
+                Parent OrganizerMainWindow = fxmlLoader.load();
+                Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+                ShopWindowController shopWindowController = fxmlLoader.getController();
+                shopWindowController.setCustomer(customer);
+                MainFX.primaryStage.setScene(hovedScene);
+            } catch (IOException | IllegalStateException exception) {
+                exception.printStackTrace();
             }
-            catch (Exception e) {
-                System.out.println(e);
-            }
-        } else {
+        } catch (NullPointerException e) {
             System.out.println(getClass() + ": A field was not filled.");
         }
     }

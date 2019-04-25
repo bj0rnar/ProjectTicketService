@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,8 +37,19 @@ public class LoginWindowController {
         User user = FakeDB.authUserLogin(usernameText.getText(), passwordText.getText());
         if( user != null) {
             if(user instanceof Customer) {
-                ShopWindowController.customer = (Customer)user;
-                screenController.active("Main");
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    MainFX.primaryStage.setTitle("ProjectTicketService Login");
+                    fxmlLoader.setLocation(getClass().getResource("../View/ShopWindow.fxml"));
+                    Parent OrganizerMainWindow = fxmlLoader.load();
+                    Scene hovedScene = new Scene(OrganizerMainWindow, 580, 400);
+                    ShopWindowController shopWindowController = fxmlLoader.getController();
+                    shopWindowController.setCustomer((Customer)user);
+                    MainFX.primaryStage.setScene(hovedScene);
+                } catch (IOException | IllegalStateException exception) {
+                    exception.printStackTrace();
+                }
+
             }
             if(user instanceof Organizer) {
                 try {
